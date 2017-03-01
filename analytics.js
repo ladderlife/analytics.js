@@ -125,7 +125,7 @@ function isInt(n) {
 }
 
 
-},{"@ndhoule/foldl":13,"@segment/analytics.js-integration":82,"camelcase":106,"is":129}],2:[function(require,module,exports){
+},{"@ndhoule/foldl":13,"@segment/analytics.js-integration":69,"camelcase":99,"is":124}],2:[function(require,module,exports){
 'use strict';
 /**
  * Analytics.js
@@ -152,7 +152,7 @@ analytics.require = require;
  * Expose `VERSION`.
  */
 
-exports.VERSION = "2.11.0";
+exports.VERSION = '2.11.0';
 
 /**
  * Add integrations.
@@ -174,6 +174,7 @@ Object.keys(Integrations).forEach(function(name) {
 module.exports = {
   'adroll': require('@segment/analytics.js-integration-adroll'),
   'adwords': require('@segment/analytics.js-integration-adwords'),
+  'bing-ads': require('@segment/analytics.js-integration-bing-ads'),
   'crazy-egg': require('@segment/analytics.js-integration-crazy-egg'),
   'facebook-pixel': require('@segment/analytics.js-integration-facebook-pixel'),
   'fullstory': require('./fullstory'),
@@ -183,7 +184,7 @@ module.exports = {
   'zopim': require('./zopim')
 };
 
-},{"./fullstory":1,"./zopim":4,"@segment/analytics.js-integration-adroll":33,"@segment/analytics.js-integration-adwords":40,"@segment/analytics.js-integration-crazy-egg":47,"@segment/analytics.js-integration-facebook-pixel":54,"@segment/analytics.js-integration-google-analytics":61,"@segment/analytics.js-integration-intercom":68,"@segment/analytics.js-integration-segmentio":75}],4:[function(require,module,exports){
+},{"./fullstory":1,"./zopim":4,"@segment/analytics.js-integration-adroll":31,"@segment/analytics.js-integration-adwords":32,"@segment/analytics.js-integration-bing-ads":39,"@segment/analytics.js-integration-crazy-egg":46,"@segment/analytics.js-integration-facebook-pixel":53,"@segment/analytics.js-integration-google-analytics":54,"@segment/analytics.js-integration-intercom":55,"@segment/analytics.js-integration-segmentio":62}],4:[function(require,module,exports){
 'use strict';
 // ripped out of production js build.
 
@@ -301,7 +302,7 @@ Zopim.prototype.identify = function(identify) {
 };
 
 
-},{"@segment/analytics.js-integration":82,"@segment/fmt":90,"do-when":121,"reject":145}],5:[function(require,module,exports){
+},{"@segment/analytics.js-integration":69,"@segment/fmt":77,"do-when":114,"reject":138}],5:[function(require,module,exports){
 'use strict';
 
 /*
@@ -593,7 +594,7 @@ var clone = function clone(obj) {
 
 module.exports = clone;
 
-},{"component-type":116}],8:[function(require,module,exports){
+},{"component-type":110}],8:[function(require,module,exports){
 'use strict';
 
 /*
@@ -1529,7 +1530,7 @@ function ads(query) {
 
 module.exports = ads;
 
-},{"component-querystring":114}],20:[function(require,module,exports){
+},{"component-querystring":108}],20:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -2228,7 +2229,7 @@ module.exports.memory = memory;
 module.exports.store = store;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./cookie":21,"./group":23,"./memory":25,"./normalize":26,"./pageDefaults":27,"./store":28,"./user":29,"@ndhoule/after":5,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/foldl":13,"@ndhoule/keys":15,"@ndhoule/pick":17,"@segment/is-meta":91,"@segment/prevent-default":95,"bind-all":105,"component-emitter":30,"component-event":112,"component-querystring":114,"component-type":116,"debug":31,"is":129,"next-tick":141,"segmentio-facade":152}],21:[function(require,module,exports){
+},{"./cookie":21,"./group":23,"./memory":25,"./normalize":26,"./pageDefaults":27,"./store":28,"./user":29,"@ndhoule/after":5,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/foldl":13,"@ndhoule/keys":15,"@ndhoule/pick":17,"@segment/is-meta":78,"@segment/prevent-default":91,"bind-all":98,"component-emitter":105,"component-event":106,"component-querystring":108,"component-type":110,"debug":113,"is":124,"next-tick":134,"segmentio-facade":145}],21:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2362,7 +2363,7 @@ module.exports = bindAll(new Cookie());
 
 module.exports.Cookie = Cookie;
 
-},{"@ndhoule/clone":7,"@ndhoule/defaults":8,"@segment/top-domain":99,"bind-all":105,"component-cookie":109,"debug":31,"json3":130}],22:[function(require,module,exports){
+},{"@ndhoule/clone":7,"@ndhoule/defaults":8,"@segment/top-domain":95,"bind-all":98,"component-cookie":102,"debug":113,"json3":125}],22:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2605,7 +2606,7 @@ Entity.prototype.load = function() {
 };
 
 
-},{"./cookie":21,"./memory":25,"./store":28,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"@segment/isodate-traverse":92,"debug":31}],23:[function(require,module,exports){
+},{"./cookie":21,"./memory":25,"./store":28,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"@segment/isodate-traverse":79,"debug":113}],23:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2665,7 +2666,7 @@ module.exports = bindAll(new Group());
 
 module.exports.Group = Group;
 
-},{"./entity":22,"bind-all":105,"debug":31,"inherits":125}],24:[function(require,module,exports){
+},{"./entity":22,"bind-all":98,"debug":113,"inherits":121}],24:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2692,7 +2693,7 @@ analytics.VERSION = require('../package.json').version;
 
 module.exports = analytics;
 
-},{"../package.json":32,"./analytics":20}],25:[function(require,module,exports){
+},{"../package.json":30,"./analytics":20}],25:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2758,7 +2759,7 @@ Memory.prototype.remove = function(key) {
   return true;
 };
 
-},{"@ndhoule/clone":7,"bind-all":105}],26:[function(require,module,exports){
+},{"@ndhoule/clone":7,"bind-all":98}],26:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2851,7 +2852,7 @@ function normalize(msg, list) {
   }
 }
 
-},{"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/includes":14,"@ndhoule/map":16,"component-type":116,"debug":31}],27:[function(require,module,exports){
+},{"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/includes":14,"@ndhoule/map":16,"component-type":110,"debug":113}],27:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2915,7 +2916,7 @@ function canonicalUrl(search) {
 
 module.exports = pageDefaults;
 
-},{"@ndhoule/includes":14,"@segment/canonical":88,"component-url":117}],28:[function(require,module,exports){
+},{"@ndhoule/includes":14,"@segment/canonical":75,"component-url":111}],28:[function(require,module,exports){
 'use strict';
 
 /*
@@ -3005,7 +3006,7 @@ module.exports = bindAll(new Store());
 
 module.exports.Store = Store;
 
-},{"@ndhoule/defaults":8,"@segment/store":98,"bind-all":105}],29:[function(require,module,exports){
+},{"@ndhoule/defaults":8,"@segment/store":94,"bind-all":98}],29:[function(require,module,exports){
 'use strict';
 
 /*
@@ -3183,311 +3184,7 @@ module.exports = bindAll(new User());
 
 module.exports.User = User;
 
-},{"./cookie":21,"./entity":22,"bind-all":105,"component-cookie":109,"debug":31,"inherits":125,"uuid":169}],30:[function(require,module,exports){
-
-/**
- * Expose `Emitter`.
- */
-
-if (typeof module !== 'undefined') {
-  module.exports = Emitter;
-}
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks['$' + event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-},{}],31:[function(require,module,exports){
-
-/**
- * Expose `debug()` as the module.
- */
-
-module.exports = debug;
-
-/**
- * Create a debugger with the given `name`.
- *
- * @param {String} name
- * @return {Type}
- * @api public
- */
-
-function debug(name) {
-  if (!debug.enabled(name)) return function(){};
-
-  return function(fmt){
-    fmt = coerce(fmt);
-
-    var curr = new Date;
-    var ms = curr - (debug[name] || curr);
-    debug[name] = curr;
-
-    fmt = name
-      + ' '
-      + fmt
-      + ' +' + debug.humanize(ms);
-
-    // This hackery is required for IE8
-    // where `console.log` doesn't have 'apply'
-    window.console
-      && console.log
-      && Function.prototype.apply.call(console.log, console, arguments);
-  }
-}
-
-/**
- * The currently active debug mode names.
- */
-
-debug.names = [];
-debug.skips = [];
-
-/**
- * Enables a debug mode by name. This can include modes
- * separated by a colon and wildcards.
- *
- * @param {String} name
- * @api public
- */
-
-debug.enable = function(name) {
-  try {
-    localStorage.debug = name;
-  } catch(e){}
-
-  var split = (name || '').split(/[\s,]+/)
-    , len = split.length;
-
-  for (var i = 0; i < len; i++) {
-    name = split[i].replace('*', '.*?');
-    if (name[0] === '-') {
-      debug.skips.push(new RegExp('^' + name.substr(1) + '$'));
-    }
-    else {
-      debug.names.push(new RegExp('^' + name + '$'));
-    }
-  }
-};
-
-/**
- * Disable debug output.
- *
- * @api public
- */
-
-debug.disable = function(){
-  debug.enable('');
-};
-
-/**
- * Humanize the given `ms`.
- *
- * @param {Number} m
- * @return {String}
- * @api private
- */
-
-debug.humanize = function(ms) {
-  var sec = 1000
-    , min = 60 * 1000
-    , hour = 60 * min;
-
-  if (ms >= hour) return (ms / hour).toFixed(1) + 'h';
-  if (ms >= min) return (ms / min).toFixed(1) + 'm';
-  if (ms >= sec) return (ms / sec | 0) + 's';
-  return ms + 'ms';
-};
-
-/**
- * Returns true if the given mode name is enabled, false otherwise.
- *
- * @param {String} name
- * @return {Boolean}
- * @api public
- */
-
-debug.enabled = function(name) {
-  for (var i = 0, len = debug.skips.length; i < len; i++) {
-    if (debug.skips[i].test(name)) {
-      return false;
-    }
-  }
-  for (var i = 0, len = debug.names.length; i < len; i++) {
-    if (debug.names[i].test(name)) {
-      return true;
-    }
-  }
-  return false;
-};
-
-/**
- * Coerce `val`.
- */
-
-function coerce(val) {
-  if (val instanceof Error) return val.stack || val.message;
-  return val;
-}
-
-// persist
-
-try {
-  if (window.localStorage) debug.enable(localStorage.debug);
-} catch(e){}
-
-},{}],32:[function(require,module,exports){
+},{"./cookie":21,"./entity":22,"bind-all":98,"component-cookie":102,"debug":113,"inherits":121,"uuid":163}],30:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -3630,7 +3327,7 @@ module.exports={
   "version": "3.0.0"
 }
 
-},{}],33:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3745,17 +3442,18 @@ AdRoll.prototype.track = function(track) {
 };
 
 /**
- * Viewed/Added Product
+ * Product Viewed/Added
  *
  * @api public
  * @param {Track} track
  */
 
-AdRoll.prototype.viewedProduct = AdRoll.prototype.addedProduct = function(track) {
+AdRoll.prototype.productViewed = AdRoll.prototype.productAdded = function(track) {
   var events = this.events(track.event());
   var userId = this.analytics.user().id();
   var data = formulateData(track, {
     id: 'product_id',
+    productId: 'product_id',
     price: 'adroll_conversion_value'
   });
 
@@ -3772,13 +3470,13 @@ AdRoll.prototype.viewedProduct = AdRoll.prototype.addedProduct = function(track)
 };
 
 /**
- * Completed Order
+ * Order Completed
  *
  * @api public
  * @param {Track} track
  */
 
-AdRoll.prototype.completedOrder = function(track) {
+AdRoll.prototype.orderCompleted = function(track) {
   var events = this.events(track.event());
   var userId = this.analytics.user().id();
   var data = formulateData(track, {
@@ -3834,7 +3532,141 @@ function formulateData(track, alias) {
   return ret;
 }
 
-},{"@ndhoule/each":10,"@ndhoule/foldl":13,"@ndhoule/map":16,"@segment/analytics.js-integration":34,"to-snake-case":161,"use-https":166}],34:[function(require,module,exports){
+},{"@ndhoule/each":10,"@ndhoule/foldl":13,"@ndhoule/map":16,"@segment/analytics.js-integration":69,"to-snake-case":155,"use-https":160}],32:[function(require,module,exports){
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+var each = require('@ndhoule/each');
+var integration = require('@segment/analytics.js-integration');
+var when = require('do-when');
+
+/**
+ * Expose `AdWords`.
+ */
+
+var AdWords = module.exports = integration('AdWords')
+  .option('conversionId', '')
+  .option('remarketing', false)
+  .option('whitelist', [])
+  .tag('<script src="//www.googleadservices.com/pagead/conversion_async.js">')
+  .mapping('events');
+
+/**
+ * Initialize.
+ *
+ * @api public
+ */
+
+AdWords.prototype.initialize = function() {
+  var loaded = this.loaded;
+  var ready = this.ready;
+  this.load(function() {
+    when(loaded, ready);
+  });
+};
+
+/**
+ * Loaded.
+ *
+ * @api private
+ * @return {boolean}
+ */
+
+AdWords.prototype.loaded = function() {
+  return !!(document.body && window.google_trackConversion);
+};
+
+/**
+ * Page.
+ *
+ * https://support.google.com/adwords/answer/3111920#standard_parameters
+ * https://support.google.com/adwords/answer/3103357
+ * https://developers.google.com/adwords-remarketing-tag/asynchronous/
+ * https://developers.google.com/adwords-remarketing-tag/parameters
+ *
+ * @api public
+ * @param {Page} page
+ */
+
+AdWords.prototype.page = function(page) {
+  // Remarketing option can support both Adwords' "static" or "dynamic" remarketing tags
+  // Difference is static you don't need to send props under `google_custom_params`
+  var remarketing = this.options.remarketing;
+  var id = this.options.conversionId;
+  var props = page.properties();
+
+  // Conversion tag
+  window.google_trackConversion({
+    google_conversion_id: id,
+    google_custom_params: {},
+    google_remarketing_only: false // this ensures that this is a conversion tag
+  });
+
+  // Remarketing tag (must be sent in _addition_ to any conversion tags)
+  // https://developers.google.com/adwords-remarketing-tag/
+  if (remarketing) {
+    window.google_trackConversion({
+      google_conversion_id: id,
+      google_custom_params: props,
+      google_remarketing_only: true // this ensures that this is a remarketing tag
+    });
+  }
+};
+
+/**
+ * Track.
+ *
+ * @api public
+ * @param {Track}
+ */
+
+AdWords.prototype.track = function(track) {
+  var id = this.options.conversionId;
+  var props = track.properties();
+  var remarketing = this.options.remarketing;
+  var events = this.events(track.event());
+  var revenue = track.revenue() || 0;
+  // Check if this is a whitelisted event for standalone remarketing tag
+  var whitelisted = this.options.whitelist.indexOf(track.event()) > -1;
+  var sentAlready = false;
+
+  each(function(label) {
+    delete props.revenue;
+    // Fire conversion tag
+    window.google_trackConversion({
+      google_conversion_id: id,
+      google_custom_params: props,
+      google_conversion_language: 'en',
+      google_conversion_format: '3',
+      google_conversion_color: 'ffffff',
+      google_conversion_label: label,
+      google_conversion_value: revenue,
+      google_remarketing_only: false // ensure this is a conversion tag
+    });
+    // Fire remarketing tag
+    if (!sentAlready && remarketing) {
+      window.google_trackConversion({
+        google_conversion_id: id,
+        google_custom_params: props, // do not send PII here!
+        google_remarketing_only: true // ensure this is a remarketing tag
+      });
+      sentAlready = true;
+    }
+  }, events);
+
+  if (!sentAlready && whitelisted) {
+    window.google_trackConversion({
+      google_conversion_id: id,
+      google_custom_params: props, // do not send PII here!
+      google_remarketing_only: true // ensure this is a remarketing tag
+    });
+  }
+};
+
+},{"@ndhoule/each":10,"@segment/analytics.js-integration":33,"do-when":114}],33:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3899,7 +3731,7 @@ function createIntegration(name) {
 
 module.exports = createIntegration;
 
-},{"./protos":35,"./statics":36,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"slug-component":158}],35:[function(require,module,exports){
+},{"./protos":34,"./statics":35,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":37,"slug-component":151}],34:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4382,7 +4214,7 @@ function render(template, locals) {
   }, {}, template.attrs);
 }
 
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":37,"component-emitter":38,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":39}],36:[function(require,module,exports){
+},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":36,"component-emitter":105,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],35:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4547,7 +4379,7 @@ function objectify(str) {
   };
 }
 
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":38,"domify":122}],37:[function(require,module,exports){
+},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115}],36:[function(require,module,exports){
 
 module.exports = {
   // Promotions
@@ -4614,184 +4446,497 @@ module.exports = {
   pushNotificationBounced: /^[ _]?push[ _]?notification[ _]?bounced[ _]?$/i
 };
 
-},{}],38:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],39:[function(require,module,exports){
-
+},{}],37:[function(require,module,exports){
+(function (process){
 /**
- * Expose `toNoCase`.
- */
-
-module.exports = toNoCase;
-
-
-/**
- * Test whether a string is camel-case.
- */
-
-var hasSpace = /\s/;
-var hasSeparator = /[\W_]/;
-
-
-/**
- * Remove any starting case from a `string`, like camel or snake, but keep
- * spaces and punctuation that may be important otherwise.
+ * This is the web browser implementation of `debug()`.
  *
- * @param {String} string
- * @return {String}
+ * Expose `debug()` as the module.
  */
 
-function toNoCase (string) {
-  if (hasSpace.test(string)) return string.toLowerCase();
-  if (hasSeparator.test(string)) return (unseparate(string) || string).toLowerCase();
-  return uncamelize(string).toLowerCase();
+exports = module.exports = require('./debug');
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = 'undefined' != typeof chrome
+               && 'undefined' != typeof chrome.storage
+                  ? chrome.storage.local
+                  : localstorage();
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  'lightseagreen',
+  'forestgreen',
+  'goldenrod',
+  'dodgerblue',
+  'darkorchid',
+  'crimson'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // NB: In an Electron preload script, document will be defined but not fully
+  // initialized. Since we know we're in Chrome, we'll just detect this case
+  // explicitly
+  if (typeof window !== 'undefined' && window && typeof window.process !== 'undefined' && window.process.type === 'renderer') {
+    return true;
+  }
+
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+  return (typeof document !== 'undefined' && document && 'WebkitAppearance' in document.documentElement.style) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (typeof window !== 'undefined' && window && window.console && (console.firebug || (console.exception && console.table))) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    (typeof navigator !== 'undefined' && navigator && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
+    // double check webkit in userAgent just in case we are in a worker
+    (typeof navigator !== 'undefined' && navigator && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
 }
 
-
 /**
- * Separator splitter.
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
  */
 
-var separatorSplitter = /[\W_]+(.|$)/g;
+exports.formatters.j = function(v) {
+  try {
+    return JSON.stringify(v);
+  } catch (err) {
+    return '[UnexpectedJSONParseError]: ' + err.message;
+  }
+};
 
 
 /**
- * Un-separate a `string`.
+ * Colorize log arguments if enabled.
  *
- * @param {String} string
- * @return {String}
+ * @api public
  */
 
-function unseparate (string) {
-  return string.replace(separatorSplitter, function (m, next) {
-    return next ? ' ' + next : '';
+function formatArgs(args) {
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? ' %c' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return;
+
+  var c = 'color: ' + this.color;
+  args.splice(1, 0, c, 'color: inherit')
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-zA-Z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
   });
+
+  args.splice(lastC, 0, c);
 }
 
-
 /**
- * Camelcase splitter.
- */
-
-var camelSplitter = /(.)([A-Z]+)/g;
-
-
-/**
- * Un-camelcase a `string`.
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
  *
- * @param {String} string
- * @return {String}
+ * @api public
  */
 
-function uncamelize (string) {
-  return string.replace(camelSplitter, function (m, previous, uppers) {
-    return previous + ' ' + uppers.toLowerCase().split('').join(' ');
-  });
+function log() {
+  // this hackery is required for IE8/9, where
+  // the `console.log` function doesn't have 'apply'
+  return 'object' === typeof console
+    && console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
 }
-},{}],40:[function(require,module,exports){
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      exports.storage.removeItem('debug');
+    } else {
+      exports.storage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  try {
+    return exports.storage.debug;
+  } catch(e) {}
+
+  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+  if (typeof process !== 'undefined' && 'env' in process) {
+    return process.env.DEBUG;
+  }
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+/**
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
+ */
+
+function localstorage() {
+  try {
+    return window.localStorage;
+  } catch (e) {}
+}
+
+}).call(this,require('_process'))
+},{"./debug":38,"_process":137}],38:[function(require,module,exports){
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = createDebug.debug = createDebug['default'] = createDebug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = require('ms');
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+ */
+
+exports.formatters = {};
+
+/**
+ * Previous log timestamp.
+ */
+
+var prevTime;
+
+/**
+ * Select a color.
+ * @param {String} namespace
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor(namespace) {
+  var hash = 0, i;
+
+  for (i in namespace) {
+    hash  = ((hash << 5) - hash) + namespace.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return exports.colors[Math.abs(hash) % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function createDebug(namespace) {
+
+  function debug() {
+    // disabled?
+    if (!debug.enabled) return;
+
+    var self = debug;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // turn the `arguments` into a proper Array
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %O
+      args.unshift('%O');
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-zA-Z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    // apply env-specific formatting (colors, etc.)
+    exports.formatArgs.call(self, args);
+
+    var logFn = debug.log || exports.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+
+  debug.namespace = namespace;
+  debug.enabled = exports.enabled(namespace);
+  debug.useColors = exports.useColors();
+  debug.color = selectColor(namespace);
+
+  // env-specific initialization logic for debug instances
+  if ('function' === typeof exports.init) {
+    exports.init(debug);
+  }
+
+  return debug;
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  exports.names = [];
+  exports.skips = [];
+
+  var split = (namespaces || '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (var i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace(/\*/g, '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+},{"ms":130}],39:[function(require,module,exports){
 'use strict';
 
 /**
  * Module dependencies.
  */
 
-var each = require('@ndhoule/each');
 var integration = require('@segment/analytics.js-integration');
 
 /**
- * Expose `AdWords`.
+ * Expose `Bing`.
+ *
+ * https://bingads.microsoft.com/campaign/signup
  */
 
-var AdWords = module.exports = integration('AdWords')
-  .option('conversionId', '')
-  .option('remarketing', false)
-  .tag('<script src="//www.googleadservices.com/pagead/conversion_async.js">')
-  .mapping('events');
+var Bing = module.exports = integration('Bing Ads')
+  .global('UET')
+  .global('uetq')
+  .option('tagId', '')
+  .tag('<script src="//bat.bing.com/bat.js">');
 
 /**
  * Initialize.
  *
+ * Inferred from their snippet:
+ * https://gist.github.com/sperand-io/8bef4207e9c66e1aa83b
+ *
  * @api public
  */
 
-AdWords.prototype.initialize = function() {
-  this.load(this.ready);
+Bing.prototype.initialize = function() {
+  window.uetq = window.uetq || [];
+  var self = this;
+
+  self.load(function() {
+    var setup = {
+      ti: self.options.tagId,
+      q: window.uetq
+    };
+
+    window.uetq = new window.UET(setup);
+    self.ready();
+  });
 };
 
 /**
- * Loaded.
+ * Loaded?
  *
  * @api private
  * @return {boolean}
  */
 
-AdWords.prototype.loaded = function() {
-  return !!(document.body && window.google_trackConversion);
+Bing.prototype.loaded = function() {
+  return !!(window.uetq && window.uetq.push !== Array.prototype.push);
 };
 
 /**
  * Page.
  *
- * https://support.google.com/adwords/answer/3111920#standard_parameters
- * https://support.google.com/adwords/answer/3103357
- * https://developers.google.com/adwords-remarketing-tag/asynchronous/
- * https://developers.google.com/adwords-remarketing-tag/parameters
- *
  * @api public
- * @param {Page} page
  */
 
-AdWords.prototype.page = function() {
-  var remarketing = !!this.options.remarketing;
-  var id = this.options.conversionId;
-  var props = {};
-  window.google_trackConversion({
-    google_conversion_id: id,
-    google_custom_params: props,
-    google_remarketing_only: remarketing
-  });
+Bing.prototype.page = function() {
+  window.uetq.push('pageLoad');
 };
 
 /**
  * Track.
  *
+ * Send all events then set goals based
+ * on them retroactively: http://advertise.bingads.microsoft.com/en-us/uahelp-topic?market=en&project=Bing_Ads&querytype=topic&query=HLP_BA_PROC_UET.htm
+ *
  * @api public
- * @param {Track}
+ * @param {Track} track
  */
 
-AdWords.prototype.track = function(track) {
-  var id = this.options.conversionId;
-  var events = this.events(track.event());
-  var revenue = track.revenue() || 0;
-  each(function(label) {
-    var props = track.properties();
-    delete props.revenue;
-    window.google_trackConversion({
-      google_conversion_id: id,
-      google_custom_params: props,
-      google_conversion_language: 'en',
-      google_conversion_format: '3',
-      google_conversion_color: 'ffffff',
-      google_conversion_label: label,
-      google_conversion_value: revenue,
-      google_remarketing_only: false
-    });
-  }, events);
+Bing.prototype.track = function(track) {
+  var event = {
+    ea: 'track',
+    el: track.event()
+  };
+
+  if (track.category()) event.ec = track.category();
+  if (track.revenue()) event.gv = track.revenue();
+
+  window.uetq.push(event);
 };
 
-},{"@ndhoule/each":10,"@segment/analytics.js-integration":41}],41:[function(require,module,exports){
+},{"@segment/analytics.js-integration":40}],40:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./protos":41,"./statics":42,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":44,"dup":33,"slug-component":151}],41:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"./protos":42,"./statics":43,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],42:[function(require,module,exports){
+},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":43,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],42:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":44,"component-emitter":45,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":46}],43:[function(require,module,exports){
+},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],43:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":45,"domify":122,"dup":36}],44:[function(require,module,exports){
+},{"dup":36}],44:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"dup":37}],45:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],46:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],47:[function(require,module,exports){
+},{"./debug":45,"_process":137,"dup":37}],45:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],46:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4834,19 +4979,19 @@ CrazyEgg.prototype.loaded = function() {
   return !!window.CE2;
 };
 
-},{"@segment/analytics.js-integration":48}],48:[function(require,module,exports){
+},{"@segment/analytics.js-integration":47}],47:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./protos":48,"./statics":49,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":51,"dup":33,"slug-component":151}],48:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"./protos":49,"./statics":50,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],49:[function(require,module,exports){
+},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":50,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],49:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":51,"component-emitter":52,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":53}],50:[function(require,module,exports){
+},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],50:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":52,"domify":122,"dup":36}],51:[function(require,module,exports){
+},{"dup":36}],51:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"dup":37}],52:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],53:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],54:[function(require,module,exports){
+},{"./debug":52,"_process":137,"dup":37}],52:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],53:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4856,6 +5001,9 @@ arguments[4][39][0].apply(exports,arguments)
 var integration = require('@segment/analytics.js-integration');
 var foldl = require('@ndhoule/foldl');
 var each = require('@ndhoule/each');
+var reject = require('reject');
+var dateformat = require('dateformat');
+var Track = require('segmentio-facade').Track;
 
 /**
  * Expose `Facebook Pixel`.
@@ -4865,6 +5013,8 @@ var FacebookPixel = module.exports = integration('Facebook Pixel')
   .global('fbq')
   .option('pixelId', '')
   .option('agent', 'seg')
+  .option('valueIdentifier', 'value')
+  .option('initWithExistingTraits', false)
   .mapping('standardEvents')
   .mapping('legacyEvents')
   .tag('<script src="//connect.facebook.net/en_US/fbevents.js">');
@@ -4876,13 +5026,15 @@ var FacebookPixel = module.exports = integration('Facebook Pixel')
  */
 
 FacebookPixel.prototype.initialize = function() {
-  window.fbq = window._fbq = function() {
+  window._fbq = function() {
     if (window.fbq.callMethod) {
       window.fbq.callMethod.apply(window.fbq, arguments);
     } else {
       window.fbq.queue.push(arguments);
     }
   };
+
+  window.fbq = window.fbq || window._fbq;
   window.fbq.push = window.fbq;
   window.fbq.loaded = true;
   window.fbq.disablePushState = true; // disables automatic pageview tracking
@@ -4890,7 +5042,12 @@ FacebookPixel.prototype.initialize = function() {
   window.fbq.version = '2.0';
   window.fbq.queue = [];
   this.load(this.ready);
-  window.fbq('init', this.options.pixelId);
+  if (this.options.initWithExistingTraits) {
+    var traits = formatTraits(this.analytics);
+    window.fbq('init', this.options.pixelId, traits);
+  } else {
+    window.fbq('init', this.options.pixelId);
+  }
 };
 
 /**
@@ -4944,8 +5101,10 @@ FacebookPixel.prototype.track = function(track) {
   }
 
   // standard conversion events, mapped to one of 9 standard events
+  // "Purchase" requires a currency parameter;
   // send full transformed payload
   each(function(event) {
+    if (event === 'Purchase') payload.currency = track.currency(); // defaults to 'USD'
     window.fbq('track', event, payload);
   }, standard);
 
@@ -4960,13 +5119,13 @@ FacebookPixel.prototype.track = function(track) {
 };
 
 /**
- * Viewed product category.
+ * Product List Viewed.
  *
  * @api private
  * @param {Track} track category
  */
 
-FacebookPixel.prototype.viewedProductCategory = function(track) {
+FacebookPixel.prototype.productListViewed = function(track) {
   window.fbq('track', 'ViewContent', {
     content_ids: [track.category() || ''],
     content_type: 'product_group'
@@ -4982,20 +5141,20 @@ FacebookPixel.prototype.viewedProductCategory = function(track) {
 };
 
 /**
- * Viewed product.
+ * Product viewed.
  *
  * @api private
  * @param {Track} track
  */
 
-FacebookPixel.prototype.viewedProduct = function(track) {
+FacebookPixel.prototype.productViewed = function(track) {
   window.fbq('track', 'ViewContent', {
-    content_ids: [track.id() || track.sku() || ''],
+    content_ids: [track.productId() || track.id() || track.sku() || ''],
     content_type: 'product',
     content_name: track.name() || '',
     content_category: track.category() || '',
     currency: track.currency(),
-    value: formatRevenue(track.price())
+    value: this.options.valueIdentifier === 'value' ? formatRevenue(track.value()) : formatRevenue(track.price())
   });
 
   // fall through for mapped legacy conversions
@@ -5008,20 +5167,20 @@ FacebookPixel.prototype.viewedProduct = function(track) {
 };
 
 /**
- * Added product.
+ * Product added.
  *
  * @api private
  * @param {Track} track
  */
 
-FacebookPixel.prototype.addedProduct = function(track) {
+FacebookPixel.prototype.productAdded = function(track) {
   window.fbq('track', 'AddToCart', {
-    content_ids: [track.id() || track.sku() || ''],
+    content_ids: [track.productId() || track.id() || track.sku() || ''],
     content_type: 'product',
     content_name: track.name() || '',
     content_category: track.category() || '',
     currency: track.currency(),
-    value: formatRevenue(track.price())
+    value: this.options.valueIdentifier === 'value' ? formatRevenue(track.value()) : formatRevenue(track.price())
   });
 
   // fall through for mapped legacy conversions
@@ -5034,16 +5193,16 @@ FacebookPixel.prototype.addedProduct = function(track) {
 };
 
 /**
- * Completed Order.
+ * Order Completed.
  *
  * @api private
  * @param {Track} track
  */
 
-FacebookPixel.prototype.completedOrder = function(track) {
-  var key;
+FacebookPixel.prototype.orderCompleted = function(track) {
   var content_ids = foldl(function(acc, product) {
-    key = product.id || product.sku;
+    var item = new Track({ properties: product });
+    var key = item.productId() || item.id() || item.sku();
     if (key) acc.push(key);
     return acc;
   }, [], track.products() || []);
@@ -5078,19 +5237,49 @@ function formatRevenue(revenue) {
   return Number(revenue || 0).toFixed(2);
 }
 
-},{"@ndhoule/each":10,"@ndhoule/foldl":13,"@segment/analytics.js-integration":55}],55:[function(require,module,exports){
-arguments[4][34][0].apply(exports,arguments)
-},{"./protos":56,"./statics":57,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],56:[function(require,module,exports){
-arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":58,"component-emitter":59,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":60}],57:[function(require,module,exports){
-arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":59,"domify":122,"dup":36}],58:[function(require,module,exports){
-arguments[4][37][0].apply(exports,arguments)
-},{"dup":37}],59:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],60:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],61:[function(require,module,exports){
+/**
+ * Get Traits Formatted Correctly for FB.
+ *
+ * https://developers.facebook.com/docs/facebook-pixel/pixel-with-ads/conversion-tracking#advanced_match
+ *
+ * @api private
+ */
+
+function formatTraits(analytics) {
+  var traits = analytics && analytics.user().traits();
+  if (!traits) return {};
+  var firstName;
+  var lastName;
+  // Check for firstName property
+  // else check for name
+  if (traits.firstName) {
+    firstName = traits.firstName;
+    lastName = traits.lastName;
+  } else {
+    var nameArray = traits.name && traits.name.toLowerCase().split(' ') || [];
+    firstName = nameArray.shift();
+    lastName = nameArray.pop();
+  }
+  var gender = traits.gender && traits.gender.slice(0,1).toLowerCase();
+  var birthday = traits.birthday && dateformat(traits.birthday, 'yyyymmdd');
+  var address = traits.address || {};
+  var city = address.city && address.city.split(' ').join('').toLowerCase();
+  var state = address.state && address.state.toLowerCase();
+  var postalCode = address.postalCode;
+  return reject({
+    em: traits.email,
+    fn: firstName,
+    ln: lastName,
+    ph: traits.phone,
+    ge: gender,
+    db: birthday,
+    ct: city,
+    st: state,
+    zp: postalCode
+  });
+}
+
+},{"@ndhoule/each":10,"@ndhoule/foldl":13,"@segment/analytics.js-integration":69,"dateformat":112,"reject":138,"segmentio-facade":145}],54:[function(require,module,exports){
 'use strict';
 
 /**
@@ -5150,6 +5339,7 @@ var GA = exports.Integration = integration('Google Analytics')
   .option('trackCategorizedPages', true)
   .option('trackNamedPages', true)
   .option('trackingId', '')
+  .option('optimize', '')
   .tag('library', '<script src="//www.google-analytics.com/analytics.js">')
   .tag('double click', '<script src="//stats.g.doubleclick.net/dc.js">')
   .tag('http', '<script src="http://www.google-analytics.com/ga.js">')
@@ -5165,20 +5355,20 @@ GA.on('construct', function(integration) {
     integration.loaded = integration.loadedClassic;
     integration.page = integration.pageClassic;
     integration.track = integration.trackClassic;
-    integration.completedOrder = integration.completedOrderClassic;
+    integration.orderCompleted = integration.completedOrderClassic;
   } else if (integration.options.enhancedEcommerce) {
-    integration.viewedProduct = integration.viewedProductEnhanced;
-    integration.clickedProduct = integration.clickedProductEnhanced;
-    integration.addedProduct = integration.addedProductEnhanced;
-    integration.removedProduct = integration.removedProductEnhanced;
-    integration.startedOrder = integration.startedOrderEnhanced;
-    integration.viewedCheckoutStep = integration.viewedCheckoutStepEnhanced;
-    integration.completedCheckoutStep = integration.completedCheckoutStepEnhanced;
-    integration.updatedOrder = integration.updatedOrderEnhanced;
-    integration.completedOrder = integration.completedOrderEnhanced;
-    integration.refundedOrder = integration.refundedOrderEnhanced;
-    integration.viewedPromotion = integration.viewedPromotionEnhanced;
-    integration.clickedPromotion = integration.clickedPromotionEnhanced;
+    integration.productViewed = integration.productViewedEnhanced;
+    integration.productClicked = integration.productClickedEnhanced;
+    integration.productAdded = integration.productAddedEnhanced;
+    integration.productRemoved = integration.productRemovedEnhanced;
+    integration.checkoutStarted = integration.checkoutStartedEnhanced;
+    integration.checkoutStepViewed = integration.checkoutStepViewedEnhanced;
+    integration.checkoutStepCompleted = integration.checkoutStepCompletedEnhanced;
+    integration.orderUpdated = integration.orderUpdatedEnhanced;
+    integration.orderCompleted = integration.orderCompletedEnhanced;
+    integration.orderRefunded = integration.orderRefundedEnhanced;
+    integration.promotionViewed = integration.promotionViewedEnhanced;
+    integration.promotionClicked = integration.promotionClickedEnhanced;
   }
 });
 
@@ -5209,6 +5399,8 @@ GA.prototype.initialize = function() {
     sampleRate: opts.sampleRate,
     allowLinker: true
   });
+
+  if (opts.optimize) window.ga('require', opts.optimize);
 
   // display advertising
   if (opts.doubleClick) {
@@ -5372,7 +5564,7 @@ GA.prototype.track = function(track, options) {
 };
 
 /**
- * Completed order.
+ * Order completed.
  *
  * https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce
  * https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency
@@ -5381,7 +5573,7 @@ GA.prototype.track = function(track, options) {
  * @api private
  */
 
-GA.prototype.completedOrder = function(track) {
+GA.prototype.orderCompleted = function(track) {
   var total = track.total() || track.revenue() || 0;
   var orderId = track.orderId();
   var products = track.products();
@@ -5682,9 +5874,9 @@ GA.prototype.pushEnhancedEcommerce = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.startedOrderEnhanced = function(track) {
+GA.prototype.checkoutStartedEnhanced = function(track) {
   // same as viewed checkout step #1
-  this.viewedCheckoutStep(track);
+  this.checkoutStepViewed(track);
 };
 
 /**
@@ -5696,9 +5888,9 @@ GA.prototype.startedOrderEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.updatedOrderEnhanced = function(track) {
+GA.prototype.orderUpdatedEnhanced = function(track) {
   // Same event as started order - will override
-  this.startedOrderEnhanced(track);
+  this.checkoutStartedEnhanced(track);
 };
 
 /**
@@ -5710,7 +5902,7 @@ GA.prototype.updatedOrderEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.viewedCheckoutStepEnhanced = function(track) {
+GA.prototype.checkoutStepViewedEnhanced = function(track) {
   var products = track.products();
   var props = track.properties();
   var options = extractCheckoutOptions(props);
@@ -5739,7 +5931,7 @@ GA.prototype.viewedCheckoutStepEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.completedCheckoutStepEnhanced = function(track) {
+GA.prototype.checkoutStepCompletedEnhanced = function(track) {
   var props = track.properties();
   var options = extractCheckoutOptions(props);
 
@@ -5765,7 +5957,7 @@ GA.prototype.completedCheckoutStepEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.completedOrderEnhanced = function(track) {
+GA.prototype.orderCompletedEnhanced = function(track) {
   var total = track.total() || track.revenue() || 0;
   var orderId = track.orderId();
   var products = track.products();
@@ -5802,7 +5994,7 @@ GA.prototype.completedOrderEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.refundedOrderEnhanced = function(track) {
+GA.prototype.orderRefundedEnhanced = function(track) {
   var orderId = track.orderId();
   var products = track.products();
 
@@ -5815,7 +6007,7 @@ GA.prototype.refundedOrderEnhanced = function(track) {
   each(products, function(product) {
     var track = new Track({ properties: product });
     window.ga('ec:addProduct', {
-      id: track.id() || track.sku(),
+      id: track.productId() || track.id() || track.sku(),
       quantity: track.quantity()
     });
   });
@@ -5836,7 +6028,7 @@ GA.prototype.refundedOrderEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.addedProductEnhanced = function(track) {
+GA.prototype.productAddedEnhanced = function(track) {
   this.loadEnhancedEcommerce(track);
   enhancedEcommerceProductAction(track, 'add');
   this.pushEnhancedEcommerce(track);
@@ -5851,7 +6043,7 @@ GA.prototype.addedProductEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.removedProductEnhanced = function(track) {
+GA.prototype.productRemovedEnhanced = function(track) {
   this.loadEnhancedEcommerce(track);
   enhancedEcommerceProductAction(track, 'remove');
   this.pushEnhancedEcommerce(track);
@@ -5866,7 +6058,7 @@ GA.prototype.removedProductEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.viewedProductEnhanced = function(track) {
+GA.prototype.productViewedEnhanced = function(track) {
   var props = track.properties();
   var data = {};
 
@@ -5886,7 +6078,7 @@ GA.prototype.viewedProductEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.clickedProductEnhanced = function(track) {
+GA.prototype.productClickedEnhanced = function(track) {
   var props = track.properties();
   var data = {};
 
@@ -5906,12 +6098,12 @@ GA.prototype.clickedProductEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.viewedPromotionEnhanced = function(track) {
+GA.prototype.promotionViewedEnhanced = function(track) {
   var props = track.properties();
 
   this.loadEnhancedEcommerce(track);
   window.ga('ec:addPromo', {
-    id: track.id(),
+    id: track.promotionId() || track.id(),
     name: track.name(),
     creative: props.creative,
     position: props.position
@@ -5928,12 +6120,12 @@ GA.prototype.viewedPromotionEnhanced = function(track) {
  * @param {Track} track
  */
 
-GA.prototype.clickedPromotionEnhanced = function(track) {
+GA.prototype.promotionClickedEnhanced = function(track) {
   var props = track.properties();
 
   this.loadEnhancedEcommerce(track);
   window.ga('ec:addPromo', {
-    id: track.id(),
+    id: track.promotionId() || track.id(),
     name: track.name(),
     creative: props.creative,
     position: props.position
@@ -5954,7 +6146,7 @@ GA.prototype.clickedPromotionEnhanced = function(track) {
 function enhancedEcommerceTrackProduct(track) {
   var props = track.properties();
   var product = {
-    id: track.id() || track.sku(),
+    id: track.productId() || track.id() || track.sku(),
     name: track.name(),
     category: track.category(),
     quantity: track.quantity(),
@@ -6018,19 +6210,7 @@ function createProductTrack(track, properties) {
   return new Track({ properties: properties });
 }
 
-},{"@ndhoule/defaults":8,"@segment/analytics.js-integration":62,"component-each":110,"global-queue":123,"is":129,"obj-case":142,"object-component":143,"reject":145,"segmentio-facade":152,"use-https":166}],62:[function(require,module,exports){
-arguments[4][34][0].apply(exports,arguments)
-},{"./protos":63,"./statics":64,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],63:[function(require,module,exports){
-arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":65,"component-emitter":66,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":67}],64:[function(require,module,exports){
-arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":66,"domify":122,"dup":36}],65:[function(require,module,exports){
-arguments[4][37][0].apply(exports,arguments)
-},{"dup":37}],66:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],67:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],68:[function(require,module,exports){
+},{"@ndhoule/defaults":8,"@segment/analytics.js-integration":69,"component-each":103,"global-queue":117,"is":124,"obj-case":135,"object-component":136,"reject":138,"segmentio-facade":145,"use-https":160}],55:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6041,7 +6221,14 @@ var convertDates = require('@segment/convert-dates');
 var defaults = require('@ndhoule/defaults');
 var del = require('obj-case').del;
 var integration = require('@segment/analytics.js-integration');
-var is = require('is-type');
+var is = require('is');
+var extend = require('@ndhoule/extend');
+var foldl = require('@ndhoule/foldl');
+var flatten = require('flat');
+var JSON = require('json3');
+var clone = require('@ndhoule/clone');
+var each = require('@ndhoule/each');
+var pick = require('@ndhoule/pick');
 
 /**
  * Expose `Intercom` integration.
@@ -6051,6 +6238,9 @@ var Intercom = module.exports = integration('Intercom')
   .global('Intercom')
   .option('activator', '#IntercomDefaultWidget')
   .option('appId', '')
+  .option('blacklisted', {})
+  .option('defaultMethod', 'flatten')
+  .option('richLinkProperties', [])
   .tag('<script src="https://widget.intercom.io/widget/{{ appId }}">');
 
 /**
@@ -6090,8 +6280,9 @@ Intercom.prototype.loaded = function() {
  * @param {Page} page
  */
 
-Intercom.prototype.page = function() {
-  this.bootOrUpdate();
+Intercom.prototype.page = function(page) {
+  var integrationSettings = page.options(this.name);
+  this.bootOrUpdate({}, integrationSettings);
 };
 
 /**
@@ -6105,14 +6296,15 @@ Intercom.prototype.page = function() {
 
 Intercom.prototype.identify = function(identify) {
   var traits = identify.traits({ userId: 'user_id' });
-  var opts = identify.options(this.name);
+  var integrationSettings = identify.options(this.name);
   var companyCreated = identify.companyCreated();
   var created = identify.created();
   var name = identify.name();
   var id = identify.userId();
   var group = this.analytics.group();
+  var settings = this.options;
 
-  if (!id && !traits.email) {
+  if (!id && !identify.email()) {
     return;
   }
 
@@ -6145,11 +6337,14 @@ Intercom.prototype.identify = function(identify) {
   // convert dates
   traits = convertDates(traits, formatDate);
 
-  // handle options
-  if (opts.userHash) traits.user_hash = opts.userHash;
-  if (opts.user_hash) traits.user_hash = opts.user_hash;
+  // format nested custom traits
+  traits = formatNestedCustomTraits(traits, settings);
 
-  this.bootOrUpdate(traits);
+  // handle options
+  if (integrationSettings.userHash) traits.user_hash = integrationSettings.userHash;
+  if (integrationSettings.user_hash) traits.user_hash = integrationSettings.user_hash;
+
+  this.bootOrUpdate(traits, integrationSettings);
 };
 
 /**
@@ -6160,15 +6355,24 @@ Intercom.prototype.identify = function(identify) {
  */
 
 Intercom.prototype.group = function(group) {
+  var settings = this.options;
   // using .traits here since group.properties() doesn't take alias object
   var props = group.traits({
     createdAt: 'created',
-    created: 'created_at'
+    created: 'created_at',
+    monthlySpend: 'monthly_spend'
   });
   props = convertDates(props, formatDate);
   var id = group.groupId();
   if (id) props.id = id;
-  api('update', { company: props });
+  var integrationSettings = group.options(this.name);
+  
+  // format nested custom traits
+  props = formatNestedCustomTraits(props, settings);
+
+  var traits = extend({ company: props }, hideDefaultLauncher(integrationSettings));
+  
+  api('update', traits);
 };
 
 /**
@@ -6179,7 +6383,27 @@ Intercom.prototype.group = function(group) {
  */
 
 Intercom.prototype.track = function(track) {
-  api('trackEvent', track.event(), track.properties());
+  var settings = this.options;
+  var props = track.properties();
+  var revenue = track.revenue();
+  if (revenue) {
+    var revenueData = {
+      // Intercom requests value in cents
+      price: {
+        amount: revenue * 100,
+        currency: track.currency() // fallsback on 'USD'
+      }
+    };
+  }
+
+  // format Nested custom traits
+  props = formatNestedCustomTraits(props, settings);
+
+  props = extend(props, revenueData);
+  del(props, 'revenue');
+  del(props, 'currency');
+
+  api('trackEvent', track.event(), props);
 };
 
 /**
@@ -6189,7 +6413,7 @@ Intercom.prototype.track = function(track) {
  * @param {Object} options
  */
 
-Intercom.prototype.bootOrUpdate = function(options) {
+Intercom.prototype.bootOrUpdate = function(options, integrationSettings) {
   options = options || {};
   var method = this.booted === true ? 'update' : 'boot';
   var activator = this.options.activator;
@@ -6201,6 +6425,8 @@ Intercom.prototype.bootOrUpdate = function(options) {
   if (activator !== '#IntercomDefaultWidget') {
     options.widget = { activator: activator };
   }
+  // Check for selective showing of messenger option
+  options = extend(options, hideDefaultLauncher(integrationSettings));
 
   api(method, options);
   this.booted = true;
@@ -6219,6 +6445,90 @@ function formatDate(date) {
 }
 
 /**
+ * Flatten selectively based on your settings. You can either stringify, flatten, or drop the properties.
+ * Intercom rejects nested objects so you must choose a method.
+ *
+ * @param {Object} obj
+ * @param {Object} settings
+ * @return {Object} ret
+ * @api private
+ */
+ 
+function formatNestedCustomTraits(obj, settings) {
+  var blacklisted = settings.blacklisted || {};
+  var defaultMethod = settings.defaultMethod || 'flatten';
+  var richLinkProperties = settings.richLinkProperties;
+  var basicIntercomTraits = [
+    'companies',
+    'company',
+    'created_at',
+    'created',
+    'custom_attributes',
+    'company_id',
+    'id',
+    'name',
+    'monthly_spend',
+    'plan',
+    'remote_created_at',
+    'remove',
+    'user_id',
+    'email'
+  ];
+
+  // add rich link object to semantic traits so that it's not altered by the default method and
+  // is passed to intercom as a nested object: https://developers.intercom.com/reference#event-metadata-types
+  var semanticTraits = basicIntercomTraits.concat(richLinkProperties);
+
+  // clone traits so we don't modify the original object
+  var customTraits = clone(obj);
+
+  // filter out semanticTraits so that we only format custom nested traits
+  each(function(trait) {
+    del(customTraits, trait);
+  }, semanticTraits);
+
+  // create object without custom traits to merge with formatted custom traits in the end
+  var standardTraits = pick(semanticTraits, obj);
+
+  // handle custom nested traits according to the settings
+  var formattedTraits = foldl(function(attrs, value, key) {
+    var trait = blacklisted[key];
+ 
+    if (trait === 'stringify') {
+      attrs.stringify[key] = value;
+    } else if (trait === 'flatten') {
+      attrs.flatten[key] = value;
+    } else if (trait === 'drop') {
+      return attrs;
+    } else if (typeof value === 'object') {
+      if (defaultMethod === 'stringify') attrs.stringify[key] = value;
+      if (defaultMethod === 'flatten') attrs.flatten[key] = value;
+      if (defaultMethod === 'drop') return attrs;
+    } else {
+      attrs.nonNestedTraits[key] = value;
+    }
+    return attrs;
+  }, { flatten: {}, stringify: {}, nonNestedTraits: {} }, customTraits);
+
+// stringify specified traits
+  var stringifiedTraits = foldl(function(ret, value, key) {
+    ret[key] = JSON.stringify(value);
+    return ret;
+  }, {}, formattedTraits.stringify);
+
+  // flatten specified traits
+  var flattenedTraits = foldl(function(ret, value, key) {
+    var pair = {};
+    pair[key] = value;
+    ret = extend(flatten(pair), ret);
+    return ret;
+  }, {}, formattedTraits.flatten);
+
+  // combine all the traits
+  return extend(standardTraits, stringifiedTraits, flattenedTraits, formattedTraits.nonNestedTraits);
+}
+
+/**
  * Push a call onto the Intercom queue.
  *
  * @api private
@@ -6228,19 +6538,35 @@ function api() {
   window.Intercom.apply(window.Intercom, arguments);
 }
 
-},{"@ndhoule/defaults":8,"@segment/analytics.js-integration":69,"@segment/convert-dates":89,"is-type":128,"obj-case":142}],69:[function(require,module,exports){
+/**
+ * Selectively hide messenger
+ * https://docs.intercom.io/configure-intercom-for-your-product-or-site/customize-the-intercom-messenger/customize-the-intercom-messenger-technical#show-the-intercom-messenger-to-selected-users-for-web-
+ * @param {Object} options
+ * @return {Object} ret
+ * @api private
+ */
+
+function hideDefaultLauncher(options) {
+  var ret = {};
+  var setting = options.hideDefaultLauncher;
+  if (setting === undefined || typeof setting !== 'boolean') return ret;
+  ret.hide_default_launcher= setting;
+  return ret;
+}
+
+},{"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/extend":12,"@ndhoule/foldl":13,"@ndhoule/pick":17,"@segment/analytics.js-integration":56,"@segment/convert-dates":76,"flat":116,"is":124,"json3":125,"obj-case":135}],56:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./protos":57,"./statics":58,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":60,"dup":33,"slug-component":151}],57:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"./protos":70,"./statics":71,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],70:[function(require,module,exports){
+},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":59,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],58:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":72,"component-emitter":73,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":74}],71:[function(require,module,exports){
+},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],59:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":73,"domify":122,"dup":36}],72:[function(require,module,exports){
+},{"dup":36}],60:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"dup":37}],73:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],74:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],75:[function(require,module,exports){
+},{"./debug":61,"_process":137,"dup":37}],61:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],62:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6253,6 +6579,7 @@ var cookie = require('component-cookie');
 var extend = require('@ndhoule/extend');
 var integration = require('@segment/analytics.js-integration');
 var json = require('json3');
+var keys = require('@ndhoule/keys');
 var localstorage = require('yields-store');
 var md5 = require('spark-md5').hash;
 var protocol = require('@segment/protocol');
@@ -6260,6 +6587,7 @@ var send = require('@segment/send-json');
 var topDomain = require('@segment/top-domain');
 var utm = require('@segment/utm-params');
 var uuid = require('uuid').v4;
+var Queue = require('@segment/localstorage-retry');
 
 /**
  * Cookie options
@@ -6278,7 +6606,12 @@ var cookieOptions = {
 
 var Segment = exports = module.exports = integration('Segment.io')
   .option('apiKey', '')
-  .option('apiHost', 'api.segment.io/v1');
+  .option('apiHost', 'api.segment.io/v1')
+  .option('crossDomainIdServers', [])
+  .option('beacon', false)
+  .option('retryQueue', false)
+  .option('addBundledMetadata', false)
+  .option('unbundledIntegrations', []);
 
 /**
  * Get the store.
@@ -6306,6 +6639,22 @@ exports.global = window;
 
 Segment.prototype.initialize = function() {
   var self = this;
+
+  if (this.options.retryQueue) {
+    this._lsqueue = new Queue('segmentio', function(item, done) {
+      // Update the sentAt time each retry so the tracking-api doesn't interperet a time skew
+      item.sentAt = new Date();
+      // send
+      send(item.url, item.msg, item.headers, function(err, res) {
+        self.debug('sent %O, received %O', item.msg, arguments);
+        if (err) return done(err);
+        res.url = item.url;
+        done();
+      });
+    });
+    this._lsqueue.start();
+  }
+
   this.ready();
   this.analytics.on('invoke', function(msg) {
     var action = msg.action();
@@ -6314,6 +6663,12 @@ Segment.prototype.initialize = function() {
     if (self[listener]) self[listener](msg);
     self.ready();
   });
+  // At this moment we intentionally do not want events to be queued while we retrieve the `crossDomainId`
+  // so `.ready` will get called right away and we'll try to figure out `crossDomainId`
+  // separately
+  if (this.options.crossDomainIdServers && this.options.crossDomainIdServers.length > 0) {
+    this.retrieveCrossDomainId();
+  }
 };
 
 /**
@@ -6410,11 +6765,26 @@ Segment.prototype.normalize = function(msg) {
   msg.writeKey = this.options.apiKey;
   ctx.userAgent = navigator.userAgent;
   if (!ctx.library) ctx.library = { name: 'analytics.js', version: this.analytics.VERSION };
+  var crossDomainId = this.cookie('segment_cross_domain_id');
+  if (crossDomainId) {
+    if (!ctx.traits) {
+      ctx.traits = { crossDomainId: crossDomainId };
+    } else if (!ctx.traits.crossDomainId) {
+      ctx.traits.crossDomainId = crossDomainId;
+    }
+  }
   if (query) ctx.campaign = utm(query);
   this.referrerId(query, ctx);
   msg.userId = msg.userId || user.id();
   msg.anonymousId = user.anonymousId();
   msg.sentAt = new Date();
+  if (this.options.addBundledMetadata) {
+    var bundled = keys(this.analytics.Integrations);
+    msg._metadata = {
+      bundled: bundled,
+      unbundled: this.options.unbundledIntegrations
+    };
+  }
   // add some randomness to the messageId checksum
   msg.messageId = 'ajs-' + md5(json.stringify(msg) + uuid());
   this.debug('normalized %o', msg);
@@ -6443,8 +6813,7 @@ Segment.prototype.ampId = function(ctx) {
  */
 
 Segment.prototype.send = function(path, msg, fn) {
-  var url = scheme() + '//' + this.options.apiHost + path;
-  var headers = { 'Content-Type': 'text/plain' };
+  var url = 'https://' + this.options.apiHost + path;
   fn = fn || noop;
   var self = this;
 
@@ -6452,12 +6821,37 @@ Segment.prototype.send = function(path, msg, fn) {
   msg = this.normalize(msg);
 
   // send
-  send(url, msg, headers, function(err, res) {
-    self.debug('sent %O, received %O', msg, arguments);
-    if (err) return fn(err);
-    res.url = url;
-    fn(null, res);
-  });
+  if (this.options.retryQueue) {
+    var headers = { 'Content-Type': 'text/plain' };
+    this._lsqueue.addItem({
+      url: url,
+      headers: headers,
+      msg: msg
+    });
+  } else if (this.options.beacon && navigator.sendBeacon) {
+    // Beacon returns false if the browser couldn't queue the data for transfer
+    // (e.g: the data was too big)
+    if (navigator.sendBeacon(url, json.stringify(msg))) {
+      self.debug('beacon sent %o', msg);
+      fn();
+    } else {
+      self.debug('beacon failed, falling back to ajax %o', msg);
+      sendAjax();
+    }
+  } else {
+    sendAjax();
+  }
+
+  function sendAjax() {
+    // Beacons are sent as a text/plain POST
+    var headers = { 'Content-Type': 'text/plain' };
+    send(url, msg, headers, function(err, res) {
+      self.debug('ajax sent %o, received %o', msg, arguments);
+      if (err) return fn(err);
+      res.url = url;
+      fn(null, res);
+    });
+  }
 };
 
 /**
@@ -6510,50 +6904,820 @@ Segment.prototype.referrerId = function(query, ctx) {
   this.cookie('s:context.referrer', json.stringify(ad));
 };
 
+
 /**
- * Get the scheme.
- *
- * The function returns `http:`
- * if the protocol is `http:` and
- * `https:` for other protocols.
+ * retrieveCrossDomainId.
  *
  * @api private
- * @return {string}
+ * @param {function) callback => err, {crossDomainId, fromServer, timestamp}
  */
+Segment.prototype.retrieveCrossDomainId = function(callback) {
+  if (!this.options.crossDomainIdServers) {
+    if (callback) {
+      callback('crossDomainId not enabled', null);
+    }
+    return;
+  }
+  if (!this.cookie('segment_cross_domain_id')) {
+    var self = this;
+    var writeKey = this.options.apiKey;
 
-function scheme() {
-  return protocol() === 'http:' ? 'http:' : 'https:';
+    // Exclude the current domain from the list of servers we're querying
+    var currentTld = getTld(window.location.hostname);
+    var domains = [];
+    for (var i=0; i<this.options.crossDomainIdServers.length; i++) {
+      var domain = this.options.crossDomainIdServers[i];
+      if (getTld(domain) !== currentTld) {
+        domains.push(domain);
+      }
+    }
+
+    getCrossDomainIdFromServerList(domains, writeKey, function(err, res) {
+      if (err) {
+        // We optimize for no conflicting xid as much as possible. So bail out if there is an
+        // error and we cannot be sure that xid does not exist on any other domains
+        if (callback) {
+          callback(err, null);
+        }
+        return;
+      }
+      var crossDomainId = null;
+      var fromDomain = null;
+      if (res) {
+        crossDomainId = res.id;
+        fromDomain = res.domain;
+      } else {
+        crossDomainId = uuid();
+        fromDomain = window.location.hostname;
+      }
+      var currentTimeMillis = (new Date()).getTime();
+      self.cookie('segment_cross_domain_id', crossDomainId);
+      // Not actively used. Saving for future conflict resolution purposes
+      self.cookie('segment_cross_domain_id_from_domain', fromDomain);
+      self.cookie('segment_cross_domain_id_timestamp', currentTimeMillis);
+
+      self.analytics.identify({
+        crossDomainId: crossDomainId
+      });
+      if (callback) {
+        callback(null, {
+          crossDomainId: crossDomainId,
+          fromDomain: fromDomain,
+          timestamp: currentTimeMillis
+        });
+      }
+    });
+  }
+};
+
+/**
+ * getCrossDomainIdFromServers
+ * @param {Array} domains
+ * @param {string} writeKey
+ * @param {function} callback => err, {domain, id}
+ */
+function getCrossDomainIdFromServerList(domains, writeKey, callback) {
+  // Should not happen but special case
+  if (domains.length === 0) {
+    callback(null, null);
+  }
+  var crossDomainIdFound = false;
+  var finishedRequests = 0;
+  var error = null;
+  for (var i=0; i<domains.length; i++) {
+    var domain = domains[i];
+
+    getCrossDomainIdFromSingleServer(domain, writeKey, function(err, res) {
+      finishedRequests++;
+      if (err) {
+        // if request against a particular domain fails, we won't early exit
+        // but rather wait and see if requests to other domains succeed
+        error = err;
+      } else if (res && res.id && !crossDomainIdFound) {
+        // If we found an xid from any of the servers, we'll just early exit and callback
+        crossDomainIdFound = true;
+        callback(null, res);
+      }
+      if (finishedRequests === domains.length && !crossDomainIdFound) {
+        // Error is non-null if we encountered an issue, otherwise error will be null
+        // meaning that no domains in the list has an xid for current user
+        callback(error, null);
+      }
+    });
+  }
 }
+
+/**
+ * getCrossDomainId
+ * @param {Array} domain
+ * @param {string} writeKey
+ * @param {function} callback => err, {domain, id}
+ */
+function getCrossDomainIdFromSingleServer(domain, writeKey, callback) {
+  var endpoint = 'https://' + domain + '/v1/id/' + writeKey;
+  getJson(endpoint, function(err, res) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, {
+        domain: domain,
+        id: res && res.id || null
+      });
+    }
+  });
+}
+
+/**
+ * getJson
+ * @param {string} url
+ * @param {function} callback => err, json
+ */
+function getJson(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.withCredentials = true;
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        callback(null, xhr.responseText ? json.parse(xhr.responseText) : null);
+      } else {
+        callback(xhr.statusText || 'Unknown Error', null);
+      }
+    }
+  };
+  xhr.send();
+}
+
+//
+/**
+ * getTld
+ * Get domain.com from subdomain.domain.com, etc.
+ * @param {string} domain
+ */
+function getTld(domain) {
+  return domain.split('.').splice(-2).join('.');
+}
+
 
 /**
  * Noop.
  */
-
 function noop() {}
 
-},{"@ndhoule/extend":12,"@segment/ad-params":19,"@segment/analytics.js-integration":76,"@segment/protocol":96,"@segment/send-json":97,"@segment/top-domain":99,"@segment/utm-params":100,"component-clone":108,"component-cookie":109,"json3":130,"spark-md5":159,"uuid":169,"yields-store":170}],76:[function(require,module,exports){
+},{"@ndhoule/extend":12,"@ndhoule/keys":15,"@segment/ad-params":19,"@segment/analytics.js-integration":63,"@segment/localstorage-retry":82,"@segment/protocol":92,"@segment/send-json":93,"@segment/top-domain":95,"@segment/utm-params":96,"component-clone":101,"component-cookie":102,"json3":125,"spark-md5":152,"uuid":163,"yields-store":164}],63:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./protos":64,"./statics":65,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":67,"dup":33,"slug-component":151}],64:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"./protos":77,"./statics":78,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],77:[function(require,module,exports){
+},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":66,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],65:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":79,"component-emitter":80,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":81}],78:[function(require,module,exports){
+},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],66:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":80,"domify":122,"dup":36}],79:[function(require,module,exports){
+},{"dup":36}],67:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"dup":37}],80:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],81:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],82:[function(require,module,exports){
-arguments[4][34][0].apply(exports,arguments)
-},{"./protos":83,"./statics":84,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":107,"debug":119,"dup":34,"slug-component":158}],83:[function(require,module,exports){
-arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":90,"@segment/load-script":94,"analytics-events":101,"component-emitter":85,"dup":35,"is":129,"load-iframe":135,"next-tick":141,"to-no-case":86}],84:[function(require,module,exports){
-arguments[4][36][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":85,"domify":122,"dup":36}],85:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],86:[function(require,module,exports){
-arguments[4][39][0].apply(exports,arguments)
-},{"dup":39}],87:[function(require,module,exports){
+},{"./debug":68,"_process":137,"dup":37}],68:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],69:[function(require,module,exports){
+arguments[4][33][0].apply(exports,arguments)
+},{"./protos":70,"./statics":71,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":72,"dup":33,"slug-component":151}],70:[function(require,module,exports){
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+var Emitter = require('component-emitter');
+var after = require('@ndhoule/after');
+var each = require('@ndhoule/each');
+var events = require('analytics-events');
+var every = require('@ndhoule/every');
+var fmt = require('@segment/fmt');
+var foldl = require('@ndhoule/foldl');
+var is = require('is');
+var loadIframe = require('load-iframe');
+var loadScript = require('@segment/load-script');
+var nextTick = require('next-tick');
+var normalize = require('to-no-case');
+
+/**
+ * hasOwnProperty reference.
+ */
+
+var has = Object.prototype.hasOwnProperty;
+
+/**
+ * No operation.
+ */
+
+var noop = function noop() {};
+
+/**
+ * Window defaults.
+ */
+
+var onerror = window.onerror;
+var onload = null;
+
+/**
+ * Mixin emitter.
+ */
+
+/* eslint-disable new-cap */
+Emitter(exports);
+/* eslint-enable new-cap */
+
+/**
+ * Initialize.
+ */
+
+exports.initialize = function() {
+  var ready = this.ready;
+  nextTick(ready);
+};
+
+/**
+ * Loaded?
+ *
+ * @api private
+ * @return {boolean}
+ */
+
+exports.loaded = function() {
+  return false;
+};
+
+/**
+ * Page.
+ *
+ * @api public
+ * @param {Page} page
+ */
+
+/* eslint-disable no-unused-vars */
+exports.page = function(page) {};
+/* eslint-enable no-unused-vars */
+
+/**
+ * Track.
+ *
+ * @api public
+ * @param {Track} track
+ */
+
+/* eslint-disable no-unused-vars */
+exports.track = function(track) {};
+/* eslint-enable no-unused-vars */
+
+/**
+ * Get values from items in `options` that are mapped to `key`.
+ * `options` is an integration setting which is a collection
+ * of type 'map', 'array', or 'mixed'
+ *
+ * Use cases include mapping events to pixelIds (map), sending generic
+ * conversion pixels only for specific events (array), or configuring dynamic
+ * mappings of event properties to query string parameters based on event (mixed)
+ *
+ * @api public
+ * @param {Object|Object[]|String[]} options An object, array of objects, or
+ * array of strings pulled from settings.mapping.
+ * @param {string} key The name of the item in options whose metadata
+ * we're looking for.
+ * @return {Array} An array of settings that match the input `key` name.
+ * @example
+ *
+ * // 'Map'
+ * var events = { my_event: 'a4991b88' };
+ * .map(events, 'My Event');
+ * // => ["a4991b88"]
+ * .map(events, 'whatever');
+ * // => []
+ *
+ * // 'Array'
+ * * var events = ['Completed Order', 'My Event'];
+ * .map(events, 'My Event');
+ * // => ["My Event"]
+ * .map(events, 'whatever');
+ * // => []
+ *
+ * // 'Mixed'
+ * var events = [{ key: 'my event', value: '9b5eb1fa' }];
+ * .map(events, 'my_event');
+ * // => ["9b5eb1fa"]
+ * .map(events, 'whatever');
+ * // => []
+ */
+
+exports.map = function(options, key) {
+  var normalizedComparator = normalize(key);
+  var mappingType = getMappingType(options);
+
+  if (mappingType === 'unknown') {
+    return [];
+  }
+
+  return foldl(function(matchingValues, val, key) {
+    var compare;
+    var result;
+
+    if (mappingType === 'map') {
+      compare = key;
+      result = val;
+    }
+
+    if (mappingType === 'array') {
+      compare = val;
+      result = val;
+    }
+
+    if (mappingType === 'mixed') {
+      compare = val.key;
+      result = val.value;
+    }
+
+    if (normalize(compare) === normalizedComparator) {
+      matchingValues.push(result);
+    }
+
+    return matchingValues;
+  }, [], options);
+};
+
+/**
+ * Invoke a `method` that may or may not exist on the prototype with `args`,
+ * queueing or not depending on whether the integration is "ready". Don't
+ * trust the method call, since it contains integration party code.
+ *
+ * @api private
+ * @param {string} method
+ * @param {...*} args
+ */
+
+exports.invoke = function(method) {
+  if (!this[method]) return;
+  var args = Array.prototype.slice.call(arguments, 1);
+  if (!this._ready) return this.queue(method, args);
+  var ret;
+
+  try {
+    this.debug('%s with %o', method, args);
+    ret = this[method].apply(this, args);
+  } catch (e) {
+    this.debug('error %o calling %s with %o', e, method, args);
+  }
+
+  return ret;
+};
+
+/**
+ * Queue a `method` with `args`.
+ *
+ * @api private
+ * @param {string} method
+ * @param {Array} args
+ */
+
+exports.queue = function(method, args) {
+  this._queue.push({ method: method, args: args });
+};
+
+/**
+ * Flush the internal queue.
+ *
+ * @api private
+ */
+
+exports.flush = function() {
+  this._ready = true;
+  var self = this;
+
+  each(function(call) {
+    self[call.method].apply(self, call.args);
+  }, this._queue);
+
+  // Empty the queue.
+  this._queue.length = 0;
+};
+
+/**
+ * Reset the integration, removing its global variables.
+ *
+ * @api private
+ */
+
+exports.reset = function() {
+  for (var i = 0; i < this.globals.length; i++) {
+    window[this.globals[i]] = undefined;
+  }
+
+  window.onerror = onerror;
+  window.onload = onload;
+};
+
+/**
+ * Load a tag by `name`.
+ *
+ * @param {string} name The name of the tag.
+ * @param {Object} locals Locals used to populate the tag's template variables
+ * (e.g. `userId` in '<img src="https://whatever.com/{{ userId }}">').
+ * @param {Function} [callback=noop] A callback, invoked when the tag finishes
+ * loading.
+ */
+
+exports.load = function(name, locals, callback) {
+  // Argument shuffling
+  if (typeof name === 'function') { callback = name; locals = null; name = null; }
+  if (name && typeof name === 'object') { callback = locals; locals = name; name = null; }
+  if (typeof locals === 'function') { callback = locals; locals = null; }
+
+  // Default arguments
+  name = name || 'library';
+  locals = locals || {};
+
+  locals = this.locals(locals);
+  var template = this.templates[name];
+  if (!template) throw new Error(fmt('template "%s" not defined.', name));
+  var attrs = render(template, locals);
+  callback = callback || noop;
+  var self = this;
+  var el;
+
+  switch (template.type) {
+  case 'img':
+    attrs.width = 1;
+    attrs.height = 1;
+    el = loadImage(attrs, callback);
+    break;
+  case 'script':
+    el = loadScript(attrs, function(err) {
+      if (!err) return callback();
+      self.debug('error loading "%s" error="%s"', self.name, err);
+    });
+      // TODO: hack until refactoring load-script
+    delete attrs.src;
+    each(function(val, key) {
+      el.setAttribute(key, val);
+    }, attrs);
+    break;
+  case 'iframe':
+    el = loadIframe(attrs, callback);
+    break;
+  default:
+      // No default case
+  }
+
+  return el;
+};
+
+/**
+ * Locals for tag templates.
+ *
+ * By default it includes a cache buster and all of the options.
+ *
+ * @param {Object} [locals]
+ * @return {Object}
+ */
+
+exports.locals = function(locals) {
+  locals = locals || {};
+  var cache = Math.floor(new Date().getTime() / 3600000);
+  if (!locals.hasOwnProperty('cache')) locals.cache = cache;
+  each(function(val, key) {
+    if (!locals.hasOwnProperty(key)) locals[key] = val;
+  }, this.options);
+  return locals;
+};
+
+/**
+ * Simple way to emit ready.
+ *
+ * @api public
+ */
+
+exports.ready = function() {
+  this.emit('ready');
+};
+
+/**
+ * Wrap the initialize method in an exists check, so we don't have to do it for
+ * every single integration.
+ *
+ * @api private
+ */
+
+exports._wrapInitialize = function() {
+  var initialize = this.initialize;
+  this.initialize = function() {
+    this.debug('initialize');
+    this._initialized = true;
+    var ret = initialize.apply(this, arguments);
+    this.emit('initialize');
+    return ret;
+  };
+};
+
+/**
+ * Wrap the page method to call to noop the first page call if the integration assumes
+ * a pageview.
+ *
+ * @api private
+ */
+
+exports._wrapPage = function() {
+  // Noop the first page call if integration assumes pageview
+  if (this._assumesPageview) return this.page = after(2, this.page);
+};
+
+/**
+ * Wrap the track method to call other ecommerce methods if available depending
+ * on the `track.event()`.
+ *
+ * @api private
+ */
+
+exports._wrapTrack = function() {
+  var t = this.track;
+  this.track = function(track) {
+    var event = track.event();
+    var called;
+    var ret;
+
+    for (var method in events) {
+      if (has.call(events, method)) {
+        var regexp = events[method];
+        if (!this[method]) continue;
+        if (!regexp.test(event)) continue;
+        ret = this[method].apply(this, arguments);
+        called = true;
+        break;
+      }
+    }
+
+    if (!called) ret = t.apply(this, arguments);
+    return ret;
+  };
+};
+
+/**
+ * Determine the type of the option passed to `#map`
+ *
+ * @api private
+ * @param {Object|Object[]} mapping
+ * @return {String} mappingType
+ */
+
+function getMappingType(mapping) {
+  if (is.array(mapping)) {
+    return every(isMixed, mapping) ? 'mixed' : 'array';
+  }
+  if (is.object(mapping)) return 'map';
+  return 'unknown';
+}
+
+/**
+ * Determine if item in mapping array is a valid "mixed" type value
+ *
+ * Must be an object with properties "key" (of type string)
+ * and "value" (of any type)
+ *
+ * @api private
+ * @param {*} item
+ * @return {Boolean}
+ */
+
+function isMixed(item) {
+  if (!is.object(item)) return false;
+  if (!is.string(item.key)) return false;
+  if (!has.call(item, 'value')) return false;
+  return true;
+}
+
+/**
+ * TODO: Document me
+ *
+ * @api private
+ * @param {Object} attrs
+ * @param {Function} fn
+ * @return {Image}
+ */
+
+function loadImage(attrs, fn) {
+  fn = fn || function() {};
+  var img = new Image();
+  img.onerror = error(fn, 'failed to load pixel', img);
+  img.onload = function() { fn(); };
+  img.src = attrs.src;
+  img.width = 1;
+  img.height = 1;
+  return img;
+}
+
+/**
+ * TODO: Document me
+ *
+ * @api private
+ * @param {Function} fn
+ * @param {string} message
+ * @param {Element} img
+ * @return {Function}
+ */
+
+function error(fn, message, img) {
+  return function(e) {
+    e = e || window.event;
+    var err = new Error(message);
+    err.event = e;
+    err.source = img;
+    fn(err);
+  };
+}
+
+/**
+ * Render template + locals into an `attrs` object.
+ *
+ * @api private
+ * @param {Object} template
+ * @param {Object} locals
+ * @return {Object}
+ */
+
+function render(template, locals) {
+  return foldl(function(attrs, val, key) {
+    attrs[key] = val.replace(/\{\{\ *(\w+)\ *\}\}/g, function(_, $1) {
+      return locals[$1];
+    });
+    return attrs;
+  }, {}, template.attrs);
+}
+
+},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":97,"component-emitter":105,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],71:[function(require,module,exports){
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+var Emitter = require('component-emitter');
+var domify = require('domify');
+var each = require('@ndhoule/each');
+var includes = require('@ndhoule/includes');
+
+/**
+ * Mix in emitter.
+ */
+
+/* eslint-disable new-cap */
+Emitter(exports);
+/* eslint-enable new-cap */
+
+/**
+ * Add a new option to the integration by `key` with default `value`.
+ *
+ * @api public
+ * @param {string} key
+ * @param {*} value
+ * @return {Integration}
+ */
+
+exports.option = function(key, value) {
+  this.prototype.defaults[key] = value;
+  return this;
+};
+
+/**
+ * Add a new mapping option.
+ *
+ * This will create a method `name` that will return a mapping for you to use.
+ *
+ * @api public
+ * @param {string} name
+ * @return {Integration}
+ * @example
+ * Integration('My Integration')
+ *   .mapping('events');
+ *
+ * new MyIntegration().track('My Event');
+ *
+ * .track = function(track){
+ *   var events = this.events(track.event());
+ *   each(send, events);
+ *  };
+ */
+
+exports.mapping = function(name) {
+  this.option(name, []);
+  this.prototype[name] = function(key) {
+    return this.map(this.options[name], key);
+  };
+  return this;
+};
+
+/**
+ * Register a new global variable `key` owned by the integration, which will be
+ * used to test whether the integration is already on the page.
+ *
+ * @api public
+ * @param {string} key
+ * @return {Integration}
+ */
+
+exports.global = function(key) {
+  this.prototype.globals.push(key);
+  return this;
+};
+
+/**
+ * Mark the integration as assuming an initial pageview, so to defer the first page call, keep track of
+ * whether we already nooped the first page call.
+ *
+ * @api public
+ * @return {Integration}
+ */
+
+exports.assumesPageview = function() {
+  this.prototype._assumesPageview = true;
+  return this;
+};
+
+/**
+ * Mark the integration as being "ready" once `load` is called.
+ *
+ * @api public
+ * @return {Integration}
+ */
+
+exports.readyOnLoad = function() {
+  this.prototype._readyOnLoad = true;
+  return this;
+};
+
+/**
+ * Mark the integration as being "ready" once `initialize` is called.
+ *
+ * @api public
+ * @return {Integration}
+ */
+
+exports.readyOnInitialize = function() {
+  this.prototype._readyOnInitialize = true;
+  return this;
+};
+
+/**
+ * Define a tag to be loaded.
+ *
+ * @api public
+ * @param {string} [name='library'] A nicename for the tag, commonly used in
+ * #load. Helpful when the integration has multiple tags and you need a way to
+ * specify which of the tags you want to load at a given time.
+ * @param {String} str DOM tag as string or URL.
+ * @return {Integration}
+ */
+
+exports.tag = function(name, tag) {
+  if (tag == null) {
+    tag = name;
+    name = 'library';
+  }
+  this.prototype.templates[name] = objectify(tag);
+  return this;
+};
+
+/**
+ * Given a string, give back DOM attributes.
+ *
+ * Do it in a way where the browser doesn't load images or iframes. It turns
+ * out domify will load images/iframes because whenever you construct those
+ * DOM elements, the browser immediately loads them.
+ *
+ * @api private
+ * @param {string} str
+ * @return {Object}
+ */
+
+function objectify(str) {
+  // replace `src` with `data-src` to prevent image loading
+  str = str.replace(' src="', ' data-src="');
+
+  var el = domify(str);
+  var attrs = {};
+
+  each(function(attr) {
+    // then replace it back
+    var name = attr.name === 'data-src' ? 'src' : attr.name;
+    if (!includes(attr.name + '=', str)) return;
+    attrs[name] = attr.value;
+  }, el.attributes);
+
+  return {
+    type: el.tagName.toLowerCase(),
+    attrs: attrs
+  };
+}
+
+},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115}],72:[function(require,module,exports){
+arguments[4][37][0].apply(exports,arguments)
+},{"./debug":73,"_process":137,"dup":37}],73:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],74:[function(require,module,exports){
 var utf8Encode = require('utf8-encode');
 var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
@@ -6590,7 +7754,7 @@ function encode(input) {
 
     return output;
 }
-},{"utf8-encode":167}],88:[function(require,module,exports){
+},{"utf8-encode":161}],75:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6614,7 +7778,7 @@ function canonical() {
 
 module.exports = canonical;
 
-},{}],89:[function(require,module,exports){
+},{}],76:[function(require,module,exports){
 'use strict';
 
 /*
@@ -6651,7 +7815,7 @@ function convertDates(obj, convert) {
 
 module.exports = convertDates;
 
-},{"@ndhoule/clone":7,"@ndhoule/each":10,"component-type":116}],90:[function(require,module,exports){
+},{"@ndhoule/clone":7,"@ndhoule/each":10,"component-type":110}],77:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -6686,7 +7850,7 @@ fmt.d = parseInt;
 module.exports = fmt;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],91:[function(require,module,exports){
+},{}],78:[function(require,module,exports){
 'use strict';
 
 function isMeta(e) {
@@ -6714,7 +7878,7 @@ function isMeta(e) {
 
 module.exports = isMeta;
 
-},{}],92:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 'use strict';
 
 var type = require('component-type');
@@ -6781,7 +7945,7 @@ function array(arr, strict) {
   return arr;
 }
 
-},{"@segment/isodate":93,"component-each":110,"component-type":116}],93:[function(require,module,exports){
+},{"@segment/isodate":80,"component-each":103,"component-type":110}],80:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6859,7 +8023,7 @@ exports.is = function(string, strict) {
   return matcher.test(string);
 };
 
-},{}],94:[function(require,module,exports){
+},{}],81:[function(require,module,exports){
 'use strict';
 
 /*
@@ -6931,7 +8095,673 @@ function loadScript(options, cb) {
 
 module.exports = loadScript;
 
-},{"component-type":116,"next-tick":141,"script-onload":146}],95:[function(require,module,exports){
+},{"component-type":110,"next-tick":134,"script-onload":139}],82:[function(require,module,exports){
+'use strict';
+
+var uuid = require('uuid').v4;
+var store = require('./store');
+var each = require('@ndhoule/each');
+var Schedule = require('./schedule');
+var debug = require('debug')('localstorage-retry');
+
+// Some browsers don't support Function.prototype.bind, so just including a simplified version here
+function bind(func, obj) {
+  return function() {
+    return func.apply(obj, arguments);
+  };
+}
+
+/**
+ * @callback processFunc
+ * @param {Mixed} item The item added to the queue to process
+ * @param {Function} done A function to call when processing is completed.
+ *   Takes an optional error parameter if the processing failed
+ */
+
+/**
+ * Constructs a Queue backed by localStorage
+ *
+ * @constructor
+ * @param {String} name The name of the queue. Will be used to find abandoned queues and retry their items
+ * @param {processFunc} fn The function to call in order to process an item added to the queue
+ */
+function Queue(name, fn) {
+  this.name = name;
+  this.id = uuid();
+  this.fn = fn;
+
+  this.timeouts = {
+    ACK_TIMER: 1000,
+    RECLAIM_TIMER: 3000,
+    RECLAIM_TIMEOUT: 10000,
+    RECLAIM_WAIT: 500,
+    MAX_QUEUE_DELAY: 30000
+  };
+
+  this._schedule = new Schedule();
+  this._processId = 0;
+
+  // Set up our empty queues
+  this._store = store(this.name, this.id);
+  this._store.inProgress.set({});
+  this._store.queue.set([]);
+
+  // bind recurring tasks for ease of use
+  this._ack = bind(this._ack, this);
+  this._checkReclaim = bind(this._checkReclaim, this);
+  this._processHead = bind(this._processHead, this);
+
+  this._running = false;
+}
+
+/**
+ * Starts processing the queue
+ */
+Queue.prototype.start = function() {
+  if (this._running) {
+    this.stop();
+  }
+  this._running = true;
+  this._ack();
+  this._checkReclaim();
+  this._processHead();
+};
+
+/**
+ * Stops processing the queue
+ */
+Queue.prototype.stop = function() {
+  this._schedule.cancelAll();
+  this._running = false;
+};
+
+/**
+ * Calculates the delay (in ms) for a retry attempt
+ *
+ * @param {Number} attemptNumber The attemptNumber (1 for first retry)
+ * @return {Number} The delay in milliseconds to wait before attempting a retry
+ */
+Queue.prototype.getDelay = function(attemptNumber) {
+  return 1000 * Math.pow(attemptNumber, 2);
+};
+
+/**
+ * Adds an item to the queue
+ *
+ * @param {Mixed} item The item to process
+ */
+Queue.prototype.addItem = function(item) {
+  this._enqueue({
+    item: item,
+    attemptNumber: 0,
+    time: this._schedule.now()
+  });
+};
+
+/**
+ * Adds an item to the retry queue
+ *
+ * @param {Mixed} item The item to retry
+ * @param {Number} attemptNumber The attempt number (1 for first retry)
+ */
+Queue.prototype.requeue = function(item, attemptNumber) {
+  var delay = Math.min(this.getDelay(attemptNumber), this.timeouts.MAX_QUEUE_DELAY);
+  this._enqueue({
+    item: item,
+    attemptNumber: attemptNumber,
+    time: this._schedule.now() + delay
+  });
+};
+
+Queue.prototype._enqueue = function(entry) {
+  var queue = this._store.queue.get();
+  queue.push(entry);
+  queue = queue.sort(function(a,b) {
+    return a.time - b.time;
+  });
+  this._store.queue.set(queue);
+
+  if (this._running) {
+    this._processHead();
+  }
+};
+
+Queue.prototype._processHead = function() {
+  var self = this;
+  var store = this._store;
+
+  // cancel the scheduled task if it exists
+  this._schedule.cancel(this._processId);
+
+  // Pop the head off the queue
+  var queue = store.queue.get();
+  var inProgress = store.inProgress.get();
+  var now = this._schedule.now();
+  var toRun = [];
+
+  while (queue.length && queue[0].time <= now) {
+    var el = queue.shift();
+
+    var id = uuid();
+
+    // Save this to the in progress map
+    inProgress[id] = {
+      item: el.item,
+      attemptNumber: el.attemptNumber,
+      time: this._schedule.now()
+    };
+
+    toRun.push({
+      item: el.item,
+      done: function handle(err) {
+        var inProgress = store.inProgress.get();
+        delete inProgress[id];
+        store.inProgress.set(inProgress);
+
+        if (err) {
+          self.requeue(el.item, el.attemptNumber + 1);
+        }
+      }
+    });
+  }
+  store.queue.set(queue);
+  store.inProgress.set(inProgress);
+
+  each(function(el) {
+    // TODO: handle fn timeout
+    try {
+      self.fn(el.item, el.done);
+    } catch (err) {
+      debug('Process function threw error: ' + err);
+    }
+  }, toRun);
+
+  // re-read the queue in case the process function finished immediately or added another item
+  queue = store.queue.get();
+  this._schedule.cancel(this._processId);
+  if (queue.length > 0) {
+    this._processId = this._schedule.run(this._processHead, queue[0].time - now);
+  }
+};
+
+// Ack continuously to prevent other tabs from claiming our queue
+Queue.prototype._ack = function() {
+  this._store.ack.set(this._schedule.now());
+  this._store.reclaimStart.set(null);
+  this._store.reclaimEnd.set(null);
+  this._schedule.run(this._ack, this.timeouts.ACK_TIMER);
+};
+
+Queue.prototype._checkReclaim = function() {
+  var self = this;
+
+  function tryReclaim(store) {
+    store.reclaimStart.set(self.id);
+    store.ack.set(self._schedule.now());
+
+    self._schedule.run(function() {
+      if (store.reclaimStart.get() !== self.id) return;
+      store.reclaimEnd.set(self.id);
+      self._schedule.run(function() {
+        if (store.reclaimEnd.get() !== self.id) return;
+        if (store.reclaimStart.get() !== self.id) return;
+        self._reclaim(store.id);
+      }, self.timeouts.RECLAIM_WAIT);
+    }, self.timeouts.RECLAIM_WAIT);
+  }
+
+  each(function(store) {
+    if (store.id === self.id) return;
+    if (self._schedule.now() - store.ack.get() < self.timeouts.RECLAIM_TIMEOUT) return;
+    tryReclaim(store);
+  }, store.getAll(this.name));
+
+  this._schedule.run(this._checkReclaim, this.timeouts.RECLAIM_TIMER);
+};
+
+Queue.prototype._reclaim = function(id) {
+  var self = this;
+  var other = store(this.name, id);
+
+  var our = {
+    queue: this._store.queue.get() || []
+  };
+  var their = {
+    inProgress: other.inProgress.get() || {},
+    queue: other.queue.get() || []
+  };
+
+  // add their queue to ours, resetting run-time to immediate and attempt# to 0
+  each(function(el) {
+    our.queue.push({
+      item: el.item,
+      attemptNumber: 0,
+      time: self._schedule.now()
+    });
+  }, their.queue);
+
+  // if the queue is abandoned, all the in-progress are failed. retry them immediately and reset the attempt#
+  each(function(el) {
+    our.queue.push({
+      item: el.item,
+      attemptNumber: 0,
+      time: self._schedule.now()
+    });
+  }, their.inProgress);
+
+  our.queue = our.queue.sort(function(a,b) {
+    return a.time - b.time;
+  });
+
+  this._store.queue.set(our.queue);
+
+  // remove all keys
+  other.ack.remove();
+  other.reclaimStart.remove();
+  other.reclaimEnd.remove();
+  other.inProgress.remove();
+  other.queue.remove();
+
+  // process the new items we claimed
+  this._processHead();
+};
+
+module.exports = Queue;
+
+},{"./schedule":84,"./store":85,"@ndhoule/each":10,"debug":113,"uuid":86}],83:[function(require,module,exports){
+'use strict';
+
+var keys = require('@ndhoule/keys');
+var uuid = require('uuid').v4;
+
+var inMemoryStore = {
+  _data: {},
+  length: 0,
+  setItem: function(key, value) {
+    this._data[key] = value;
+    this.length = keys(this._data).length;
+    return value;
+  },
+  getItem: function(key) {
+    if (key in this._data) {
+      return this._data[key];
+    }
+    return null;
+  },
+  removeItem: function(key) {
+    if (key in this._data) {
+      delete this._data[key];
+    }
+    this.length = keys(this._data).length;
+    return null;
+  },
+  clear: function() {
+    this._data = {};
+    this.length = 0;
+  },
+  key: function(index) {
+    return keys(this._data)[index];
+  }
+};
+
+function isSupportedNatively() {
+  try {
+    if (!window.localStorage) return false;
+    var key = uuid();
+    window.localStorage.setItem(key, 'test_value');
+    var value = window.localStorage.getItem(key);
+    window.localStorage.removeItem(key);
+
+    // handle localStorage silently failing
+    return value === 'test_value';
+  } catch (e) {
+    // Can throw if localStorage is disabled
+    return false;
+  }
+}
+
+function pickStorage() {
+  if (isSupportedNatively()) {
+    return window.localStorage;
+  }
+  // fall back to in-memory
+  return inMemoryStore;
+}
+
+// Return a shared instance
+module.exports.localStorage = pickStorage();
+// Expose the in-memory store explicitly for testing
+module.exports.inMemoryStore = inMemoryStore;
+
+},{"@ndhoule/keys":15,"uuid":86}],84:[function(require,module,exports){
+'use strict';
+
+var each = require('@ndhoule/each');
+
+var defaultClock = {
+  setTimeout: function(fn, ms) {
+    return window.setTimeout(fn, ms);
+  },
+  clearTimeout: function(id) {
+    return window.clearTimeout(id);
+  },
+  Date: window.Date
+};
+
+var clock = defaultClock;
+
+function Schedule() {
+  this.tasks = {};
+  this.nextId = 1;
+}
+
+Schedule.prototype.now = function() {
+  return +new clock.Date();
+};
+
+Schedule.prototype.run = function(task, timeout) {
+  var id = this.nextId++;
+  this.tasks[id] = clock.setTimeout(this._handle(id, task), timeout);
+  return id;
+};
+
+Schedule.prototype.cancel = function(id) {
+  if (this.tasks[id]) {
+    clock.clearTimeout(this.tasks[id]);
+    delete this.tasks[id];
+  }
+};
+
+Schedule.prototype.cancelAll = function() {
+  each(clock.clearTimeout, this.tasks);
+  this.tasks = {};
+};
+
+Schedule.prototype._handle = function(id, callback) {
+  var self = this;
+  return function() {
+    delete self.tasks[id];
+    return callback();
+  };
+};
+
+Schedule.setClock = function(newClock) {
+  clock = newClock;
+};
+
+Schedule.resetClock = function() {
+  clock = defaultClock;
+};
+
+module.exports = Schedule;
+
+},{"@ndhoule/each":10}],85:[function(require,module,exports){
+'use strict';
+
+var localStorage = require('./localStorage').localStorage;
+var json = require('json3');
+
+function StoreItem(key) {
+  this.key = key;
+}
+
+StoreItem.prototype.get = function() {
+  try {
+    var str = localStorage.getItem(this.key);
+    if (str === null) {
+      return null;
+    }
+    return json.parse(str);
+  } catch (err) {
+    return null;
+  }
+};
+
+StoreItem.prototype.set = function(value) {
+  localStorage.setItem(this.key, json.stringify(value));
+};
+
+StoreItem.prototype.remove = function() {
+  localStorage.removeItem(this.key);
+};
+
+function createStore(name, id) {
+  return {
+    name: name,
+    id: id,
+    ack: new StoreItem([ name, id, 'ack' ].join('.')),
+    reclaimStart: new StoreItem([ name, id, 'reclaimStart' ].join('.')),
+    reclaimEnd: new StoreItem([ name, id, 'reclaimEnd' ].join('.')),
+    inProgress: new StoreItem([ name, id, 'inProgress' ].join('.')),
+    queue: new StoreItem([ name, id, 'queue' ].join('.'))
+  };
+}
+
+module.exports = createStore;
+module.exports.StoreItem = StoreItem;
+
+module.exports.getAll = function(name) {
+  var res = [];
+  for (var i = 0; i < localStorage.length; i++) {
+    var k = localStorage.key(i);
+    var parts = k.split('.');
+    if (parts.length !== 3) continue;
+    if (parts[0] !== name) continue;
+    if (parts[2] !== 'ack') continue;
+    res.push(createStore(name, parts[1]));
+  }
+  return res;
+};
+
+},{"./localStorage":83,"json3":125}],86:[function(require,module,exports){
+var v1 = require('./v1');
+var v4 = require('./v4');
+
+var uuid = v4;
+uuid.v1 = v1;
+uuid.v4 = v4;
+
+module.exports = uuid;
+
+},{"./v1":89,"./v4":90}],87:[function(require,module,exports){
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+var byteToHex = [];
+for (var i = 0; i < 256; ++i) {
+  byteToHex[i] = (i + 0x100).toString(16).substr(1);
+}
+
+function bytesToUuid(buf, offset) {
+  var i = offset || 0;
+  var bth = byteToHex;
+  return  bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] + '-' +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]] +
+          bth[buf[i++]] + bth[buf[i++]];
+}
+
+module.exports = bytesToUuid;
+
+},{}],88:[function(require,module,exports){
+(function (global){
+// Unique ID creation requires a high quality random # generator.  In the
+// browser this is a little complicated due to unknown quality of Math.random()
+// and inconsistent support for the `crypto` API.  We do the best we can via
+// feature-detection
+var rng;
+
+var crypto = global.crypto || global.msCrypto; // for IE 11
+if (crypto && crypto.getRandomValues) {
+  // WHATWG crypto RNG - http://wiki.whatwg.org/wiki/Crypto
+  var rnds8 = new Uint8Array(16);
+  rng = function whatwgRNG() {
+    crypto.getRandomValues(rnds8);
+    return rnds8;
+  };
+}
+
+if (!rng) {
+  // Math.random()-based (RNG)
+  //
+  // If all else fails, use Math.random().  It's fast, but is of unspecified
+  // quality.
+  var  rnds = new Array(16);
+  rng = function() {
+    for (var i = 0, r; i < 16; i++) {
+      if ((i & 0x03) === 0) r = Math.random() * 0x100000000;
+      rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+    }
+
+    return rnds;
+  };
+}
+
+module.exports = rng;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],89:[function(require,module,exports){
+// Unique ID creation requires a high quality random # generator.  We feature
+// detect to determine the best RNG source, normalizing to a function that
+// returns 128-bits of randomness, since that's what's usually required
+var rng = require('./lib/rng');
+var bytesToUuid = require('./lib/bytesToUuid');
+
+// **`v1()` - Generate time-based UUID**
+//
+// Inspired by https://github.com/LiosK/UUID.js
+// and http://docs.python.org/library/uuid.html
+
+// random #'s we need to init node and clockseq
+var _seedBytes = rng();
+
+// Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+var _nodeId = [
+  _seedBytes[0] | 0x01,
+  _seedBytes[1], _seedBytes[2], _seedBytes[3], _seedBytes[4], _seedBytes[5]
+];
+
+// Per 4.2.2, randomize (14 bit) clockseq
+var _clockseq = (_seedBytes[6] << 8 | _seedBytes[7]) & 0x3fff;
+
+// Previous uuid creation time
+var _lastMSecs = 0, _lastNSecs = 0;
+
+// See https://github.com/broofa/node-uuid for API details
+function v1(options, buf, offset) {
+  var i = buf && offset || 0;
+  var b = buf || [];
+
+  options = options || {};
+
+  var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq;
+
+  // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+  // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+  // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+  // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+  var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime();
+
+  // Per 4.2.1.2, use count of uuid's generated during the current clock
+  // cycle to simulate higher resolution clock
+  var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1;
+
+  // Time since last uuid creation (in msecs)
+  var dt = (msecs - _lastMSecs) + (nsecs - _lastNSecs)/10000;
+
+  // Per 4.2.1.2, Bump clockseq on clock regression
+  if (dt < 0 && options.clockseq === undefined) {
+    clockseq = clockseq + 1 & 0x3fff;
+  }
+
+  // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+  // time interval
+  if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+    nsecs = 0;
+  }
+
+  // Per 4.2.1.2 Throw error if too many uuids are requested
+  if (nsecs >= 10000) {
+    throw new Error('uuid.v1(): Can\'t create more than 10M uuids/sec');
+  }
+
+  _lastMSecs = msecs;
+  _lastNSecs = nsecs;
+  _clockseq = clockseq;
+
+  // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+  msecs += 12219292800000;
+
+  // `time_low`
+  var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+  b[i++] = tl >>> 24 & 0xff;
+  b[i++] = tl >>> 16 & 0xff;
+  b[i++] = tl >>> 8 & 0xff;
+  b[i++] = tl & 0xff;
+
+  // `time_mid`
+  var tmh = (msecs / 0x100000000 * 10000) & 0xfffffff;
+  b[i++] = tmh >>> 8 & 0xff;
+  b[i++] = tmh & 0xff;
+
+  // `time_high_and_version`
+  b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+  b[i++] = tmh >>> 16 & 0xff;
+
+  // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+  b[i++] = clockseq >>> 8 | 0x80;
+
+  // `clock_seq_low`
+  b[i++] = clockseq & 0xff;
+
+  // `node`
+  var node = options.node || _nodeId;
+  for (var n = 0; n < 6; ++n) {
+    b[i + n] = node[n];
+  }
+
+  return buf ? buf : bytesToUuid(b);
+}
+
+module.exports = v1;
+
+},{"./lib/bytesToUuid":87,"./lib/rng":88}],90:[function(require,module,exports){
+var rng = require('./lib/rng');
+var bytesToUuid = require('./lib/bytesToUuid');
+
+function v4(options, buf, offset) {
+  var i = buf && offset || 0;
+
+  if (typeof(options) == 'string') {
+    buf = options == 'binary' ? new Array(16) : null;
+    options = null;
+  }
+  options = options || {};
+
+  var rnds = options.random || (options.rng || rng)();
+
+  // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+  rnds[6] = (rnds[6] & 0x0f) | 0x40;
+  rnds[8] = (rnds[8] & 0x3f) | 0x80;
+
+  // Copy bytes to buffer, if provided
+  if (buf) {
+    for (var ii = 0; ii < 16; ++ii) {
+      buf[i + ii] = rnds[ii];
+    }
+  }
+
+  return buf || bytesToUuid(rnds);
+}
+
+module.exports = v4;
+
+},{"./lib/bytesToUuid":87,"./lib/rng":88}],91:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6956,7 +8786,7 @@ function preventDefault(e) {
 
 module.exports = preventDefault;
 
-},{}],96:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7041,7 +8871,7 @@ function set(protocol) {
   }
 }
 
-},{}],97:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 'use strict';
 
 /*
@@ -7159,7 +8989,7 @@ function encode(obj) {
   return encodeURIComponent(str);
 }
 
-},{"@segment/base64-encode":87,"has-cors":124,"json3":130,"jsonp":131}],98:[function(require,module,exports){
+},{"@segment/base64-encode":74,"has-cors":120,"json3":125,"jsonp":126}],94:[function(require,module,exports){
 (function (global){
 "use strict"
 
@@ -7332,7 +9162,7 @@ module.exports = (function() {
 }())
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"json3":130}],99:[function(require,module,exports){
+},{"json3":125}],95:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7432,7 +9262,7 @@ domain.cookie = cookie;
 
 exports = module.exports = domain;
 
-},{"component-cookie":109,"component-url":117}],100:[function(require,module,exports){
+},{"component-cookie":102,"component-url":111}],96:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7511,17 +9341,15 @@ function strict(query) {
 module.exports = utm;
 module.exports.strict = strict;
 
-},{"@ndhoule/foldl":13,"component-querystring":114}],101:[function(require,module,exports){
+},{"@ndhoule/foldl":13,"component-querystring":108}],97:[function(require,module,exports){
 'use strict';
 
 /**
  * Module Dependencies
  */
 
-// XXX: Hacky fix for duo not supporting scoped modules
-// substitude with @ndhoule/* after migration to browserify
-var map = require('../vendor/map');
-var foldl = require('../vendor/foldl');
+var map = require('@ndhoule/map');
+var foldl = require('@ndhoule/foldl');
 
 var eventMap = {
   // Promotions
@@ -7550,16 +9378,16 @@ var eventMap = {
     object: 'product list',
     action: 'filtered'
   }],
-  productViewed: [{
-    object: 'product',
-    action: 'viewed'
-  }],
+
+  // Core Ordering
   productClicked: [{
     object: 'product',
     action: 'clicked'
   }],
-
-  // Core Ordering
+  productViewed: [{
+    object: 'product',
+    action: 'viewed'
+  }],
   productAdded: [{
     object: 'product',
     action: 'added'
@@ -7571,10 +9399,6 @@ var eventMap = {
   cartViewed: [{
     object: 'cart',
     action: 'viewed'
-  }],
-  orderStarted: [{
-    object: 'order',
-    action: 'started'
   }],
   orderUpdated: [{
     object: 'order',
@@ -7592,9 +9416,9 @@ var eventMap = {
     object: 'order',
     action: 'cancelled'
   }],
-  paymentInfoAdded: [{
+  paymentInfoEntered: [{
     object: 'payment info',
-    action: 'added'
+    action: 'entered'
   }],
   checkoutStarted: [{
     object: 'checkout',
@@ -7636,9 +9460,12 @@ var eventMap = {
     object: 'product',
     action: 'removed from wishlist'
   }],
-  productAddedToCartFromWishlist: [{
+  productAddedFromWishlistToCart: [{
     object: 'product',
     action: 'added to cart from wishlist'
+  }, {
+    object: 'product',
+    action: 'added from wishlist to cart'
   }],
 
   // Sharing
@@ -7649,6 +9476,12 @@ var eventMap = {
   cartShared: [{
     object: 'cart',
     action: 'shared'
+  }],
+
+  // Reviewing
+  productReviewed: [{
+    object: 'product',
+    action: 'reviewed'
   }],
 
   // App Lifecycle
@@ -7738,169 +9571,7 @@ module.exports = foldl(function transform(ret, pairs, method) {
   return ret;
 }, {}, eventMap);
 
-},{"../vendor/foldl":103,"../vendor/map":104}],102:[function(require,module,exports){
-// remove me!
-
-'use strict';
-
-module.exports = function each(iterator, collection) {
-  return (isArrayLike(collection) ? arrayEach : baseEach).call(this, iterator, collection);
-};
-
-var toStr = Object.prototype.toString;
-var hop = Object.prototype.hasOwnProperty;
-var strCharAt = String.prototype.charAt;
-
-var isNumber = function isNumber(val) {
-  var type = typeof val;
-  return type === 'number' || (type === 'object' && toStr.call(val) === '[object Number]');
-};
-
-var isString = function isString(val) {
-  return toStr.call(val) === '[object String]';
-};
-
-var isArray = typeof Array.isArray === 'function' ? Array.isArray : function isArray(val) {
-  return toStr.call(val) === '[object Array]';
-};
-
-var isArrayLike = function isArrayLike(val) {
-  return val != null && (isArray(val) || (val !== 'function' && isNumber(val.length)));
-};
-
-var arrayEach = function arrayEach(iterator, array) {
-  for (var i = 0; i < array.length; i += 1) {
-    // Break iteration early if `iterator` returns `false`
-    if (iterator(array[i], i, array) === false) {
-      break;
-    }
-  }
-};
-
-var baseEach = function baseEach(iterator, object) {
-  var ks = keys(object);
-
-  for (var i = 0; i < ks.length; i += 1) {
-    // Break iteration early if `iterator` returns `false`
-    if (iterator(object[ks[i]], ks[i], object) === false) {
-      break;
-    }
-  }
-};
-
-var charAt = function(str, index) {
-  return strCharAt.call(str, index);
-};
-
-var has = function has(context, prop) {
-  return hop.call(context, prop);
-};
-
-
-var indexKeys = function indexKeys(target, pred) {
-  pred = pred || has;
-
-  var results = [];
-
-  for (var i = 0, len = target.length; i < len; i += 1) {
-    if (pred(target, i)) {
-      results.push(String(i));
-    }
-  }
-
-  return results;
-};
-
-
-var objectKeys = function objectKeys(target, pred) {
-  pred = pred || has;
-
-  var results = [];
-
-  for (var key in target) {
-    if (pred(target, key)) {
-      results.push(String(key));
-    }
-  }
-
-  return results;
-};
-
-
-var keys = function keys(source) {
-  if (source == null) {
-    return [];
-  }
-
-  // IE6-8 compatibility (string)
-  if (isString(source)) {
-    return indexKeys(source, charAt);
-  }
-
-  // IE6-8 compatibility (arguments)
-  if (isArrayLike(source)) {
-    return indexKeys(source, has);
-  }
-
-  return objectKeys(source);
-};
-
-},{}],103:[function(require,module,exports){
-// remove me!
-
-'use strict';
-
-var each = require('../each');
-
-module.exports = function foldl(iterator, accumulator, collection) {
-  if (typeof iterator !== 'function') {
-    throw new TypeError('Expected a function but received a ' + typeof iterator);
-  }
-
-  each(function(val, i, collection) {
-    accumulator = iterator(accumulator, val, i, collection);
-  }, collection);
-
-  return accumulator;
-};
-},{"../each":102}],104:[function(require,module,exports){
-// remove me!
-
-'use strict';
-
-var each = require('../each');
-
-/**
- * Produce a new array by passing each value in the input `collection` through a transformative
- * `iterator` function. The `iterator` function is passed three arguments:
- * `(value, index, collection)`.
- *
- * @name map
- * @api public
- * @param {Function} iterator The transformer function to invoke per iteration.
- * @param {Array} collection The collection to iterate over.
- * @return {Array} A new array containing the results of each `iterator` invocation.
- * @example
- * var square = function(x) { return x * x; };
- *
- * map(square, [1, 2, 3]);
- * //=> [1, 4, 9]
- */
-
-module.exports = function map(iterator, collection) {
-  if (typeof iterator !== 'function') {
-    throw new TypeError('Expected a function but received a ' + typeof iterator);
-  }
-
-  var result = [];
-
-  each(function(val, i, collection) {
-    result.push(iterator(val, i, collection));
-  }, collection);
-
-  return result;
-};
-},{"../each":102}],105:[function(require,module,exports){
+},{"@ndhoule/foldl":13,"@ndhoule/map":16}],98:[function(require,module,exports){
 'use strict';
 
 var bind = require('component-bind');
@@ -7918,7 +9589,7 @@ function bindAll(obj) {
 
 module.exports = bindAll;
 
-},{"component-bind":107}],106:[function(require,module,exports){
+},{"component-bind":100}],99:[function(require,module,exports){
 'use strict';
 
 function preserveCamelCase(str) {
@@ -7976,7 +9647,7 @@ module.exports = function () {
 	});
 };
 
-},{}],107:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 /**
  * Slice reference.
  */
@@ -8001,7 +9672,7 @@ module.exports = function(obj, fn){
   }
 };
 
-},{}],108:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -8060,7 +9731,7 @@ function clone(obj){
   }
 }
 
-},{"component-type":116,"type":116}],109:[function(require,module,exports){
+},{"component-type":110,"type":110}],102:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -8193,7 +9864,7 @@ function decode(value) {
   }
 }
 
-},{"debug":119}],110:[function(require,module,exports){
+},{"debug":113}],103:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -8284,7 +9955,7 @@ function array(obj, fn, ctx) {
   }
 }
 
-},{"component-type":111,"to-function":160,"type":111}],111:[function(require,module,exports){
+},{"component-type":104,"to-function":153,"type":104}],104:[function(require,module,exports){
 
 /**
  * toString ref.
@@ -8318,7 +9989,172 @@ module.exports = function(val){
   return typeof val;
 };
 
-},{}],112:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
+
+/**
+ * Expose `Emitter`.
+ */
+
+if (typeof module !== 'undefined') {
+  module.exports = Emitter;
+}
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+},{}],106:[function(require,module,exports){
 var bind = window.addEventListener ? 'addEventListener' : 'attachEvent',
     unbind = window.removeEventListener ? 'removeEventListener' : 'detachEvent',
     prefix = bind !== 'addEventListener' ? 'on' : '';
@@ -8354,7 +10190,7 @@ exports.unbind = function(el, type, fn, capture){
   el[unbind](prefix + type, fn, capture || false);
   return fn;
 };
-},{}],113:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 /**
  * Global Names
  */
@@ -8441,7 +10277,7 @@ function prefixed(str) {
   };
 }
 
-},{}],114:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -8548,7 +10384,7 @@ exports.stringify = function(obj){
   return pairs.join('&');
 };
 
-},{"trim":164,"type":115}],115:[function(require,module,exports){
+},{"trim":158,"type":109}],109:[function(require,module,exports){
 /**
  * toString ref.
  */
@@ -8584,7 +10420,7 @@ module.exports = function(val){
   return typeof val;
 };
 
-},{}],116:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 /**
  * toString ref.
  */
@@ -8632,7 +10468,7 @@ function isBuffer(obj) {
     ))
 }
 
-},{}],117:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 
 /**
  * Parse the given `url`.
@@ -8716,439 +10552,306 @@ function port (protocol){
   }
 }
 
-},{}],118:[function(require,module,exports){
-(function (Buffer){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
+},{}],112:[function(require,module,exports){
+/*
+ * Date Format 1.2.3
+ * (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+ * MIT license
+ *
+ * Includes enhancements by Scott Trenda <scott.trenda.net>
+ * and Kris Kowal <cixar.com/~kris.kowal/>
+ *
+ * Accepts a date, a mask, or a date and a mask.
+ * Returns a formatted version of the given date.
+ * The date defaults to the current date/time.
+ * The mask defaults to dateFormat.masks.default.
+ */
 
-// NOTE: These type checking functions intentionally don't use `instanceof`
-// because it is fragile and can be easily faked with `Object.create()`.
+(function(global) {
+  'use strict';
 
-function isArray(arg) {
-  if (Array.isArray) {
-    return Array.isArray(arg);
+  var dateFormat = (function() {
+      var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZWN]|'[^']*'|'[^']*'/g;
+      var timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g;
+      var timezoneClip = /[^-+\dA-Z]/g;
+  
+      // Regexes and supporting functions are cached through closure
+      return function (date, mask, utc, gmt) {
+  
+        // You can't provide utc if you skip other args (use the 'UTC:' mask prefix)
+        if (arguments.length === 1 && kindOf(date) === 'string' && !/\d/.test(date)) {
+          mask = date;
+          date = undefined;
+        }
+  
+        date = date || new Date;
+  
+        if(!(date instanceof Date)) {
+          date = new Date(date);
+        }
+  
+        if (isNaN(date)) {
+          throw TypeError('Invalid date');
+        }
+  
+        mask = String(dateFormat.masks[mask] || mask || dateFormat.masks['default']);
+  
+        // Allow setting the utc/gmt argument via the mask
+        var maskSlice = mask.slice(0, 4);
+        if (maskSlice === 'UTC:' || maskSlice === 'GMT:') {
+          mask = mask.slice(4);
+          utc = true;
+          if (maskSlice === 'GMT:') {
+            gmt = true;
+          }
+        }
+  
+        var _ = utc ? 'getUTC' : 'get';
+        var d = date[_ + 'Date']();
+        var D = date[_ + 'Day']();
+        var m = date[_ + 'Month']();
+        var y = date[_ + 'FullYear']();
+        var H = date[_ + 'Hours']();
+        var M = date[_ + 'Minutes']();
+        var s = date[_ + 'Seconds']();
+        var L = date[_ + 'Milliseconds']();
+        var o = utc ? 0 : date.getTimezoneOffset();
+        var W = getWeek(date);
+        var N = getDayOfWeek(date);
+        var flags = {
+          d:    d,
+          dd:   pad(d),
+          ddd:  dateFormat.i18n.dayNames[D],
+          dddd: dateFormat.i18n.dayNames[D + 7],
+          m:    m + 1,
+          mm:   pad(m + 1),
+          mmm:  dateFormat.i18n.monthNames[m],
+          mmmm: dateFormat.i18n.monthNames[m + 12],
+          yy:   String(y).slice(2),
+          yyyy: y,
+          h:    H % 12 || 12,
+          hh:   pad(H % 12 || 12),
+          H:    H,
+          HH:   pad(H),
+          M:    M,
+          MM:   pad(M),
+          s:    s,
+          ss:   pad(s),
+          l:    pad(L, 3),
+          L:    pad(Math.round(L / 10)),
+          t:    H < 12 ? 'a'  : 'p',
+          tt:   H < 12 ? 'am' : 'pm',
+          T:    H < 12 ? 'A'  : 'P',
+          TT:   H < 12 ? 'AM' : 'PM',
+          Z:    gmt ? 'GMT' : utc ? 'UTC' : (String(date).match(timezone) || ['']).pop().replace(timezoneClip, ''),
+          o:    (o > 0 ? '-' : '+') + pad(Math.floor(Math.abs(o) / 60) * 100 + Math.abs(o) % 60, 4),
+          S:    ['th', 'st', 'nd', 'rd'][d % 10 > 3 ? 0 : (d % 100 - d % 10 != 10) * d % 10],
+          W:    W,
+          N:    N
+        };
+  
+        return mask.replace(token, function (match) {
+          if (match in flags) {
+            return flags[match];
+          }
+          return match.slice(1, match.length - 1);
+        });
+      };
+    })();
+
+  dateFormat.masks = {
+    'default':               'ddd mmm dd yyyy HH:MM:ss',
+    'shortDate':             'm/d/yy',
+    'mediumDate':            'mmm d, yyyy',
+    'longDate':              'mmmm d, yyyy',
+    'fullDate':              'dddd, mmmm d, yyyy',
+    'shortTime':             'h:MM TT',
+    'mediumTime':            'h:MM:ss TT',
+    'longTime':              'h:MM:ss TT Z',
+    'isoDate':               'yyyy-mm-dd',
+    'isoTime':               'HH:MM:ss',
+    'isoDateTime':           'yyyy-mm-dd\'T\'HH:MM:sso',
+    'isoUtcDateTime':        'UTC:yyyy-mm-dd\'T\'HH:MM:ss\'Z\'',
+    'expiresHeaderFormat':   'ddd, dd mmm yyyy HH:MM:ss Z'
+  };
+
+  // Internationalization strings
+  dateFormat.i18n = {
+    dayNames: [
+      'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat',
+      'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+    ],
+    monthNames: [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+    ]
+  };
+
+function pad(val, len) {
+  val = String(val);
+  len = len || 2;
+  while (val.length < len) {
+    val = '0' + val;
   }
-  return objectToString(arg) === '[object Array]';
+  return val;
 }
-exports.isArray = isArray;
-
-function isBoolean(arg) {
-  return typeof arg === 'boolean';
-}
-exports.isBoolean = isBoolean;
-
-function isNull(arg) {
-  return arg === null;
-}
-exports.isNull = isNull;
-
-function isNullOrUndefined(arg) {
-  return arg == null;
-}
-exports.isNullOrUndefined = isNullOrUndefined;
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-exports.isNumber = isNumber;
-
-function isString(arg) {
-  return typeof arg === 'string';
-}
-exports.isString = isString;
-
-function isSymbol(arg) {
-  return typeof arg === 'symbol';
-}
-exports.isSymbol = isSymbol;
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-exports.isUndefined = isUndefined;
-
-function isRegExp(re) {
-  return objectToString(re) === '[object RegExp]';
-}
-exports.isRegExp = isRegExp;
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-exports.isObject = isObject;
-
-function isDate(d) {
-  return objectToString(d) === '[object Date]';
-}
-exports.isDate = isDate;
-
-function isError(e) {
-  return (objectToString(e) === '[object Error]' || e instanceof Error);
-}
-exports.isError = isError;
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-exports.isFunction = isFunction;
-
-function isPrimitive(arg) {
-  return arg === null ||
-         typeof arg === 'boolean' ||
-         typeof arg === 'number' ||
-         typeof arg === 'string' ||
-         typeof arg === 'symbol' ||  // ES6 symbol
-         typeof arg === 'undefined';
-}
-exports.isPrimitive = isPrimitive;
-
-exports.isBuffer = Buffer.isBuffer;
-
-function objectToString(o) {
-  return Object.prototype.toString.call(o);
-}
-
-}).call(this,{"isBuffer":require("../../is-buffer/index.js")})
-},{"../../is-buffer/index.js":126}],119:[function(require,module,exports){
 
 /**
- * This is the web browser implementation of `debug()`.
+ * Get the ISO 8601 week number
+ * Based on comments from
+ * http://techblog.procurios.nl/k/n618/news/view/33796/14863/Calculate-ISO-8601-week-and-year-in-javascript.html
  *
- * Expose `debug()` as the module.
+ * @param  {Object} `date`
+ * @return {Number}
  */
+function getWeek(date) {
+  // Remove time components of date
+  var targetThursday = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-exports = module.exports = require('./debug');
-exports.log = log;
-exports.formatArgs = formatArgs;
-exports.save = save;
-exports.load = load;
-exports.useColors = useColors;
-exports.storage = 'undefined' != typeof chrome
-               && 'undefined' != typeof chrome.storage
-                  ? chrome.storage.local
-                  : localstorage();
+  // Change date to Thursday same week
+  targetThursday.setDate(targetThursday.getDate() - ((targetThursday.getDay() + 6) % 7) + 3);
 
-/**
- * Colors.
- */
+  // Take January 4th as it is always in week 1 (see ISO 8601)
+  var firstThursday = new Date(targetThursday.getFullYear(), 0, 4);
 
-exports.colors = [
-  'lightseagreen',
-  'forestgreen',
-  'goldenrod',
-  'dodgerblue',
-  'darkorchid',
-  'crimson'
-];
+  // Change date to Thursday same week
+  firstThursday.setDate(firstThursday.getDate() - ((firstThursday.getDay() + 6) % 7) + 3);
 
-/**
- * Currently only WebKit-based Web Inspectors, Firefox >= v31,
- * and the Firebug extension (any Firefox version) are known
- * to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
- */
+  // Check if daylight-saving-time-switch occured and correct for it
+  var ds = targetThursday.getTimezoneOffset() - firstThursday.getTimezoneOffset();
+  targetThursday.setHours(targetThursday.getHours() - ds);
 
-function useColors() {
-  // is webkit? http://stackoverflow.com/a/16459606/376773
-  return ('WebkitAppearance' in document.documentElement.style) ||
-    // is firebug? http://stackoverflow.com/a/398120/376773
-    (window.console && (console.firebug || (console.exception && console.table))) ||
-    // is firefox >= v31?
-    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-    (navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31);
+  // Number of weeks between target Thursday and first Thursday
+  var weekDiff = (targetThursday - firstThursday) / (86400000*7);
+  return 1 + Math.floor(weekDiff);
 }
 
 /**
- * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ * Get ISO-8601 numeric representation of the day of the week
+ * 1 (for Monday) through 7 (for Sunday)
+ * 
+ * @param  {Object} `date`
+ * @return {Number}
  */
+function getDayOfWeek(date) {
+  var dow = date.getDay();
+  if(dow === 0) {
+    dow = 7;
+  }
+  return dow;
+}
 
-exports.formatters.j = function(v) {
-  return JSON.stringify(v);
+/**
+ * kind-of shortcut
+ * @param  {*} val
+ * @return {String}
+ */
+function kindOf(val) {
+  if (val === null) {
+    return 'null';
+  }
+
+  if (val === undefined) {
+    return 'undefined';
+  }
+
+  if (typeof val !== 'object') {
+    return typeof val;
+  }
+
+  if (Array.isArray(val)) {
+    return 'array';
+  }
+
+  return {}.toString.call(val)
+    .slice(8, -1).toLowerCase();
 };
 
 
-/**
- * Colorize log arguments if enabled.
- *
- * @api public
- */
 
-function formatArgs() {
-  var args = arguments;
-  var useColors = this.useColors;
+  if (typeof define === 'function' && define.amd) {
+    define(function () {
+      return dateFormat;
+    });
+  } else if (typeof exports === 'object') {
+    module.exports = dateFormat;
+  } else {
+    global.dateFormat = dateFormat;
+  }
+})(this);
 
-  args[0] = (useColors ? '%c' : '')
-    + this.namespace
-    + (useColors ? ' %c' : ' ')
-    + args[0]
-    + (useColors ? '%c ' : ' ')
-    + '+' + exports.humanize(this.diff);
-
-  if (!useColors) return args;
-
-  var c = 'color: ' + this.color;
-  args = [args[0], c, 'color: inherit'].concat(Array.prototype.slice.call(args, 1));
-
-  // the final "%c" is somewhat tricky, because there could be other
-  // arguments passed either before or after the %c, so we need to
-  // figure out the correct index to insert the CSS into
-  var index = 0;
-  var lastC = 0;
-  args[0].replace(/%[a-z%]/g, function(match) {
-    if ('%%' === match) return;
-    index++;
-    if ('%c' === match) {
-      // we only are interested in the *last* %c
-      // (the user may have provided their own)
-      lastC = index;
-    }
-  });
-
-  args.splice(lastC, 0, c);
-  return args;
-}
+},{}],113:[function(require,module,exports){
 
 /**
- * Invokes `console.log()` when available.
- * No-op when `console.log` is not a "function".
- *
- * @api public
- */
-
-function log() {
-  // this hackery is required for IE8/9, where
-  // the `console.log` function doesn't have 'apply'
-  return 'object' === typeof console
-    && console.log
-    && Function.prototype.apply.call(console.log, console, arguments);
-}
-
-/**
- * Save `namespaces`.
- *
- * @param {String} namespaces
- * @api private
- */
-
-function save(namespaces) {
-  try {
-    if (null == namespaces) {
-      exports.storage.removeItem('debug');
-    } else {
-      exports.storage.debug = namespaces;
-    }
-  } catch(e) {}
-}
-
-/**
- * Load `namespaces`.
- *
- * @return {String} returns the previously persisted debug modes
- * @api private
- */
-
-function load() {
-  var r;
-  try {
-    r = exports.storage.debug;
-  } catch(e) {}
-  return r;
-}
-
-/**
- * Enable namespaces listed in `localStorage.debug` initially.
- */
-
-exports.enable(load());
-
-/**
- * Localstorage attempts to return the localstorage.
- *
- * This is necessary because safari throws
- * when a user disables cookies/localstorage
- * and you attempt to access it.
- *
- * @return {LocalStorage}
- * @api private
- */
-
-function localstorage(){
-  try {
-    return window.localStorage;
-  } catch (e) {}
-}
-
-},{"./debug":120}],120:[function(require,module,exports){
-
-/**
- * This is the common logic for both the Node.js and web browser
- * implementations of `debug()`.
- *
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = debug;
-exports.coerce = coerce;
-exports.disable = disable;
-exports.enable = enable;
-exports.enabled = enabled;
-exports.humanize = require('ms');
+module.exports = debug;
 
 /**
- * The currently active debug mode names, and names to skip.
- */
-
-exports.names = [];
-exports.skips = [];
-
-/**
- * Map of special "%n" handling functions, for the debug "format" argument.
+ * Create a debugger with the given `name`.
  *
- * Valid key names are a single, lowercased letter, i.e. "n".
- */
-
-exports.formatters = {};
-
-/**
- * Previously assigned color.
- */
-
-var prevColor = 0;
-
-/**
- * Previous log timestamp.
- */
-
-var prevTime;
-
-/**
- * Select a color.
- *
- * @return {Number}
- * @api private
- */
-
-function selectColor() {
-  return exports.colors[prevColor++ % exports.colors.length];
-}
-
-/**
- * Create a debugger with the given `namespace`.
- *
- * @param {String} namespace
- * @return {Function}
+ * @param {String} name
+ * @return {Type}
  * @api public
  */
 
-function debug(namespace) {
+function debug(name) {
+  if (!debug.enabled(name)) return function(){};
 
-  // define the `disabled` version
-  function disabled() {
+  return function(fmt){
+    fmt = coerce(fmt);
+
+    var curr = new Date;
+    var ms = curr - (debug[name] || curr);
+    debug[name] = curr;
+
+    fmt = name
+      + ' '
+      + fmt
+      + ' +' + debug.humanize(ms);
+
+    // This hackery is required for IE8
+    // where `console.log` doesn't have 'apply'
+    window.console
+      && console.log
+      && Function.prototype.apply.call(console.log, console, arguments);
   }
-  disabled.enabled = false;
-
-  // define the `enabled` version
-  function enabled() {
-
-    var self = enabled;
-
-    // set `diff` timestamp
-    var curr = +new Date();
-    var ms = curr - (prevTime || curr);
-    self.diff = ms;
-    self.prev = prevTime;
-    self.curr = curr;
-    prevTime = curr;
-
-    // add the `color` if not set
-    if (null == self.useColors) self.useColors = exports.useColors();
-    if (null == self.color && self.useColors) self.color = selectColor();
-
-    var args = Array.prototype.slice.call(arguments);
-
-    args[0] = exports.coerce(args[0]);
-
-    if ('string' !== typeof args[0]) {
-      // anything else let's inspect with %o
-      args = ['%o'].concat(args);
-    }
-
-    // apply any `formatters` transformations
-    var index = 0;
-    args[0] = args[0].replace(/%([a-z%])/g, function(match, format) {
-      // if we encounter an escaped % then don't increase the array index
-      if (match === '%%') return match;
-      index++;
-      var formatter = exports.formatters[format];
-      if ('function' === typeof formatter) {
-        var val = args[index];
-        match = formatter.call(self, val);
-
-        // now we need to remove `args[index]` since it's inlined in the `format`
-        args.splice(index, 1);
-        index--;
-      }
-      return match;
-    });
-
-    if ('function' === typeof exports.formatArgs) {
-      args = exports.formatArgs.apply(self, args);
-    }
-    var logFn = enabled.log || exports.log || console.log.bind(console);
-    logFn.apply(self, args);
-  }
-  enabled.enabled = true;
-
-  var fn = exports.enabled(namespace) ? enabled : disabled;
-
-  fn.namespace = namespace;
-
-  return fn;
 }
 
 /**
- * Enables a debug mode by namespaces. This can include modes
+ * The currently active debug mode names.
+ */
+
+debug.names = [];
+debug.skips = [];
+
+/**
+ * Enables a debug mode by name. This can include modes
  * separated by a colon and wildcards.
  *
- * @param {String} namespaces
+ * @param {String} name
  * @api public
  */
 
-function enable(namespaces) {
-  exports.save(namespaces);
+debug.enable = function(name) {
+  try {
+    localStorage.debug = name;
+  } catch(e){}
 
-  var split = (namespaces || '').split(/[\s,]+/);
-  var len = split.length;
+  var split = (name || '').split(/[\s,]+/)
+    , len = split.length;
 
   for (var i = 0; i < len; i++) {
-    if (!split[i]) continue; // ignore empty strings
-    namespaces = split[i].replace(/\*/g, '.*?');
-    if (namespaces[0] === '-') {
-      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
-    } else {
-      exports.names.push(new RegExp('^' + namespaces + '$'));
+    name = split[i].replace('*', '.*?');
+    if (name[0] === '-') {
+      debug.skips.push(new RegExp('^' + name.substr(1) + '$'));
+    }
+    else {
+      debug.names.push(new RegExp('^' + name + '$'));
     }
   }
-}
+};
 
 /**
  * Disable debug output.
@@ -9156,9 +10859,28 @@ function enable(namespaces) {
  * @api public
  */
 
-function disable() {
-  exports.enable('');
-}
+debug.disable = function(){
+  debug.enable('');
+};
+
+/**
+ * Humanize the given `ms`.
+ *
+ * @param {Number} m
+ * @return {String}
+ * @api private
+ */
+
+debug.humanize = function(ms) {
+  var sec = 1000
+    , min = 60 * 1000
+    , hour = 60 * min;
+
+  if (ms >= hour) return (ms / hour).toFixed(1) + 'h';
+  if (ms >= min) return (ms / min).toFixed(1) + 'm';
+  if (ms >= sec) return (ms / sec | 0) + 's';
+  return ms + 'ms';
+};
 
 /**
  * Returns true if the given mode name is enabled, false otherwise.
@@ -9168,27 +10890,22 @@ function disable() {
  * @api public
  */
 
-function enabled(name) {
-  var i, len;
-  for (i = 0, len = exports.skips.length; i < len; i++) {
-    if (exports.skips[i].test(name)) {
+debug.enabled = function(name) {
+  for (var i = 0, len = debug.skips.length; i < len; i++) {
+    if (debug.skips[i].test(name)) {
       return false;
     }
   }
-  for (i = 0, len = exports.names.length; i < len; i++) {
-    if (exports.names[i].test(name)) {
+  for (var i = 0, len = debug.names.length; i < len; i++) {
+    if (debug.names[i].test(name)) {
       return true;
     }
   }
   return false;
-}
+};
 
 /**
  * Coerce `val`.
- *
- * @param {Mixed} val
- * @return {Mixed}
- * @api private
  */
 
 function coerce(val) {
@@ -9196,7 +10913,13 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":136}],121:[function(require,module,exports){
+// persist
+
+try {
+  if (window.localStorage) debug.enable(localStorage.debug);
+} catch(e){}
+
+},{}],114:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -9230,7 +10953,7 @@ function when(condition, fn, interval) {
 
 module.exports = when;
 
-},{"next-tick":141}],122:[function(require,module,exports){
+},{"next-tick":134}],115:[function(require,module,exports){
 
 /**
  * Expose `parse`.
@@ -9344,7 +11067,114 @@ function parse(html, doc) {
   return fragment;
 }
 
-},{}],123:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
+var isBuffer = require('is-buffer')
+
+var flat = module.exports = flatten
+flatten.flatten = flatten
+flatten.unflatten = unflatten
+
+function flatten(target, opts) {
+  opts = opts || {}
+
+  var delimiter = opts.delimiter || '.'
+  var maxDepth = opts.maxDepth
+  var output = {}
+
+  function step(object, prev, currentDepth) {
+    currentDepth = currentDepth ? currentDepth : 1
+    Object.keys(object).forEach(function(key) {
+      var value = object[key]
+      var isarray = opts.safe && Array.isArray(value)
+      var type = Object.prototype.toString.call(value)
+      var isbuffer = isBuffer(value)
+      var isobject = (
+        type === "[object Object]" ||
+        type === "[object Array]"
+      )
+
+      var newKey = prev
+        ? prev + delimiter + key
+        : key
+
+      if (!isarray && !isbuffer && isobject && Object.keys(value).length &&
+        (!opts.maxDepth || currentDepth < maxDepth)) {
+        return step(value, newKey, currentDepth + 1)
+      }
+
+      output[newKey] = value
+    })
+  }
+
+  step(target)
+
+  return output
+}
+
+function unflatten(target, opts) {
+  opts = opts || {}
+
+  var delimiter = opts.delimiter || '.'
+  var overwrite = opts.overwrite || false
+  var result = {}
+
+  var isbuffer = isBuffer(target)
+  if (isbuffer || Object.prototype.toString.call(target) !== '[object Object]') {
+    return target
+  }
+
+  // safely ensure that the key is
+  // an integer.
+  function getkey(key) {
+    var parsedKey = Number(key)
+
+    return (
+      isNaN(parsedKey) ||
+      key.indexOf('.') !== -1
+    ) ? key
+      : parsedKey
+  }
+
+  Object.keys(target).forEach(function(key) {
+    var split = key.split(delimiter)
+    var key1 = getkey(split.shift())
+    var key2 = getkey(split[0])
+    var recipient = result
+
+    while (key2 !== undefined) {
+      var type = Object.prototype.toString.call(recipient[key1])
+      var isobject = (
+        type === "[object Object]" ||
+        type === "[object Array]"
+      )
+
+      // do not write over falsey, non-undefined values if overwrite is false
+      if (!overwrite && !isobject && typeof recipient[key1] !== 'undefined') {
+        return
+      }
+
+      if ((overwrite && !isobject) || (!overwrite && recipient[key1] == null)) {
+        recipient[key1] = (
+          typeof key2 === 'number' &&
+          !opts.object ? [] : {}
+        )
+      }
+
+      recipient = recipient[key1]
+      if (split.length > 0) {
+        key1 = getkey(split.shift())
+        key2 = getkey(split[0])
+      }
+    }
+
+    // unflatten again for 'messy objects'
+    recipient[key1] = unflatten(target[key], opts)
+  })
+
+  return result
+}
+
+},{"is-buffer":122}],117:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -9381,7 +11211,11 @@ function generate (name, options) {
   };
 }
 
-},{"debug":119}],124:[function(require,module,exports){
+},{"debug":118}],118:[function(require,module,exports){
+arguments[4][37][0].apply(exports,arguments)
+},{"./debug":119,"_process":137,"dup":37}],119:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],120:[function(require,module,exports){
 
 /**
  * Module exports.
@@ -9400,7 +11234,7 @@ try {
   module.exports = false;
 }
 
-},{}],125:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -9425,7 +11259,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],126:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -9448,21 +11282,12 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],127:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 
 module.exports = function isEmail (string) {
     return (/.+\@.+\..+/).test(string);
 };
-},{}],128:[function(require,module,exports){
-var is = require('core-util-is');
-
-Object.keys(is).forEach(function(m) {
-  var name = m.slice(2);
-  name = name[0].toLowerCase() + name.slice(1);
-  exports[name] = is[m];
-});
-
-},{"core-util-is":118}],129:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 /* globals window, HTMLElement */
 /**!
  * is
@@ -10225,7 +12050,7 @@ is.symbol = function (value) {
   return typeof Symbol === 'function' && toStr.call(value) === '[object Symbol]' && typeof symbolValueOf.call(value) === 'symbol';
 };
 
-},{}],130:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 (function (global){
 /*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 ;(function () {
@@ -11131,7 +12956,7 @@ is.symbol = function (value) {
 }).call(this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],131:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 /**
  * Module dependencies
  */
@@ -11230,311 +13055,11 @@ function jsonp(url, opts, fn){
   return cancel;
 }
 
-},{"debug":132}],132:[function(require,module,exports){
-
-/**
- * This is the web browser implementation of `debug()`.
- *
- * Expose `debug()` as the module.
- */
-
-exports = module.exports = require('./debug');
-exports.log = log;
-exports.formatArgs = formatArgs;
-exports.save = save;
-exports.load = load;
-exports.useColors = useColors;
-
-/**
- * Use chrome.storage.local if we are in an app
- */
-
-var storage;
-
-if (typeof chrome !== 'undefined' && typeof chrome.storage !== 'undefined')
-  storage = chrome.storage.local;
-else
-  storage = localstorage();
-
-/**
- * Colors.
- */
-
-exports.colors = [
-  'lightseagreen',
-  'forestgreen',
-  'goldenrod',
-  'dodgerblue',
-  'darkorchid',
-  'crimson'
-];
-
-/**
- * Currently only WebKit-based Web Inspectors, Firefox >= v31,
- * and the Firebug extension (any Firefox version) are known
- * to support "%c" CSS customizations.
- *
- * TODO: add a `localStorage` variable to explicitly enable/disable colors
- */
-
-function useColors() {
-  // is webkit? http://stackoverflow.com/a/16459606/376773
-  return ('WebkitAppearance' in document.documentElement.style) ||
-    // is firebug? http://stackoverflow.com/a/398120/376773
-    (window.console && (console.firebug || (console.exception && console.table))) ||
-    // is firefox >= v31?
-    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
-    (navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31);
-}
-
-/**
- * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
- */
-
-exports.formatters.j = function(v) {
-  return JSON.stringify(v);
-};
-
-
-/**
- * Colorize log arguments if enabled.
- *
- * @api public
- */
-
-function formatArgs() {
-  var args = arguments;
-  var useColors = this.useColors;
-
-  args[0] = (useColors ? '%c' : '')
-    + this.namespace
-    + (useColors ? ' %c' : ' ')
-    + args[0]
-    + (useColors ? '%c ' : ' ')
-    + '+' + exports.humanize(this.diff);
-
-  if (!useColors) return args;
-
-  var c = 'color: ' + this.color;
-  args = [args[0], c, 'color: inherit'].concat(Array.prototype.slice.call(args, 1));
-
-  // the final "%c" is somewhat tricky, because there could be other
-  // arguments passed either before or after the %c, so we need to
-  // figure out the correct index to insert the CSS into
-  var index = 0;
-  var lastC = 0;
-  args[0].replace(/%[a-z%]/g, function(match) {
-    if ('%%' === match) return;
-    index++;
-    if ('%c' === match) {
-      // we only are interested in the *last* %c
-      // (the user may have provided their own)
-      lastC = index;
-    }
-  });
-
-  args.splice(lastC, 0, c);
-  return args;
-}
-
-/**
- * Invokes `console.log()` when available.
- * No-op when `console.log` is not a "function".
- *
- * @api public
- */
-
-function log() {
-  // this hackery is required for IE8/9, where
-  // the `console.log` function doesn't have 'apply'
-  return 'object' === typeof console
-    && console.log
-    && Function.prototype.apply.call(console.log, console, arguments);
-}
-
-/**
- * Save `namespaces`.
- *
- * @param {String} namespaces
- * @api private
- */
-
-function save(namespaces) {
-  try {
-    if (null == namespaces) {
-      storage.removeItem('debug');
-    } else {
-      storage.debug = namespaces;
-    }
-  } catch(e) {}
-}
-
-/**
- * Load `namespaces`.
- *
- * @return {String} returns the previously persisted debug modes
- * @api private
- */
-
-function load() {
-  var r;
-  try {
-    r = storage.debug;
-  } catch(e) {}
-  return r;
-}
-
-/**
- * Enable namespaces listed in `localStorage.debug` initially.
- */
-
-exports.enable(load());
-
-/**
- * Localstorage attempts to return the localstorage.
- *
- * This is necessary because safari throws
- * when a user disables cookies/localstorage
- * and you attempt to access it.
- *
- * @return {LocalStorage}
- * @api private
- */
-
-function localstorage(){
-  try {
-    return window.localStorage;
-  } catch (e) {}
-}
-
-},{"./debug":133}],133:[function(require,module,exports){
-arguments[4][120][0].apply(exports,arguments)
-},{"dup":120,"ms":134}],134:[function(require,module,exports){
-/**
- * Helpers.
- */
-
-var s = 1000;
-var m = s * 60;
-var h = m * 60;
-var d = h * 24;
-var y = d * 365.25;
-
-/**
- * Parse or format the given `val`.
- *
- * Options:
- *
- *  - `long` verbose formatting [false]
- *
- * @param {String|Number} val
- * @param {Object} options
- * @return {String|Number}
- * @api public
- */
-
-module.exports = function(val, options){
-  options = options || {};
-  if ('string' == typeof val) return parse(val);
-  return options.long
-    ? long(val)
-    : short(val);
-};
-
-/**
- * Parse the given `str` and return milliseconds.
- *
- * @param {String} str
- * @return {Number}
- * @api private
- */
-
-function parse(str) {
-  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str);
-  if (!match) return;
-  var n = parseFloat(match[1]);
-  var type = (match[2] || 'ms').toLowerCase();
-  switch (type) {
-    case 'years':
-    case 'year':
-    case 'yrs':
-    case 'yr':
-    case 'y':
-      return n * y;
-    case 'days':
-    case 'day':
-    case 'd':
-      return n * d;
-    case 'hours':
-    case 'hour':
-    case 'hrs':
-    case 'hr':
-    case 'h':
-      return n * h;
-    case 'minutes':
-    case 'minute':
-    case 'mins':
-    case 'min':
-    case 'm':
-      return n * m;
-    case 'seconds':
-    case 'second':
-    case 'secs':
-    case 'sec':
-    case 's':
-      return n * s;
-    case 'milliseconds':
-    case 'millisecond':
-    case 'msecs':
-    case 'msec':
-    case 'ms':
-      return n;
-  }
-}
-
-/**
- * Short format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function short(ms) {
-  if (ms >= d) return Math.round(ms / d) + 'd';
-  if (ms >= h) return Math.round(ms / h) + 'h';
-  if (ms >= m) return Math.round(ms / m) + 'm';
-  if (ms >= s) return Math.round(ms / s) + 's';
-  return ms + 'ms';
-}
-
-/**
- * Long format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function long(ms) {
-  return plural(ms, d, 'day')
-    || plural(ms, h, 'hour')
-    || plural(ms, m, 'minute')
-    || plural(ms, s, 'second')
-    || ms + ' ms';
-}
-
-/**
- * Pluralization helper.
- */
-
-function plural(ms, n, name) {
-  if (ms < n) return;
-  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
-  return Math.ceil(ms / n) + ' ' + name + 's';
-}
-
-},{}],135:[function(require,module,exports){
+},{"debug":127}],127:[function(require,module,exports){
+arguments[4][37][0].apply(exports,arguments)
+},{"./debug":128,"_process":137,"dup":37}],128:[function(require,module,exports){
+arguments[4][38][0].apply(exports,arguments)
+},{"dup":38,"ms":130}],129:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -11596,16 +13121,16 @@ module.exports = function loadIframe(options, fn){
   return iframe;
 };
 
-},{"is":129,"next-tick":141,"script-onload":146}],136:[function(require,module,exports){
+},{"is":124,"next-tick":134,"script-onload":139}],130:[function(require,module,exports){
 /**
  * Helpers.
  */
 
-var s = 1000;
-var m = s * 60;
-var h = m * 60;
-var d = h * 24;
-var y = d * 365.25;
+var s = 1000
+var m = s * 60
+var h = m * 60
+var d = h * 24
+var y = d * 365.25
 
 /**
  * Parse or format the given `val`.
@@ -11616,17 +13141,23 @@ var y = d * 365.25;
  *
  * @param {String|Number} val
  * @param {Object} options
+ * @throws {Error} throw an error if val is not a non-empty string or a number
  * @return {String|Number}
  * @api public
  */
 
-module.exports = function(val, options){
-  options = options || {};
-  if ('string' == typeof val) return parse(val);
-  return options.long
-    ? long(val)
-    : short(val);
-};
+module.exports = function (val, options) {
+  options = options || {}
+  var type = typeof val
+  if (type === 'string' && val.length > 0) {
+    return parse(val)
+  } else if (type === 'number' && isNaN(val) === false) {
+    return options.long ?
+			fmtLong(val) :
+			fmtShort(val)
+  }
+  throw new Error('val is not a non-empty string or a valid number. val=' + JSON.stringify(val))
+}
 
 /**
  * Parse the given `str` and return milliseconds.
@@ -11637,47 +13168,53 @@ module.exports = function(val, options){
  */
 
 function parse(str) {
-  str = '' + str;
-  if (str.length > 10000) return;
-  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str);
-  if (!match) return;
-  var n = parseFloat(match[1]);
-  var type = (match[2] || 'ms').toLowerCase();
+  str = String(str)
+  if (str.length > 10000) {
+    return
+  }
+  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(str)
+  if (!match) {
+    return
+  }
+  var n = parseFloat(match[1])
+  var type = (match[2] || 'ms').toLowerCase()
   switch (type) {
     case 'years':
     case 'year':
     case 'yrs':
     case 'yr':
     case 'y':
-      return n * y;
+      return n * y
     case 'days':
     case 'day':
     case 'd':
-      return n * d;
+      return n * d
     case 'hours':
     case 'hour':
     case 'hrs':
     case 'hr':
     case 'h':
-      return n * h;
+      return n * h
     case 'minutes':
     case 'minute':
     case 'mins':
     case 'min':
     case 'm':
-      return n * m;
+      return n * m
     case 'seconds':
     case 'second':
     case 'secs':
     case 'sec':
     case 's':
-      return n * s;
+      return n * s
     case 'milliseconds':
     case 'millisecond':
     case 'msecs':
     case 'msec':
     case 'ms':
-      return n;
+      return n
+    default:
+      return undefined
   }
 }
 
@@ -11689,12 +13226,20 @@ function parse(str) {
  * @api private
  */
 
-function short(ms) {
-  if (ms >= d) return Math.round(ms / d) + 'd';
-  if (ms >= h) return Math.round(ms / h) + 'h';
-  if (ms >= m) return Math.round(ms / m) + 'm';
-  if (ms >= s) return Math.round(ms / s) + 's';
-  return ms + 'ms';
+function fmtShort(ms) {
+  if (ms >= d) {
+    return Math.round(ms / d) + 'd'
+  }
+  if (ms >= h) {
+    return Math.round(ms / h) + 'h'
+  }
+  if (ms >= m) {
+    return Math.round(ms / m) + 'm'
+  }
+  if (ms >= s) {
+    return Math.round(ms / s) + 's'
+  }
+  return ms + 'ms'
 }
 
 /**
@@ -11705,12 +13250,12 @@ function short(ms) {
  * @api private
  */
 
-function long(ms) {
-  return plural(ms, d, 'day')
-    || plural(ms, h, 'hour')
-    || plural(ms, m, 'minute')
-    || plural(ms, s, 'second')
-    || ms + ' ms';
+function fmtLong(ms) {
+  return plural(ms, d, 'day') ||
+    plural(ms, h, 'hour') ||
+    plural(ms, m, 'minute') ||
+    plural(ms, s, 'second') ||
+    ms + ' ms'
 }
 
 /**
@@ -11718,12 +13263,16 @@ function long(ms) {
  */
 
 function plural(ms, n, name) {
-  if (ms < n) return;
-  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
-  return Math.ceil(ms / n) + ' ' + name + 's';
+  if (ms < n) {
+    return
+  }
+  if (ms < n * 1.5) {
+    return Math.floor(ms / n) + ' ' + name
+  }
+  return Math.ceil(ms / n) + ' ' + name + 's'
 }
 
-},{}],137:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 var is = require('is');
@@ -11768,7 +13317,7 @@ function toMs(num) {
   return num;
 }
 
-},{"./milliseconds":138,"./seconds":139,"@segment/isodate":93,"is":140}],138:[function(require,module,exports){
+},{"./milliseconds":132,"./seconds":133,"@segment/isodate":80,"is":124}],132:[function(require,module,exports){
 'use strict';
 
 /**
@@ -11800,7 +13349,7 @@ exports.parse = function(millis) {
   return new Date(millis);
 };
 
-},{}],139:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 'use strict';
 
 /**
@@ -11832,711 +13381,7 @@ exports.parse = function(seconds) {
   return new Date(millis);
 };
 
-},{}],140:[function(require,module,exports){
-
-/**!
- * is
- * the definitive JavaScript type testing library
- * 
- * @copyright 2013 Enrico Marino
- * @license MIT
- */
-
-var objProto = Object.prototype;
-var owns = objProto.hasOwnProperty;
-var toString = objProto.toString;
-var isActualNaN = function (value) {
-  return value !== value;
-};
-var NON_HOST_TYPES = {
-  "boolean": 1,
-  "number": 1,
-  "string": 1,
-  "undefined": 1
-};
-
-/**
- * Expose `is`
- */
-
-var is = module.exports = {};
-
-/**
- * Test general.
- */
-
-/**
- * is.type
- * Test if `value` is a type of `type`.
- *
- * @param {Mixed} value value to test
- * @param {String} type type
- * @return {Boolean} true if `value` is a type of `type`, false otherwise
- * @api public
- */
-
-is.a =
-is.type = function (value, type) {
-  return typeof value === type;
-};
-
-/**
- * is.defined
- * Test if `value` is defined.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if 'value' is defined, false otherwise
- * @api public
- */
-
-is.defined = function (value) {
-  return value !== undefined;
-};
-
-/**
- * is.empty
- * Test if `value` is empty.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is empty, false otherwise
- * @api public
- */
-
-is.empty = function (value) {
-  var type = toString.call(value);
-  var key;
-
-  if ('[object Array]' === type || '[object Arguments]' === type) {
-    return value.length === 0;
-  }
-
-  if ('[object Object]' === type) {
-    for (key in value) if (owns.call(value, key)) return false;
-    return true;
-  }
-
-  if ('[object String]' === type) {
-    return '' === value;
-  }
-
-  return false;
-};
-
-/**
- * is.equal
- * Test if `value` is equal to `other`.
- *
- * @param {Mixed} value value to test
- * @param {Mixed} other value to compare with
- * @return {Boolean} true if `value` is equal to `other`, false otherwise
- */
-
-is.equal = function (value, other) {
-  var type = toString.call(value)
-  var key;
-
-  if (type !== toString.call(other)) {
-    return false;
-  }
-
-  if ('[object Object]' === type) {
-    for (key in value) {
-      if (!is.equal(value[key], other[key])) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  if ('[object Array]' === type) {
-    key = value.length;
-    if (key !== other.length) {
-      return false;
-    }
-    while (--key) {
-      if (!is.equal(value[key], other[key])) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  if ('[object Function]' === type) {
-    return value.prototype === other.prototype;
-  }
-
-  if ('[object Date]' === type) {
-    return value.getTime() === other.getTime();
-  }
-
-  return value === other;
-};
-
-/**
- * is.hosted
- * Test if `value` is hosted by `host`.
- *
- * @param {Mixed} value to test
- * @param {Mixed} host host to test with
- * @return {Boolean} true if `value` is hosted by `host`, false otherwise
- * @api public
- */
-
-is.hosted = function (value, host) {
-  var type = typeof host[value];
-  return type === 'object' ? !!host[value] : !NON_HOST_TYPES[type];
-};
-
-/**
- * is.instance
- * Test if `value` is an instance of `constructor`.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an instance of `constructor`
- * @api public
- */
-
-is.instance = is['instanceof'] = function (value, constructor) {
-  return value instanceof constructor;
-};
-
-/**
- * is.null
- * Test if `value` is null.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is null, false otherwise
- * @api public
- */
-
-is['null'] = function (value) {
-  return value === null;
-};
-
-/**
- * is.undefined
- * Test if `value` is undefined.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is undefined, false otherwise
- * @api public
- */
-
-is.undefined = function (value) {
-  return value === undefined;
-};
-
-/**
- * Test arguments.
- */
-
-/**
- * is.arguments
- * Test if `value` is an arguments object.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an arguments object, false otherwise
- * @api public
- */
-
-is.arguments = function (value) {
-  var isStandardArguments = '[object Arguments]' === toString.call(value);
-  var isOldArguments = !is.array(value) && is.arraylike(value) && is.object(value) && is.fn(value.callee);
-  return isStandardArguments || isOldArguments;
-};
-
-/**
- * Test array.
- */
-
-/**
- * is.array
- * Test if 'value' is an array.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an array, false otherwise
- * @api public
- */
-
-is.array = function (value) {
-  return '[object Array]' === toString.call(value);
-};
-
-/**
- * is.arguments.empty
- * Test if `value` is an empty arguments object.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an empty arguments object, false otherwise
- * @api public
- */
-is.arguments.empty = function (value) {
-  return is.arguments(value) && value.length === 0;
-};
-
-/**
- * is.array.empty
- * Test if `value` is an empty array.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an empty array, false otherwise
- * @api public
- */
-is.array.empty = function (value) {
-  return is.array(value) && value.length === 0;
-};
-
-/**
- * is.arraylike
- * Test if `value` is an arraylike object.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an arguments object, false otherwise
- * @api public
- */
-
-is.arraylike = function (value) {
-  return !!value && !is.boolean(value)
-    && owns.call(value, 'length')
-    && isFinite(value.length)
-    && is.number(value.length)
-    && value.length >= 0;
-};
-
-/**
- * Test boolean.
- */
-
-/**
- * is.boolean
- * Test if `value` is a boolean.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a boolean, false otherwise
- * @api public
- */
-
-is.boolean = function (value) {
-  return '[object Boolean]' === toString.call(value);
-};
-
-/**
- * is.false
- * Test if `value` is false.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is false, false otherwise
- * @api public
- */
-
-is['false'] = function (value) {
-  return is.boolean(value) && (value === false || value.valueOf() === false);
-};
-
-/**
- * is.true
- * Test if `value` is true.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is true, false otherwise
- * @api public
- */
-
-is['true'] = function (value) {
-  return is.boolean(value) && (value === true || value.valueOf() === true);
-};
-
-/**
- * Test date.
- */
-
-/**
- * is.date
- * Test if `value` is a date.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a date, false otherwise
- * @api public
- */
-
-is.date = function (value) {
-  return '[object Date]' === toString.call(value);
-};
-
-/**
- * Test element.
- */
-
-/**
- * is.element
- * Test if `value` is an html element.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an HTML Element, false otherwise
- * @api public
- */
-
-is.element = function (value) {
-  return value !== undefined
-    && typeof HTMLElement !== 'undefined'
-    && value instanceof HTMLElement
-    && value.nodeType === 1;
-};
-
-/**
- * Test error.
- */
-
-/**
- * is.error
- * Test if `value` is an error object.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an error object, false otherwise
- * @api public
- */
-
-is.error = function (value) {
-  return '[object Error]' === toString.call(value);
-};
-
-/**
- * Test function.
- */
-
-/**
- * is.fn / is.function (deprecated)
- * Test if `value` is a function.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a function, false otherwise
- * @api public
- */
-
-is.fn = is['function'] = function (value) {
-  var isAlert = typeof window !== 'undefined' && value === window.alert;
-  return isAlert || '[object Function]' === toString.call(value);
-};
-
-/**
- * Test number.
- */
-
-/**
- * is.number
- * Test if `value` is a number.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a number, false otherwise
- * @api public
- */
-
-is.number = function (value) {
-  return '[object Number]' === toString.call(value);
-};
-
-/**
- * is.infinite
- * Test if `value` is positive or negative infinity.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is positive or negative Infinity, false otherwise
- * @api public
- */
-is.infinite = function (value) {
-  return value === Infinity || value === -Infinity;
-};
-
-/**
- * is.decimal
- * Test if `value` is a decimal number.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a decimal number, false otherwise
- * @api public
- */
-
-is.decimal = function (value) {
-  return is.number(value) && !isActualNaN(value) && value % 1 !== 0;
-};
-
-/**
- * is.divisibleBy
- * Test if `value` is divisible by `n`.
- *
- * @param {Number} value value to test
- * @param {Number} n dividend
- * @return {Boolean} true if `value` is divisible by `n`, false otherwise
- * @api public
- */
-
-is.divisibleBy = function (value, n) {
-  var isDividendInfinite = is.infinite(value);
-  var isDivisorInfinite = is.infinite(n);
-  var isNonZeroNumber = is.number(value) && !isActualNaN(value) && is.number(n) && !isActualNaN(n) && n !== 0;
-  return isDividendInfinite || isDivisorInfinite || (isNonZeroNumber && value % n === 0);
-};
-
-/**
- * is.int
- * Test if `value` is an integer.
- *
- * @param value to test
- * @return {Boolean} true if `value` is an integer, false otherwise
- * @api public
- */
-
-is.int = function (value) {
-  return is.number(value) && !isActualNaN(value) && value % 1 === 0;
-};
-
-/**
- * is.maximum
- * Test if `value` is greater than 'others' values.
- *
- * @param {Number} value value to test
- * @param {Array} others values to compare with
- * @return {Boolean} true if `value` is greater than `others` values
- * @api public
- */
-
-is.maximum = function (value, others) {
-  if (isActualNaN(value)) {
-    throw new TypeError('NaN is not a valid value');
-  } else if (!is.arraylike(others)) {
-    throw new TypeError('second argument must be array-like');
-  }
-  var len = others.length;
-
-  while (--len >= 0) {
-    if (value < others[len]) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-/**
- * is.minimum
- * Test if `value` is less than `others` values.
- *
- * @param {Number} value value to test
- * @param {Array} others values to compare with
- * @return {Boolean} true if `value` is less than `others` values
- * @api public
- */
-
-is.minimum = function (value, others) {
-  if (isActualNaN(value)) {
-    throw new TypeError('NaN is not a valid value');
-  } else if (!is.arraylike(others)) {
-    throw new TypeError('second argument must be array-like');
-  }
-  var len = others.length;
-
-  while (--len >= 0) {
-    if (value > others[len]) {
-      return false;
-    }
-  }
-
-  return true;
-};
-
-/**
- * is.nan
- * Test if `value` is not a number.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is not a number, false otherwise
- * @api public
- */
-
-is.nan = function (value) {
-  return !is.number(value) || value !== value;
-};
-
-/**
- * is.even
- * Test if `value` is an even number.
- *
- * @param {Number} value value to test
- * @return {Boolean} true if `value` is an even number, false otherwise
- * @api public
- */
-
-is.even = function (value) {
-  return is.infinite(value) || (is.number(value) && value === value && value % 2 === 0);
-};
-
-/**
- * is.odd
- * Test if `value` is an odd number.
- *
- * @param {Number} value value to test
- * @return {Boolean} true if `value` is an odd number, false otherwise
- * @api public
- */
-
-is.odd = function (value) {
-  return is.infinite(value) || (is.number(value) && value === value && value % 2 !== 0);
-};
-
-/**
- * is.ge
- * Test if `value` is greater than or equal to `other`.
- *
- * @param {Number} value value to test
- * @param {Number} other value to compare with
- * @return {Boolean}
- * @api public
- */
-
-is.ge = function (value, other) {
-  if (isActualNaN(value) || isActualNaN(other)) {
-    throw new TypeError('NaN is not a valid value');
-  }
-  return !is.infinite(value) && !is.infinite(other) && value >= other;
-};
-
-/**
- * is.gt
- * Test if `value` is greater than `other`.
- *
- * @param {Number} value value to test
- * @param {Number} other value to compare with
- * @return {Boolean}
- * @api public
- */
-
-is.gt = function (value, other) {
-  if (isActualNaN(value) || isActualNaN(other)) {
-    throw new TypeError('NaN is not a valid value');
-  }
-  return !is.infinite(value) && !is.infinite(other) && value > other;
-};
-
-/**
- * is.le
- * Test if `value` is less than or equal to `other`.
- *
- * @param {Number} value value to test
- * @param {Number} other value to compare with
- * @return {Boolean} if 'value' is less than or equal to 'other'
- * @api public
- */
-
-is.le = function (value, other) {
-  if (isActualNaN(value) || isActualNaN(other)) {
-    throw new TypeError('NaN is not a valid value');
-  }
-  return !is.infinite(value) && !is.infinite(other) && value <= other;
-};
-
-/**
- * is.lt
- * Test if `value` is less than `other`.
- *
- * @param {Number} value value to test
- * @param {Number} other value to compare with
- * @return {Boolean} if `value` is less than `other`
- * @api public
- */
-
-is.lt = function (value, other) {
-  if (isActualNaN(value) || isActualNaN(other)) {
-    throw new TypeError('NaN is not a valid value');
-  }
-  return !is.infinite(value) && !is.infinite(other) && value < other;
-};
-
-/**
- * is.within
- * Test if `value` is within `start` and `finish`.
- *
- * @param {Number} value value to test
- * @param {Number} start lower bound
- * @param {Number} finish upper bound
- * @return {Boolean} true if 'value' is is within 'start' and 'finish'
- * @api public
- */
-is.within = function (value, start, finish) {
-  if (isActualNaN(value) || isActualNaN(start) || isActualNaN(finish)) {
-    throw new TypeError('NaN is not a valid value');
-  } else if (!is.number(value) || !is.number(start) || !is.number(finish)) {
-    throw new TypeError('all arguments must be numbers');
-  }
-  var isAnyInfinite = is.infinite(value) || is.infinite(start) || is.infinite(finish);
-  return isAnyInfinite || (value >= start && value <= finish);
-};
-
-/**
- * Test object.
- */
-
-/**
- * is.object
- * Test if `value` is an object.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is an object, false otherwise
- * @api public
- */
-
-is.object = function (value) {
-  return value && '[object Object]' === toString.call(value);
-};
-
-/**
- * is.hash
- * Test if `value` is a hash - a plain object literal.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a hash, false otherwise
- * @api public
- */
-
-is.hash = function (value) {
-  return is.object(value) && value.constructor === Object && !value.nodeType && !value.setInterval;
-};
-
-/**
- * Test regexp.
- */
-
-/**
- * is.regexp
- * Test if `value` is a regular expression.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if `value` is a regexp, false otherwise
- * @api public
- */
-
-is.regexp = function (value) {
-  return '[object RegExp]' === toString.call(value);
-};
-
-/**
- * Test string.
- */
-
-/**
- * is.string
- * Test if `value` is a string.
- *
- * @param {Mixed} value value to test
- * @return {Boolean} true if 'value' is a string, false otherwise
- * @api public
- */
-
-is.string = function (value) {
-  return '[object String]' === toString.call(value);
-};
-
-
-},{}],141:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -12604,7 +13449,7 @@ module.exports = (function () {
 }());
 
 }).call(this,require('_process'))
-},{"_process":144}],142:[function(require,module,exports){
+},{"_process":137}],135:[function(require,module,exports){
 
 var identity = function(_){ return _; };
 
@@ -12758,7 +13603,7 @@ function isFunction(val) {
   return typeof val === 'function';
 }
 
-},{}],143:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 
 /**
  * HOP ref.
@@ -12843,7 +13688,7 @@ exports.length = function(obj){
 exports.isEmpty = function(obj){
   return 0 == exports.length(obj);
 };
-},{}],144:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -12855,25 +13700,40 @@ var process = module.exports = {};
 var cachedSetTimeout;
 var cachedClearTimeout;
 
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
 (function () {
     try {
-        cachedSetTimeout = setTimeout;
-    } catch (e) {
-        cachedSetTimeout = function () {
-            throw new Error('setTimeout is not defined');
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
         }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
     }
     try {
-        cachedClearTimeout = clearTimeout;
-    } catch (e) {
-        cachedClearTimeout = function () {
-            throw new Error('clearTimeout is not defined');
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
         }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
     }
 } ())
 function runTimeout(fun) {
     if (cachedSetTimeout === setTimeout) {
         //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
         return setTimeout(fun, 0);
     }
     try {
@@ -12894,6 +13754,11 @@ function runTimeout(fun) {
 function runClearTimeout(marker) {
     if (cachedClearTimeout === clearTimeout) {
         //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
         return clearTimeout(marker);
     }
     try {
@@ -13005,7 +13870,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],145:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -13108,7 +13973,7 @@ function compact(value){
   return null == value;
 }
 
-},{"type-component":165}],146:[function(require,module,exports){
+},{"type-component":159}],139:[function(require,module,exports){
 
 // https://github.com/thirdpartyjs/thirdpartyjs-code/blob/master/examples/templates/02/loading-files/index.html
 
@@ -13163,7 +14028,7 @@ function attach(el, fn){
   });
 }
 
-},{}],147:[function(require,module,exports){
+},{}],140:[function(require,module,exports){
 'use strict';
 
 /**
@@ -13202,7 +14067,7 @@ module.exports = function(proto) {
   }
 };
 
-},{"obj-case":142}],148:[function(require,module,exports){
+},{"obj-case":135}],141:[function(require,module,exports){
 'use strict';
 
 /**
@@ -13273,7 +14138,7 @@ Alias.prototype.to = Alias.prototype.userId;
 
 module.exports = Alias;
 
-},{"./facade":149,"./utils":157}],149:[function(require,module,exports){
+},{"./facade":142,"./utils":150}],142:[function(require,module,exports){
 'use strict';
 
 var address = require('./address');
@@ -13587,7 +14452,7 @@ function transform(obj) {
 
 module.exports = Facade;
 
-},{"./address":147,"./is-enabled":153,"./utils":157,"@segment/isodate-traverse":92,"new-date":137,"obj-case":142}],150:[function(require,module,exports){
+},{"./address":140,"./is-enabled":146,"./utils":150,"@segment/isodate-traverse":79,"new-date":131,"obj-case":135}],143:[function(require,module,exports){
 'use strict';
 
 /**
@@ -13708,7 +14573,7 @@ Group.prototype.properties = function() {
 
 module.exports = Group;
 
-},{"./facade":149,"./utils":157,"is-email":127,"new-date":137}],151:[function(require,module,exports){
+},{"./facade":142,"./utils":150,"is-email":123,"new-date":131}],144:[function(require,module,exports){
 'use strict';
 
 var Facade = require('./facade');
@@ -13953,7 +14818,7 @@ Identify.prototype.birthday = Facade.proxy('traits.birthday');
 
 module.exports = Identify;
 
-},{"./facade":149,"./utils":157,"is-email":127,"new-date":137,"obj-case":142,"trim":164}],152:[function(require,module,exports){
+},{"./facade":142,"./utils":150,"is-email":123,"new-date":131,"obj-case":135,"trim":158}],145:[function(require,module,exports){
 'use strict';
 
 var Facade = require('./facade');
@@ -13975,7 +14840,7 @@ Facade.Screen = require('./screen');
 
 module.exports = Facade;
 
-},{"./alias":148,"./facade":149,"./group":150,"./identify":151,"./page":154,"./screen":155,"./track":156}],153:[function(require,module,exports){
+},{"./alias":141,"./facade":142,"./group":143,"./identify":144,"./page":147,"./screen":148,"./track":149}],146:[function(require,module,exports){
 'use strict';
 
 /**
@@ -13998,7 +14863,7 @@ module.exports = function(integration) {
   return !disabled[integration];
 };
 
-},{}],154:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 var inherit = require('./utils').inherit;
@@ -14147,7 +15012,7 @@ Page.prototype.track = function(name) {
 
 module.exports = Page;
 
-},{"./facade":149,"./track":156,"./utils":157,"is-email":127}],155:[function(require,module,exports){
+},{"./facade":142,"./track":149,"./utils":150,"is-email":123}],148:[function(require,module,exports){
 'use strict';
 
 var inherit = require('./utils').inherit;
@@ -14219,7 +15084,7 @@ Screen.prototype.track = function(name) {
 
 module.exports = Screen;
 
-},{"./page":154,"./track":156,"./utils":157}],156:[function(require,module,exports){
+},{"./page":147,"./track":149,"./utils":150}],149:[function(require,module,exports){
 'use strict';
 
 var inherit = require('./utils').inherit;
@@ -14281,7 +15146,43 @@ Track.prototype.category = Facade.proxy('properties.category');
  * Ecommerce
  */
 
+/**
+ * ids
+ */
+
 Track.prototype.id = Facade.proxy('properties.id');
+Track.prototype.productId = function() {
+  return this.proxy('properties.product_id') || this.proxy('properties.productId');
+};
+Track.prototype.promotionId = function() {
+  return this.proxy('properties.promotion_id') || this.proxy('properties.promotionId');
+};
+Track.prototype.cartId = function() {
+  return this.proxy('properties.cart_id') || this.proxy('properties.cartId');
+};
+Track.prototype.checkoutId = function() {
+  return this.proxy('properties.checkout_id') || this.proxy('properties.checkoutId');
+};
+Track.prototype.paymentId = function() {
+  return this.proxy('properties.payment_id') || this.proxy('properties.paymentId');
+};
+Track.prototype.couponId = function() {
+  return this.proxy('properties.coupon_id') || this.proxy('properties.couponId');
+};
+Track.prototype.wishlistId = function() {
+  return this.proxy('properties.wishlist_id') || this.proxy('properties.wishlistId');
+};
+Track.prototype.reviewId = function() {
+  return this.proxy('properties.review_id') || this.proxy('properties.reviewId');
+};
+
+Track.prototype.orderId = function() {
+  // doesn't follow above convention since this fallback order was how it used to be
+  return this.proxy('properties.id')
+    || this.proxy('properties.order_id')
+    || this.proxy('properties.orderId');
+};
+
 Track.prototype.sku = Facade.proxy('properties.sku');
 Track.prototype.tax = Facade.proxy('properties.tax');
 Track.prototype.name = Facade.proxy('properties.name');
@@ -14291,6 +15192,14 @@ Track.prototype.repeat = Facade.proxy('properties.repeat');
 Track.prototype.coupon = Facade.proxy('properties.coupon');
 Track.prototype.shipping = Facade.proxy('properties.shipping');
 Track.prototype.discount = Facade.proxy('properties.discount');
+
+Track.prototype.shippingMethod = function() {
+  return this.proxy('properties.shipping_method') || this.proxy('properties.shippingMethod');
+};
+
+Track.prototype.paymentMethod = function() {
+  return this.proxy('properties.payment_method') || this.proxy('properties.paymentMethod');
+};
 
 /**
  * Description
@@ -14303,16 +15212,6 @@ Track.prototype.description = Facade.proxy('properties.description');
  */
 
 Track.prototype.plan = Facade.proxy('properties.plan');
-
-/**
- * Order id.
- *
- * @return {string}
- */
-Track.prototype.orderId = function() {
-  return this.proxy('properties.id')
-    || this.proxy('properties.orderId');
-};
 
 /**
  * Get subtotal.
@@ -14510,14 +15409,14 @@ function currency(val) {
 
 module.exports = Track;
 
-},{"./facade":149,"./identify":151,"./utils":157,"is-email":127,"obj-case":142}],157:[function(require,module,exports){
+},{"./facade":142,"./identify":144,"./utils":150,"is-email":123,"obj-case":135}],150:[function(require,module,exports){
 'use strict';
 
 exports.inherit = require('inherits');
 exports.clone = require('@ndhoule/clone');
 exports.type = require('type-component');
 
-},{"@ndhoule/clone":7,"inherits":125,"type-component":165}],158:[function(require,module,exports){
+},{"@ndhoule/clone":7,"inherits":121,"type-component":159}],151:[function(require,module,exports){
 
 /**
  * Generate a slug from the given `str`.
@@ -14542,7 +15441,7 @@ module.exports = function (str, options) {
     .replace(/ +/g, options.separator || '-')
 };
 
-},{}],159:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 (function (factory) {
     if (typeof exports === 'object') {
         // Node/CommonJS
@@ -15247,7 +16146,7 @@ module.exports = function (str, options) {
     return SparkMD5;
 }));
 
-},{}],160:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 
 /**
  * Module Dependencies
@@ -15401,7 +16300,79 @@ function stripNested (prop, str, val) {
   });
 }
 
-},{"component-props":113,"props":113}],161:[function(require,module,exports){
+},{"component-props":107,"props":107}],154:[function(require,module,exports){
+
+/**
+ * Expose `toNoCase`.
+ */
+
+module.exports = toNoCase;
+
+
+/**
+ * Test whether a string is camel-case.
+ */
+
+var hasSpace = /\s/;
+var hasSeparator = /[\W_]/;
+
+
+/**
+ * Remove any starting case from a `string`, like camel or snake, but keep
+ * spaces and punctuation that may be important otherwise.
+ *
+ * @param {String} string
+ * @return {String}
+ */
+
+function toNoCase (string) {
+  if (hasSpace.test(string)) return string.toLowerCase();
+  if (hasSeparator.test(string)) return (unseparate(string) || string).toLowerCase();
+  return uncamelize(string).toLowerCase();
+}
+
+
+/**
+ * Separator splitter.
+ */
+
+var separatorSplitter = /[\W_]+(.|$)/g;
+
+
+/**
+ * Un-separate a `string`.
+ *
+ * @param {String} string
+ * @return {String}
+ */
+
+function unseparate (string) {
+  return string.replace(separatorSplitter, function (m, next) {
+    return next ? ' ' + next : '';
+  });
+}
+
+
+/**
+ * Camelcase splitter.
+ */
+
+var camelSplitter = /(.)([A-Z]+)/g;
+
+
+/**
+ * Un-camelcase a `string`.
+ *
+ * @param {String} string
+ * @return {String}
+ */
+
+function uncamelize (string) {
+  return string.replace(camelSplitter, function (m, previous, uppers) {
+    return previous + ' ' + uppers.toLowerCase().split('').join(' ');
+  });
+}
+},{}],155:[function(require,module,exports){
 
 var toSpace = require('to-space-case')
 
@@ -15422,7 +16393,30 @@ function toSnakeCase(string) {
   return toSpace(string).replace(/\s/g, '_')
 }
 
-},{"to-space-case":163}],162:[function(require,module,exports){
+},{"to-space-case":156}],156:[function(require,module,exports){
+
+var clean = require('to-no-case')
+
+/**
+ * Export.
+ */
+
+module.exports = toSpaceCase
+
+/**
+ * Convert a `string` to space case.
+ *
+ * @param {String} string
+ * @return {String}
+ */
+
+function toSpaceCase(string) {
+  return clean(string).replace(/[\W_]+(.|$)/g, function (matches, match) {
+    return match ? ' ' + match : ''
+  }).trim()
+}
+
+},{"to-no-case":157}],157:[function(require,module,exports){
 
 /**
  * Export.
@@ -15435,7 +16429,7 @@ module.exports = toNoCase
  */
 
 var hasSpace = /\s/
-var hasSeparator = /[\W_]/
+var hasSeparator = /(_|-|\.|:)/
 var hasCamel = /([a-z][A-Z]|[A-Z][a-z])/
 
 /**
@@ -15491,30 +16485,7 @@ function uncamelize(string) {
   })
 }
 
-},{}],163:[function(require,module,exports){
-
-var clean = require('to-no-case')
-
-/**
- * Export.
- */
-
-module.exports = toSpaceCase
-
-/**
- * Convert a `string` to space case.
- *
- * @param {String} string
- * @return {String}
- */
-
-function toSpaceCase(string) {
-  return clean(string).replace(/[\W_]+(.|$)/g, function (matches, match) {
-    return match ? ' ' + match : ''
-  }).trim()
-}
-
-},{"to-no-case":162}],164:[function(require,module,exports){
+},{}],158:[function(require,module,exports){
 
 exports = module.exports = trim;
 
@@ -15530,7 +16501,7 @@ exports.right = function(str){
   return str.replace(/\s*$/, '');
 };
 
-},{}],165:[function(require,module,exports){
+},{}],159:[function(require,module,exports){
 
 /**
  * toString ref.
@@ -15562,7 +16533,7 @@ module.exports = function(val){
   return typeof val;
 };
 
-},{}],166:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 
 /**
  * Protocol.
@@ -15600,7 +16571,7 @@ function check () {
     location.protocol == 'chrome-extension:'
   );
 }
-},{}],167:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 module.exports = encode;
 
 function encode(string) {
@@ -15628,12 +16599,13 @@ function encode(string) {
 
     return utftext;
 }
-},{}],168:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 (function (global){
 
 var rng;
 
-if (global.crypto && crypto.getRandomValues) {
+var crypto = global.crypto || global.msCrypto; // for IE 11
+if (crypto && crypto.getRandomValues) {
   // WHATWG crypto-based RNG - http://wiki.whatwg.org/wiki/Crypto
   // Moderately fast, high quality
   var _rnds8 = new Uint8Array(16);
@@ -15663,7 +16635,7 @@ module.exports = rng;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],169:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -15848,7 +16820,7 @@ uuid.unparse = unparse;
 
 module.exports = uuid;
 
-},{"./rng":168}],170:[function(require,module,exports){
+},{"./rng":162}],164:[function(require,module,exports){
 
 /**
  * dependencies.
@@ -15943,7 +16915,7 @@ function all(){
   return ret;
 }
 
-},{"each":110,"unserialize":171}],171:[function(require,module,exports){
+},{"each":103,"unserialize":165}],165:[function(require,module,exports){
 
 /**
  * Unserialize the given "stringified" javascript.
