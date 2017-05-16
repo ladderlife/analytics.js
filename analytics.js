@@ -1,5 +1,294 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.analytics = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+var integration = require('@segment/analytics.js-integration');
+var foldl = require('@ndhoule/foldl');
+var each = require('@ndhoule/each');
+var reject = require('reject');
+var dateformat = require('dateformat');
+var Track = require('segmentio-facade').Track;
+
+/**
+ * Expose `Facebook Pixel`.
+ */
+
+var FacebookPixel = module.exports = integration('Facebook Pixel')
+  .global('fbq')
+  .option('pixelId', '')
+  .option('agent', 'seg')
+  .option('valueIdentifier', 'value')
+  .option('initWithExistingTraits', false)
+  .mapping('standardEvents')
+  .mapping('legacyEvents')
+  .tag('<script src="//connect.facebook.net/en_US/fbevents.js">');
+
+/**
+ * Initialize Facebook Pixel.
+ *
+ * @param {Facade} page
+ */
+
+FacebookPixel.prototype.initialize = function() {
+  window._fbq = function() {
+    if (window.fbq.callMethod) {
+      window.fbq.callMethod.apply(window.fbq, arguments);
+    } else {
+      window.fbq.queue.push(arguments);
+    }
+  };
+
+  window.fbq = window.fbq || window._fbq;
+  window.fbq.push = window.fbq;
+  window.fbq.loaded = true;
+  window.fbq.disablePushState = true; // disables automatic pageview tracking
+  window.fbq.agent = this.options.agent;
+  window.fbq.version = '2.0';
+  window.fbq.queue = [];
+  this.load(this.ready);
+  window.fbq('set', 'autoConfig', false, this.options.pixelId);
+  if (this.options.initWithExistingTraits) {
+    var traits = formatTraits(this.analytics);
+    window.fbq('init', this.options.pixelId, traits);
+  } else {
+    window.fbq('init', this.options.pixelId);
+  }
+};
+
+/**
+ * Has the Facebook Pixel library been loaded yet?
+ *
+ * @return {Boolean}
+ */
+
+FacebookPixel.prototype.loaded = function() {
+  return !!(window.fbq && window.fbq.callMethod);
+};
+
+/**
+ * Trigger a page view.
+ *
+ * @param {Facade} identify
+ */
+
+FacebookPixel.prototype.page = function() {
+  window.fbq('track', 'PageView');
+};
+
+/**
+ * Track an event.
+ *
+ * @param {Facade} track
+ */
+
+FacebookPixel.prototype.track = function(track) {
+  var event = track.event();
+  var revenue = formatRevenue(track.revenue());
+
+  var payload = foldl(function(acc, val, key) {
+    if (key === 'revenue') {
+      acc.value = revenue;
+      return acc;
+    }
+
+    acc[key] = val;
+    return acc;
+  }, {}, track.properties());
+
+  var standard = this.standardEvents(event);
+  var legacy = this.legacyEvents(event);
+
+  // non-mapped events get sent as "custom events" with full
+  // tranformed payload
+  if (![].concat(standard, legacy).length) {
+    window.fbq('trackCustom', event, payload);
+    return;
+  }
+
+  // standard conversion events, mapped to one of 9 standard events
+  // "Purchase" requires a currency parameter;
+  // send full transformed payload
+  each(function(event) {
+    if (event === 'Purchase') payload.currency = track.currency(); // defaults to 'USD'
+    window.fbq('track', event, payload);
+  }, standard);
+
+  // legacy conversion events — mapped to specific "pixelId"s
+  // send only currency and value
+  each(function(event) {
+    window.fbq('track', event, {
+      currency: track.currency(),
+      value: revenue
+    });
+  }, legacy);
+};
+
+/**
+ * Product List Viewed.
+ *
+ * @api private
+ * @param {Track} track category
+ */
+
+FacebookPixel.prototype.productListViewed = function(track) {
+  window.fbq('track', 'ViewContent', {
+    content_ids: [track.category() || ''],
+    content_type: 'product_group'
+  });
+
+  // fall through for mapped legacy conversions
+  each(function(event) {
+    window.fbq('track', event, {
+      currency: track.currency(),
+      value: formatRevenue(track.revenue())
+    });
+  }, this.legacyEvents(track.event()));
+};
+
+/**
+ * Product viewed.
+ *
+ * @api private
+ * @param {Track} track
+ */
+
+FacebookPixel.prototype.productViewed = function(track) {
+  window.fbq('track', 'ViewContent', {
+    content_ids: [track.productId() || track.id() || track.sku() || ''],
+    content_type: 'product',
+    content_name: track.name() || '',
+    content_category: track.category() || '',
+    currency: track.currency(),
+    value: this.options.valueIdentifier === 'value' ? formatRevenue(track.value()) : formatRevenue(track.price())
+  });
+
+  // fall through for mapped legacy conversions
+  each(function(event) {
+    window.fbq('track', event, {
+      currency: track.currency(),
+      value: formatRevenue(track.revenue())
+    });
+  }, this.legacyEvents(track.event()));
+};
+
+/**
+ * Product added.
+ *
+ * @api private
+ * @param {Track} track
+ */
+
+FacebookPixel.prototype.productAdded = function(track) {
+  window.fbq('track', 'AddToCart', {
+    content_ids: [track.productId() || track.id() || track.sku() || ''],
+    content_type: 'product',
+    content_name: track.name() || '',
+    content_category: track.category() || '',
+    currency: track.currency(),
+    value: this.options.valueIdentifier === 'value' ? formatRevenue(track.value()) : formatRevenue(track.price())
+  });
+
+  // fall through for mapped legacy conversions
+  each(function(event) {
+    window.fbq('track', event, {
+      currency: track.currency(),
+      value: formatRevenue(track.revenue())
+    });
+  }, this.legacyEvents(track.event()));
+};
+
+/**
+ * Order Completed.
+ *
+ * @api private
+ * @param {Track} track
+ */
+
+FacebookPixel.prototype.orderCompleted = function(track) {
+  var content_ids = foldl(function(acc, product) {
+    var item = new Track({ properties: product });
+    var key = item.productId() || item.id() || item.sku();
+    if (key) acc.push(key);
+    return acc;
+  }, [], track.products() || []);
+
+  var revenue = formatRevenue(track.revenue());
+
+  window.fbq('track', 'Purchase', {
+    content_ids: content_ids,
+    content_type: 'product',
+    currency: track.currency(),
+    value: revenue
+  });
+
+  // fall through for mapped legacy conversions
+  each(function(event) {
+    window.fbq('track', event, {
+      currency: track.currency(),
+      value: formatRevenue(track.revenue())
+    });
+  }, this.legacyEvents(track.event()));
+};
+
+
+/**
+ * Get Revenue Formatted Correctly for FB.
+ *
+ * @api private
+ * @param {Track} track
+ */
+
+function formatRevenue(revenue) {
+  return Number(revenue || 0).toFixed(2);
+}
+
+/**
+ * Get Traits Formatted Correctly for FB.
+ *
+ * https://developers.facebook.com/docs/facebook-pixel/pixel-with-ads/conversion-tracking#advanced_match
+ *
+ * @api private
+ */
+
+function formatTraits(analytics) {
+  var traits = analytics && analytics.user().traits();
+  if (!traits) return {};
+  var firstName;
+  var lastName;
+  // Check for firstName property
+  // else check for name
+  if (traits.firstName) {
+    firstName = traits.firstName;
+    lastName = traits.lastName;
+  } else {
+    var nameArray = traits.name && traits.name.toLowerCase().split(' ') || [];
+    firstName = nameArray.shift();
+    lastName = nameArray.pop();
+  }
+  var gender = traits.gender && traits.gender.slice(0,1).toLowerCase();
+  var birthday = traits.birthday && dateformat(traits.birthday, 'yyyymmdd');
+  var address = traits.address || {};
+  var city = address.city && address.city.split(' ').join('').toLowerCase();
+  var state = address.state && address.state.toLowerCase();
+  var postalCode = address.postalCode;
+  return reject({
+    em: traits.email,
+    fn: firstName,
+    ln: lastName,
+    ph: traits.phone,
+    ge: gender,
+    db: birthday,
+    ct: city,
+    st: state,
+    zp: postalCode
+  });
+}
+
+},{"@ndhoule/each":11,"@ndhoule/foldl":14,"@segment/analytics.js-integration":69,"dateformat":112,"reject":138,"segmentio-facade":145}],2:[function(require,module,exports){
+'use strict';
 // ripped out of production js build.
 
 /**
@@ -125,7 +414,7 @@ function isInt(n) {
 }
 
 
-},{"@ndhoule/foldl":13,"@segment/analytics.js-integration":69,"camelcase":99,"is":124}],2:[function(require,module,exports){
+},{"@ndhoule/foldl":14,"@segment/analytics.js-integration":69,"camelcase":99,"is":124}],3:[function(require,module,exports){
 'use strict';
 /**
  * Analytics.js
@@ -162,7 +451,7 @@ Object.keys(Integrations).forEach(function(name) {
   analytics.use(Integrations[name]);
 });
 
-},{"./integrations":3,"@segment/analytics.js-core":24}],3:[function(require,module,exports){
+},{"./integrations":4,"@segment/analytics.js-core":25}],4:[function(require,module,exports){
 /* eslint quote-props: off */
 'use strict';
 
@@ -176,7 +465,7 @@ module.exports = {
   'adwords': require('@segment/analytics.js-integration-adwords'),
   'bing-ads': require('@segment/analytics.js-integration-bing-ads'),
   'crazy-egg': require('@segment/analytics.js-integration-crazy-egg'),
-  'facebook-pixel': require('@segment/analytics.js-integration-facebook-pixel'),
+  'facebook-pixel': require('./facebook'),
   'fullstory': require('./fullstory'),
   'google-analytics': require('@segment/analytics.js-integration-google-analytics'),
   'intercom': require('@segment/analytics.js-integration-intercom'),
@@ -184,7 +473,7 @@ module.exports = {
   'zopim': require('./zopim')
 };
 
-},{"./fullstory":1,"./zopim":4,"@segment/analytics.js-integration-adroll":31,"@segment/analytics.js-integration-adwords":32,"@segment/analytics.js-integration-bing-ads":39,"@segment/analytics.js-integration-crazy-egg":46,"@segment/analytics.js-integration-facebook-pixel":53,"@segment/analytics.js-integration-google-analytics":54,"@segment/analytics.js-integration-intercom":55,"@segment/analytics.js-integration-segmentio":62}],4:[function(require,module,exports){
+},{"./facebook":1,"./fullstory":2,"./zopim":5,"@segment/analytics.js-integration-adroll":32,"@segment/analytics.js-integration-adwords":33,"@segment/analytics.js-integration-bing-ads":40,"@segment/analytics.js-integration-crazy-egg":47,"@segment/analytics.js-integration-google-analytics":54,"@segment/analytics.js-integration-intercom":55,"@segment/analytics.js-integration-segmentio":62}],5:[function(require,module,exports){
 'use strict';
 // ripped out of production js build.
 
@@ -302,7 +591,7 @@ Zopim.prototype.identify = function(identify) {
 };
 
 
-},{"@segment/analytics.js-integration":69,"@segment/fmt":77,"do-when":114,"reject":138}],5:[function(require,module,exports){
+},{"@segment/analytics.js-integration":69,"@segment/fmt":77,"do-when":114,"reject":138}],6:[function(require,module,exports){
 'use strict';
 
 /*
@@ -377,7 +666,7 @@ var after = function after(n, fn) {
 
 module.exports = after;
 
-},{"@ndhoule/arity":6}],6:[function(require,module,exports){
+},{"@ndhoule/arity":7}],7:[function(require,module,exports){
 'use strict';
 
 var objToString = Object.prototype.toString;
@@ -535,7 +824,7 @@ var arity = function arity(n, func) {
 
 module.exports = arity;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 /*
@@ -594,7 +883,7 @@ var clone = function clone(obj) {
 
 module.exports = clone;
 
-},{"component-type":110}],8:[function(require,module,exports){
+},{"component-type":110}],9:[function(require,module,exports){
 'use strict';
 
 /*
@@ -746,7 +1035,7 @@ var defaults = function(target /*, ...sources */) {
 module.exports = defaults;
 module.exports.deep = defaultsDeep;
 
-},{"@ndhoule/drop":9,"@ndhoule/rest":18}],9:[function(require,module,exports){
+},{"@ndhoule/drop":10,"@ndhoule/rest":19}],10:[function(require,module,exports){
 'use strict';
 
 var max = Math.max;
@@ -793,7 +1082,7 @@ var drop = function drop(count, collection) {
 
 module.exports = drop;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 /*
@@ -924,7 +1213,7 @@ var each = function each(iterator, collection) {
 
 module.exports = each;
 
-},{"@ndhoule/keys":15}],11:[function(require,module,exports){
+},{"@ndhoule/keys":16}],12:[function(require,module,exports){
 'use strict';
 
 /*
@@ -974,7 +1263,7 @@ var every = function every(predicate, collection) {
 
 module.exports = every;
 
-},{"@ndhoule/each":10}],12:[function(require,module,exports){
+},{"@ndhoule/each":11}],13:[function(require,module,exports){
 'use strict';
 
 var has = Object.prototype.hasOwnProperty;
@@ -1019,7 +1308,7 @@ var extend = function extend(dest /*, sources */) {
 
 module.exports = extend;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 /*
@@ -1075,7 +1364,7 @@ var foldl = function foldl(iterator, accumulator, collection) {
 
 module.exports = foldl;
 
-},{"@ndhoule/each":10}],14:[function(require,module,exports){
+},{"@ndhoule/each":11}],15:[function(require,module,exports){
 'use strict';
 
 /*
@@ -1159,7 +1448,7 @@ var includes = function includes(searchElement, collection) {
 
 module.exports = includes;
 
-},{"@ndhoule/each":10}],15:[function(require,module,exports){
+},{"@ndhoule/each":11}],16:[function(require,module,exports){
 'use strict';
 
 var hop = Object.prototype.hasOwnProperty;
@@ -1326,7 +1615,7 @@ var keys = function keys(source) {
 
 module.exports = keys;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 /*
@@ -1371,7 +1660,7 @@ var map = function map(iterator, collection) {
 
 module.exports = map;
 
-},{"@ndhoule/each":10}],17:[function(require,module,exports){
+},{"@ndhoule/each":11}],18:[function(require,module,exports){
 'use strict';
 
 var objToString = Object.prototype.toString;
@@ -1443,7 +1732,7 @@ var pick = function pick(props, object) {
 
 module.exports = pick;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 var max = Math.max;
@@ -1483,7 +1772,7 @@ var rest = function rest(collection) {
 
 module.exports = rest;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 /*
@@ -1530,7 +1819,7 @@ function ads(query) {
 
 module.exports = ads;
 
-},{"component-querystring":108}],20:[function(require,module,exports){
+},{"component-querystring":108}],21:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -2229,7 +2518,7 @@ module.exports.memory = memory;
 module.exports.store = store;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./cookie":21,"./group":23,"./memory":25,"./normalize":26,"./pageDefaults":27,"./store":28,"./user":29,"@ndhoule/after":5,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/foldl":13,"@ndhoule/keys":15,"@ndhoule/pick":17,"@segment/is-meta":78,"@segment/prevent-default":91,"bind-all":98,"component-emitter":105,"component-event":106,"component-querystring":108,"component-type":110,"debug":113,"is":124,"next-tick":134,"segmentio-facade":145}],21:[function(require,module,exports){
+},{"./cookie":22,"./group":24,"./memory":26,"./normalize":27,"./pageDefaults":28,"./store":29,"./user":30,"@ndhoule/after":6,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/each":11,"@ndhoule/foldl":14,"@ndhoule/keys":16,"@ndhoule/pick":18,"@segment/is-meta":78,"@segment/prevent-default":91,"bind-all":98,"component-emitter":105,"component-event":106,"component-querystring":108,"component-type":110,"debug":113,"is":124,"next-tick":134,"segmentio-facade":145}],22:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2363,7 +2652,7 @@ module.exports = bindAll(new Cookie());
 
 module.exports.Cookie = Cookie;
 
-},{"@ndhoule/clone":7,"@ndhoule/defaults":8,"@segment/top-domain":95,"bind-all":98,"component-cookie":102,"debug":113,"json3":125}],22:[function(require,module,exports){
+},{"@ndhoule/clone":8,"@ndhoule/defaults":9,"@segment/top-domain":95,"bind-all":98,"component-cookie":102,"debug":113,"json3":125}],23:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2606,7 +2895,7 @@ Entity.prototype.load = function() {
 };
 
 
-},{"./cookie":21,"./memory":25,"./store":28,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"@segment/isodate-traverse":79,"debug":113}],23:[function(require,module,exports){
+},{"./cookie":22,"./memory":26,"./store":29,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"@segment/isodate-traverse":79,"debug":113}],24:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2666,7 +2955,7 @@ module.exports = bindAll(new Group());
 
 module.exports.Group = Group;
 
-},{"./entity":22,"bind-all":98,"debug":113,"inherits":121}],24:[function(require,module,exports){
+},{"./entity":23,"bind-all":98,"debug":113,"inherits":121}],25:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2693,7 +2982,7 @@ analytics.VERSION = require('../package.json').version;
 
 module.exports = analytics;
 
-},{"../package.json":30,"./analytics":20}],25:[function(require,module,exports){
+},{"../package.json":31,"./analytics":21}],26:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2759,7 +3048,7 @@ Memory.prototype.remove = function(key) {
   return true;
 };
 
-},{"@ndhoule/clone":7,"bind-all":98}],26:[function(require,module,exports){
+},{"@ndhoule/clone":8,"bind-all":98}],27:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2852,7 +3141,7 @@ function normalize(msg, list) {
   }
 }
 
-},{"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/includes":14,"@ndhoule/map":16,"component-type":110,"debug":113}],27:[function(require,module,exports){
+},{"@ndhoule/defaults":9,"@ndhoule/each":11,"@ndhoule/includes":15,"@ndhoule/map":17,"component-type":110,"debug":113}],28:[function(require,module,exports){
 'use strict';
 
 /*
@@ -2916,7 +3205,7 @@ function canonicalUrl(search) {
 
 module.exports = pageDefaults;
 
-},{"@ndhoule/includes":14,"@segment/canonical":75,"component-url":111}],28:[function(require,module,exports){
+},{"@ndhoule/includes":15,"@segment/canonical":75,"component-url":111}],29:[function(require,module,exports){
 'use strict';
 
 /*
@@ -3006,7 +3295,7 @@ module.exports = bindAll(new Store());
 
 module.exports.Store = Store;
 
-},{"@ndhoule/defaults":8,"@segment/store":94,"bind-all":98}],29:[function(require,module,exports){
+},{"@ndhoule/defaults":9,"@segment/store":94,"bind-all":98}],30:[function(require,module,exports){
 'use strict';
 
 /*
@@ -3184,7 +3473,7 @@ module.exports = bindAll(new User());
 
 module.exports.User = User;
 
-},{"./cookie":21,"./entity":22,"bind-all":98,"component-cookie":102,"debug":113,"inherits":121,"uuid":163}],30:[function(require,module,exports){
+},{"./cookie":22,"./entity":23,"bind-all":98,"component-cookie":102,"debug":113,"inherits":121,"uuid":163}],31:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -3327,7 +3616,7 @@ module.exports={
   "version": "3.0.0"
 }
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3532,7 +3821,7 @@ function formulateData(track, alias) {
   return ret;
 }
 
-},{"@ndhoule/each":10,"@ndhoule/foldl":13,"@ndhoule/map":16,"@segment/analytics.js-integration":69,"to-snake-case":155,"use-https":160}],32:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/foldl":14,"@ndhoule/map":17,"@segment/analytics.js-integration":69,"to-snake-case":155,"use-https":160}],33:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3666,7 +3955,7 @@ AdWords.prototype.track = function(track) {
   }
 };
 
-},{"@ndhoule/each":10,"@segment/analytics.js-integration":33,"do-when":114}],33:[function(require,module,exports){
+},{"@ndhoule/each":11,"@segment/analytics.js-integration":34,"do-when":114}],34:[function(require,module,exports){
 'use strict';
 
 /**
@@ -3731,7 +4020,7 @@ function createIntegration(name) {
 
 module.exports = createIntegration;
 
-},{"./protos":34,"./statics":35,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":37,"slug-component":151}],34:[function(require,module,exports){
+},{"./protos":35,"./statics":36,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"component-bind":100,"debug":38,"slug-component":151}],35:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4214,7 +4503,7 @@ function render(template, locals) {
   }, {}, template.attrs);
 }
 
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":36,"component-emitter":105,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],35:[function(require,module,exports){
+},{"@ndhoule/after":6,"@ndhoule/each":11,"@ndhoule/every":12,"@ndhoule/foldl":14,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":37,"component-emitter":105,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],36:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4379,7 +4668,7 @@ function objectify(str) {
   };
 }
 
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115}],36:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/includes":15,"component-emitter":105,"domify":115}],37:[function(require,module,exports){
 
 module.exports = {
   // Promotions
@@ -4446,7 +4735,7 @@ module.exports = {
   pushNotificationBounced: /^[ _]?push[ _]?notification[ _]?bounced[ _]?$/i
 };
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 (function (process){
 /**
  * This is the web browser implementation of `debug()`.
@@ -4632,7 +4921,7 @@ function localstorage() {
 }
 
 }).call(this,require('_process'))
-},{"./debug":38,"_process":137}],38:[function(require,module,exports){
+},{"./debug":39,"_process":137}],39:[function(require,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -4836,7 +5125,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":130}],39:[function(require,module,exports){
+},{"ms":130}],40:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4924,19 +5213,19 @@ Bing.prototype.track = function(track) {
   window.uetq.push(event);
 };
 
-},{"@segment/analytics.js-integration":40}],40:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./protos":41,"./statics":42,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":44,"dup":33,"slug-component":151}],41:[function(require,module,exports){
+},{"@segment/analytics.js-integration":41}],41:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":43,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],42:[function(require,module,exports){
+},{"./protos":42,"./statics":43,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"component-bind":100,"debug":45,"dup":34,"slug-component":151}],42:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],43:[function(require,module,exports){
+},{"@ndhoule/after":6,"@ndhoule/each":11,"@ndhoule/every":12,"@ndhoule/foldl":14,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":44,"component-emitter":105,"dup":35,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],43:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],44:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/includes":15,"component-emitter":105,"domify":115,"dup":36}],44:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"./debug":45,"_process":137,"dup":37}],45:[function(require,module,exports){
+},{"dup":37}],45:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],46:[function(require,module,exports){
+},{"./debug":46,"_process":137,"dup":38}],46:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],47:[function(require,module,exports){
 'use strict';
 
 /**
@@ -4979,307 +5268,19 @@ CrazyEgg.prototype.loaded = function() {
   return !!window.CE2;
 };
 
-},{"@segment/analytics.js-integration":47}],47:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./protos":48,"./statics":49,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":51,"dup":33,"slug-component":151}],48:[function(require,module,exports){
+},{"@segment/analytics.js-integration":48}],48:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":50,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],49:[function(require,module,exports){
+},{"./protos":49,"./statics":50,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"component-bind":100,"debug":52,"dup":34,"slug-component":151}],49:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],50:[function(require,module,exports){
+},{"@ndhoule/after":6,"@ndhoule/each":11,"@ndhoule/every":12,"@ndhoule/foldl":14,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":51,"component-emitter":105,"dup":35,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],50:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],51:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/includes":15,"component-emitter":105,"domify":115,"dup":36}],51:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"./debug":52,"_process":137,"dup":37}],52:[function(require,module,exports){
+},{"dup":37}],52:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],53:[function(require,module,exports){
-'use strict';
-
-/**
- * Module dependencies.
- */
-
-var integration = require('@segment/analytics.js-integration');
-var foldl = require('@ndhoule/foldl');
-var each = require('@ndhoule/each');
-var reject = require('reject');
-var dateformat = require('dateformat');
-var Track = require('segmentio-facade').Track;
-
-/**
- * Expose `Facebook Pixel`.
- */
-
-var FacebookPixel = module.exports = integration('Facebook Pixel')
-  .global('fbq')
-  .option('pixelId', '')
-  .option('agent', 'seg')
-  .option('valueIdentifier', 'value')
-  .option('initWithExistingTraits', false)
-  .mapping('standardEvents')
-  .mapping('legacyEvents')
-  .tag('<script src="//connect.facebook.net/en_US/fbevents.js">');
-
-/**
- * Initialize Facebook Pixel.
- *
- * @param {Facade} page
- */
-
-FacebookPixel.prototype.initialize = function() {
-  window._fbq = function() {
-    if (window.fbq.callMethod) {
-      window.fbq.callMethod.apply(window.fbq, arguments);
-    } else {
-      window.fbq.queue.push(arguments);
-    }
-  };
-
-  window.fbq = window.fbq || window._fbq;
-  window.fbq.push = window.fbq;
-  window.fbq.loaded = true;
-  window.fbq.disablePushState = true; // disables automatic pageview tracking
-  window.fbq.agent = this.options.agent;
-  window.fbq.version = '2.0';
-  window.fbq.queue = [];
-  this.load(this.ready);
-  if (this.options.initWithExistingTraits) {
-    var traits = formatTraits(this.analytics);
-    window.fbq('init', this.options.pixelId, traits);
-  } else {
-    window.fbq('init', this.options.pixelId);
-  }
-};
-
-/**
- * Has the Facebook Pixel library been loaded yet?
- *
- * @return {Boolean}
- */
-
-FacebookPixel.prototype.loaded = function() {
-  return !!(window.fbq && window.fbq.callMethod);
-};
-
-/**
- * Trigger a page view.
- *
- * @param {Facade} identify
- */
-
-FacebookPixel.prototype.page = function() {
-  window.fbq('track', 'PageView');
-};
-
-/**
- * Track an event.
- *
- * @param {Facade} track
- */
-
-FacebookPixel.prototype.track = function(track) {
-  var event = track.event();
-  var revenue = formatRevenue(track.revenue());
-
-  var payload = foldl(function(acc, val, key) {
-    if (key === 'revenue') {
-      acc.value = revenue;
-      return acc;
-    }
-
-    acc[key] = val;
-    return acc;
-  }, {}, track.properties());
-
-  var standard = this.standardEvents(event);
-  var legacy = this.legacyEvents(event);
-
-  // non-mapped events get sent as "custom events" with full
-  // tranformed payload
-  if (![].concat(standard, legacy).length) {
-    window.fbq('trackCustom', event, payload);
-    return;
-  }
-
-  // standard conversion events, mapped to one of 9 standard events
-  // "Purchase" requires a currency parameter;
-  // send full transformed payload
-  each(function(event) {
-    if (event === 'Purchase') payload.currency = track.currency(); // defaults to 'USD'
-    window.fbq('track', event, payload);
-  }, standard);
-
-  // legacy conversion events — mapped to specific "pixelId"s
-  // send only currency and value
-  each(function(event) {
-    window.fbq('track', event, {
-      currency: track.currency(),
-      value: revenue
-    });
-  }, legacy);
-};
-
-/**
- * Product List Viewed.
- *
- * @api private
- * @param {Track} track category
- */
-
-FacebookPixel.prototype.productListViewed = function(track) {
-  window.fbq('track', 'ViewContent', {
-    content_ids: [track.category() || ''],
-    content_type: 'product_group'
-  });
-
-  // fall through for mapped legacy conversions
-  each(function(event) {
-    window.fbq('track', event, {
-      currency: track.currency(),
-      value: formatRevenue(track.revenue())
-    });
-  }, this.legacyEvents(track.event()));
-};
-
-/**
- * Product viewed.
- *
- * @api private
- * @param {Track} track
- */
-
-FacebookPixel.prototype.productViewed = function(track) {
-  window.fbq('track', 'ViewContent', {
-    content_ids: [track.productId() || track.id() || track.sku() || ''],
-    content_type: 'product',
-    content_name: track.name() || '',
-    content_category: track.category() || '',
-    currency: track.currency(),
-    value: this.options.valueIdentifier === 'value' ? formatRevenue(track.value()) : formatRevenue(track.price())
-  });
-
-  // fall through for mapped legacy conversions
-  each(function(event) {
-    window.fbq('track', event, {
-      currency: track.currency(),
-      value: formatRevenue(track.revenue())
-    });
-  }, this.legacyEvents(track.event()));
-};
-
-/**
- * Product added.
- *
- * @api private
- * @param {Track} track
- */
-
-FacebookPixel.prototype.productAdded = function(track) {
-  window.fbq('track', 'AddToCart', {
-    content_ids: [track.productId() || track.id() || track.sku() || ''],
-    content_type: 'product',
-    content_name: track.name() || '',
-    content_category: track.category() || '',
-    currency: track.currency(),
-    value: this.options.valueIdentifier === 'value' ? formatRevenue(track.value()) : formatRevenue(track.price())
-  });
-
-  // fall through for mapped legacy conversions
-  each(function(event) {
-    window.fbq('track', event, {
-      currency: track.currency(),
-      value: formatRevenue(track.revenue())
-    });
-  }, this.legacyEvents(track.event()));
-};
-
-/**
- * Order Completed.
- *
- * @api private
- * @param {Track} track
- */
-
-FacebookPixel.prototype.orderCompleted = function(track) {
-  var content_ids = foldl(function(acc, product) {
-    var item = new Track({ properties: product });
-    var key = item.productId() || item.id() || item.sku();
-    if (key) acc.push(key);
-    return acc;
-  }, [], track.products() || []);
-
-  var revenue = formatRevenue(track.revenue());
-
-  window.fbq('track', 'Purchase', {
-    content_ids: content_ids,
-    content_type: 'product',
-    currency: track.currency(),
-    value: revenue
-  });
-
-  // fall through for mapped legacy conversions
-  each(function(event) {
-    window.fbq('track', event, {
-      currency: track.currency(),
-      value: formatRevenue(track.revenue())
-    });
-  }, this.legacyEvents(track.event()));
-};
-
-
-/**
- * Get Revenue Formatted Correctly for FB.
- *
- * @api private
- * @param {Track} track
- */
-
-function formatRevenue(revenue) {
-  return Number(revenue || 0).toFixed(2);
-}
-
-/**
- * Get Traits Formatted Correctly for FB.
- *
- * https://developers.facebook.com/docs/facebook-pixel/pixel-with-ads/conversion-tracking#advanced_match
- *
- * @api private
- */
-
-function formatTraits(analytics) {
-  var traits = analytics && analytics.user().traits();
-  if (!traits) return {};
-  var firstName;
-  var lastName;
-  // Check for firstName property
-  // else check for name
-  if (traits.firstName) {
-    firstName = traits.firstName;
-    lastName = traits.lastName;
-  } else {
-    var nameArray = traits.name && traits.name.toLowerCase().split(' ') || [];
-    firstName = nameArray.shift();
-    lastName = nameArray.pop();
-  }
-  var gender = traits.gender && traits.gender.slice(0,1).toLowerCase();
-  var birthday = traits.birthday && dateformat(traits.birthday, 'yyyymmdd');
-  var address = traits.address || {};
-  var city = address.city && address.city.split(' ').join('').toLowerCase();
-  var state = address.state && address.state.toLowerCase();
-  var postalCode = address.postalCode;
-  return reject({
-    em: traits.email,
-    fn: firstName,
-    ln: lastName,
-    ph: traits.phone,
-    ge: gender,
-    db: birthday,
-    ct: city,
-    st: state,
-    zp: postalCode
-  });
-}
-
-},{"@ndhoule/each":10,"@ndhoule/foldl":13,"@segment/analytics.js-integration":69,"dateformat":112,"reject":138,"segmentio-facade":145}],54:[function(require,module,exports){
+},{"./debug":53,"_process":137,"dup":38}],53:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],54:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6210,7 +6211,7 @@ function createProductTrack(track, properties) {
   return new Track({ properties: properties });
 }
 
-},{"@ndhoule/defaults":8,"@segment/analytics.js-integration":69,"component-each":103,"global-queue":117,"is":124,"obj-case":135,"object-component":136,"reject":138,"segmentio-facade":145,"use-https":160}],55:[function(require,module,exports){
+},{"@ndhoule/defaults":9,"@segment/analytics.js-integration":69,"component-each":103,"global-queue":117,"is":124,"obj-case":135,"object-component":136,"reject":138,"segmentio-facade":145,"use-https":160}],55:[function(require,module,exports){
 'use strict';
 
 /**
@@ -6554,19 +6555,19 @@ function hideDefaultLauncher(options) {
   return ret;
 }
 
-},{"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/each":10,"@ndhoule/extend":12,"@ndhoule/foldl":13,"@ndhoule/pick":17,"@segment/analytics.js-integration":56,"@segment/convert-dates":76,"flat":116,"is":124,"json3":125,"obj-case":135}],56:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./protos":57,"./statics":58,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":60,"dup":33,"slug-component":151}],57:[function(require,module,exports){
+},{"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/each":11,"@ndhoule/extend":13,"@ndhoule/foldl":14,"@ndhoule/pick":18,"@segment/analytics.js-integration":56,"@segment/convert-dates":76,"flat":116,"is":124,"json3":125,"obj-case":135}],56:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":59,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],58:[function(require,module,exports){
+},{"./protos":57,"./statics":58,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"component-bind":100,"debug":60,"dup":34,"slug-component":151}],57:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],59:[function(require,module,exports){
+},{"@ndhoule/after":6,"@ndhoule/each":11,"@ndhoule/every":12,"@ndhoule/foldl":14,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":59,"component-emitter":105,"dup":35,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],58:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],60:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/includes":15,"component-emitter":105,"domify":115,"dup":36}],59:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"./debug":61,"_process":137,"dup":37}],61:[function(require,module,exports){
+},{"dup":37}],60:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],62:[function(require,module,exports){
+},{"./debug":61,"_process":137,"dup":38}],61:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],62:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7064,21 +7065,21 @@ function getTld(domain) {
  */
 function noop() {}
 
-},{"@ndhoule/extend":12,"@ndhoule/keys":15,"@segment/ad-params":19,"@segment/analytics.js-integration":63,"@segment/localstorage-retry":82,"@segment/protocol":92,"@segment/send-json":93,"@segment/top-domain":95,"@segment/utm-params":96,"component-clone":101,"component-cookie":102,"json3":125,"spark-md5":152,"uuid":163,"yields-store":164}],63:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./protos":64,"./statics":65,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":67,"dup":33,"slug-component":151}],64:[function(require,module,exports){
+},{"@ndhoule/extend":13,"@ndhoule/keys":16,"@segment/ad-params":20,"@segment/analytics.js-integration":63,"@segment/localstorage-retry":82,"@segment/protocol":92,"@segment/send-json":93,"@segment/top-domain":95,"@segment/utm-params":96,"component-clone":101,"component-cookie":102,"json3":125,"spark-md5":152,"uuid":163,"yields-store":164}],63:[function(require,module,exports){
 arguments[4][34][0].apply(exports,arguments)
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":66,"component-emitter":105,"dup":34,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],65:[function(require,module,exports){
+},{"./protos":64,"./statics":65,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"component-bind":100,"debug":67,"dup":34,"slug-component":151}],64:[function(require,module,exports){
 arguments[4][35][0].apply(exports,arguments)
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115,"dup":35}],66:[function(require,module,exports){
+},{"@ndhoule/after":6,"@ndhoule/each":11,"@ndhoule/every":12,"@ndhoule/foldl":14,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":66,"component-emitter":105,"dup":35,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],65:[function(require,module,exports){
 arguments[4][36][0].apply(exports,arguments)
-},{"dup":36}],67:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/includes":15,"component-emitter":105,"domify":115,"dup":36}],66:[function(require,module,exports){
 arguments[4][37][0].apply(exports,arguments)
-},{"./debug":68,"_process":137,"dup":37}],68:[function(require,module,exports){
+},{"dup":37}],67:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],69:[function(require,module,exports){
-arguments[4][33][0].apply(exports,arguments)
-},{"./protos":70,"./statics":71,"@ndhoule/clone":7,"@ndhoule/defaults":8,"@ndhoule/extend":12,"component-bind":100,"debug":72,"dup":33,"slug-component":151}],70:[function(require,module,exports){
+},{"./debug":68,"_process":137,"dup":38}],68:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],69:[function(require,module,exports){
+arguments[4][34][0].apply(exports,arguments)
+},{"./protos":70,"./statics":71,"@ndhoule/clone":8,"@ndhoule/defaults":9,"@ndhoule/extend":13,"component-bind":100,"debug":72,"dup":34,"slug-component":151}],70:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7548,7 +7549,7 @@ function render(template, locals) {
   }, {}, template.attrs);
 }
 
-},{"@ndhoule/after":5,"@ndhoule/each":10,"@ndhoule/every":11,"@ndhoule/foldl":13,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":97,"component-emitter":105,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],71:[function(require,module,exports){
+},{"@ndhoule/after":6,"@ndhoule/each":11,"@ndhoule/every":12,"@ndhoule/foldl":14,"@segment/fmt":77,"@segment/load-script":81,"analytics-events":97,"component-emitter":105,"is":124,"load-iframe":129,"next-tick":134,"to-no-case":154}],71:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7713,11 +7714,11 @@ function objectify(str) {
   };
 }
 
-},{"@ndhoule/each":10,"@ndhoule/includes":14,"component-emitter":105,"domify":115}],72:[function(require,module,exports){
-arguments[4][37][0].apply(exports,arguments)
-},{"./debug":73,"_process":137,"dup":37}],73:[function(require,module,exports){
+},{"@ndhoule/each":11,"@ndhoule/includes":15,"component-emitter":105,"domify":115}],72:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],74:[function(require,module,exports){
+},{"./debug":73,"_process":137,"dup":38}],73:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],74:[function(require,module,exports){
 var utf8Encode = require('utf8-encode');
 var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
@@ -7815,7 +7816,7 @@ function convertDates(obj, convert) {
 
 module.exports = convertDates;
 
-},{"@ndhoule/clone":7,"@ndhoule/each":10,"component-type":110}],77:[function(require,module,exports){
+},{"@ndhoule/clone":8,"@ndhoule/each":11,"component-type":110}],77:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -8368,7 +8369,7 @@ Queue.prototype._reclaim = function(id) {
 
 module.exports = Queue;
 
-},{"./schedule":84,"./store":85,"@ndhoule/each":10,"debug":113,"uuid":86}],83:[function(require,module,exports){
+},{"./schedule":84,"./store":85,"@ndhoule/each":11,"debug":113,"uuid":86}],83:[function(require,module,exports){
 'use strict';
 
 var keys = require('@ndhoule/keys');
@@ -8433,7 +8434,7 @@ module.exports.localStorage = pickStorage();
 // Expose the in-memory store explicitly for testing
 module.exports.inMemoryStore = inMemoryStore;
 
-},{"@ndhoule/keys":15,"uuid":86}],84:[function(require,module,exports){
+},{"@ndhoule/keys":16,"uuid":86}],84:[function(require,module,exports){
 'use strict';
 
 var each = require('@ndhoule/each');
@@ -8495,7 +8496,7 @@ Schedule.resetClock = function() {
 
 module.exports = Schedule;
 
-},{"@ndhoule/each":10}],85:[function(require,module,exports){
+},{"@ndhoule/each":11}],85:[function(require,module,exports){
 'use strict';
 
 var localStorage = require('./localStorage').localStorage;
@@ -9341,7 +9342,7 @@ function strict(query) {
 module.exports = utm;
 module.exports.strict = strict;
 
-},{"@ndhoule/foldl":13,"component-querystring":108}],97:[function(require,module,exports){
+},{"@ndhoule/foldl":14,"component-querystring":108}],97:[function(require,module,exports){
 'use strict';
 
 /**
@@ -9571,7 +9572,7 @@ module.exports = foldl(function transform(ret, pairs, method) {
   return ret;
 }, {}, eventMap);
 
-},{"@ndhoule/foldl":13,"@ndhoule/map":16}],98:[function(require,module,exports){
+},{"@ndhoule/foldl":14,"@ndhoule/map":17}],98:[function(require,module,exports){
 'use strict';
 
 var bind = require('component-bind');
@@ -11212,10 +11213,10 @@ function generate (name, options) {
 }
 
 },{"debug":118}],118:[function(require,module,exports){
-arguments[4][37][0].apply(exports,arguments)
-},{"./debug":119,"_process":137,"dup":37}],119:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],120:[function(require,module,exports){
+},{"./debug":119,"_process":137,"dup":38}],119:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],120:[function(require,module,exports){
 
 /**
  * Module exports.
@@ -13056,10 +13057,10 @@ function jsonp(url, opts, fn){
 }
 
 },{"debug":127}],127:[function(require,module,exports){
-arguments[4][37][0].apply(exports,arguments)
-},{"./debug":128,"_process":137,"dup":37}],128:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"dup":38,"ms":130}],129:[function(require,module,exports){
+},{"./debug":128,"_process":137,"dup":38}],128:[function(require,module,exports){
+arguments[4][39][0].apply(exports,arguments)
+},{"dup":39,"ms":130}],129:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -15416,7 +15417,7 @@ exports.inherit = require('inherits');
 exports.clone = require('@ndhoule/clone');
 exports.type = require('type-component');
 
-},{"@ndhoule/clone":7,"inherits":121,"type-component":159}],151:[function(require,module,exports){
+},{"@ndhoule/clone":8,"inherits":121,"type-component":159}],151:[function(require,module,exports){
 
 /**
  * Generate a slug from the given `str`.
@@ -16932,5 +16933,5 @@ module.exports = function(val){
   }
 };
 
-},{}]},{},[2])(2)
+},{}]},{},[3])(3)
 });
